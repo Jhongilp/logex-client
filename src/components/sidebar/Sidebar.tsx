@@ -8,7 +8,7 @@ import {
   CostIcon,
   DirectoryIcon,
   SettingsIcon
-} from "src/svgs";
+} from "svgs";
 
 const StyledSidebar = styled.div`
   display: flex;

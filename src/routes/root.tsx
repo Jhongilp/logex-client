@@ -1,5 +1,6 @@
+import { Outlet } from "react-router-dom";
 import styled from "styled-components";
-import Sidebar from "src/components/sidebar/Sidebar";
+import Sidebar from "components/sidebar/Sidebar";
 
 const Wrapper = styled.div`
   position: relative;
@@ -22,6 +23,7 @@ export default function Root() {
     <Wrapper>
       <Main>
         <Sidebar />
+        <Outlet />
       </Main>
     </Wrapper>
   );
