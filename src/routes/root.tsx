@@ -1,6 +1,9 @@
 import { Outlet } from "react-router-dom";
 import styled from "styled-components";
+import Header from "components/header/Header";
 import Sidebar from "components/sidebar/Sidebar";
+
+import { GlobalStyles } from "styles/global";
 
 const Wrapper = styled.div`
   position: relative;
@@ -21,6 +24,8 @@ const Main = styled.div`
 export default function Root() {
   return (
     <Wrapper>
+      <GlobalStyles />
+      <Header />
       <Main>
         <Sidebar />
         <Outlet />

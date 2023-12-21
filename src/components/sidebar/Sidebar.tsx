@@ -65,27 +65,27 @@ const Sidebar = () => {
           </Link>
         </li>
         <li title="Clientes">
-          <Link to="/clientes">
+          <Link to="/customers">
             <CustomerIcon />
           </Link>
         </li>
         <li title="Proveedores">
-          <Link to="/proveedores">
+          <Link to="/suppliers">
             <SupplierIcon />
           </Link>
         </li>
         <li title="Indicadores">
-          <Link to="/indicadores">
+          <Link to="/indicators">
             <IndicatorIcon />
           </Link>
         </li>
         <li title="Liquidación">
-          <Link to="/liquidaciones">
+          <Link to="/costs">
             <CostIcon />
           </Link>
         </li>
         <li title="Directorio">
-          <Link to="/directorio">
+          <Link to="/directory">
             <DirectoryIcon />
           </Link>
         </li>

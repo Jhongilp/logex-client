@@ -17,9 +17,9 @@ type DashboardView = "resume" | "table";
 const Dashboard = () => {
   const [view, setView] = useState<DashboardView>("resume");
   // const exportaciones: ExpoList = useSelector(
-    //   (state: StateType) => state.exportaciones
-    // );
-    const exportaciones: ExpoList = []
+  //   (state: StateType) => state.exportaciones
+  // );
+  const exportaciones: ExpoList = [];
 
   return (
     <StyledMain>

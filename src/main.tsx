@@ -2,43 +2,42 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Root from "routes/root";
-import Dashboard from "components/dashboard/Dashboard"
+import Dashboard from "components/dashboard/Dashboard";
+import Settings from "components/settings-page/Settings"
 
 import "./index.css";
-
-
-
-// <Route path="/dashboard">
-//                   <Dashboard />
-//                 </Route>
-//                 <Route exact path="/clientes/:customerId">
-//                   <CustomerPage />
-//                 </Route>
-//                 <Route exact path="/clientes">
-//                   <Clientes />
-//                 </Route>
-//                 <Route path="/proveedores">
-//                   <SupplierPage />
-//                 </Route>
-//                 <Route path="/indicadores">
-//                   <Indicadores />
-//                 </Route>
-//                 <Route path="/liquidaciones">
-//                   <Liquidaciones />
-//                 </Route>
-//                 <Route path="/directorio">
-//                   <Directorio />
-//                 </Route>
-//                 <Route path="/settings">
-//                   <Settings />
-//                 </Route>
-//                 <Route path="/expo/:expoId"></Route>
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Root />,
-    children: [{ path: "/dashboard", element: <Dashboard /> }],
+    children: [
+      { path: "/dashboard", element: <Dashboard /> },
+      {
+        path: "/customers",
+        element: <div>Customers page</div>,
+      },
+      {
+        path: "/suppliers",
+        element: <div>Suppliers page</div>,
+      },
+      {
+        path: "/indicators",
+        element: <div>Indicators page</div>,
+      },
+      {
+        path: "/costs",
+        element: <div>Costs page</div>,
+      },
+      {
+        path: "/directory",
+        element: <div>Directory page</div>,
+      },
+      {
+        path: "/settings",
+        element: <Settings />,
+      },
+    ],
   },
 ]);
 

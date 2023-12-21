@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { StyledSubHeader, SunHeaderContent, ButtonAct, BtnIcon } from "styles/commons";
 import { Modal } from "styles/Modal/Modal";
 import CreateExpoForm from "components/dashboard/screens/createExpoForm/CreateExpoForm";
-import CloneExpoForm from "components/dashboard/screens/createExpoForm/CloneExpoForm";
+// import CloneExpoForm from "components/dashboard/screens/createExpoForm/CloneExpoForm";
 import { AddIcon, OpenInFullIcon } from "svgs";
 
 const AddExpoBtn = styled(ButtonAct)`
@@ -27,7 +27,7 @@ export default function DashboardControls({
     <StyledSubHeader>
       <Modal open={isOpen || isCloneOpen} full>
         {isOpen && <CreateExpoForm onClose={() => setOpen(false)} />}
-        {isCloneOpen && <CloneExpoForm onClose={() => setCloneOpen(false)} />}
+        {/* {isCloneOpen && <CloneExpoForm onClose={() => setCloneOpen(false)} />} */}
       </Modal>
       <SunHeaderContent>
         <AddExpoBtn onClick={() => setOpen(true)}>

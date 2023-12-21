@@ -2,18 +2,18 @@ import React, { FC, useState } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 
-import { ExpoStatus } from 'types';
+import { ExpoStatus } from "types";
 import { StateType, CustomerList, ShippingList } from "types/props.types";
 
 import { getShippingList } from "api/customers.api";
-import { createExpo } from 'api/exportaciones.api';
-import { getCompanyExpoDefaultActivities } from 'api/settings.api'
+import { createExpo } from "api/exportaciones.api";
+import { getCompanyExpoDefaultActivities } from "api/settings.api";
 import { IExpo, ModoTransporte } from "types";
 import { BtnIcon, ButtonAct } from "styles/commons";
 import { List } from "styles/List/list.styles";
 import { CloseIcon } from "svgs";
 import { AddIcon } from "svgs";
-import SelectableShippingList from "components/shippings/selectable-shipping-list/SelectableShippingList";
+// import SelectableShippingList from "components/shippings/selectable-shipping-list/SelectableShippingList";
 
 import {
   FormWrapper,
@@ -121,9 +121,10 @@ const CreateExpoForm: FC<CreateCustomerProps> = ({ onClose }) => {
   const [customerIdFilteredList, setCustomerList] = useState<string[]>([]);
   const [isFiltering, setFiltering] = useState(false);
 
-  const customers: CustomerList = useSelector(
-    (state: StateType) => state.customers
-  );
+  // const customers: CustomerList = useSelector(
+  //   (state: StateType) => state.customers
+  // );
+  const customers: CustomerList = [{}];
 
   const onCreateExpo = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -143,7 +144,7 @@ const CreateExpoForm: FC<CreateCustomerProps> = ({ onClose }) => {
       todo_list: expoActivitiesList,
     };
 
-    if(selectedShipping) {
+    if (selectedShipping) {
       const shipping = shippings[selectedShipping];
       expo.selected_shipping = selectedShipping;
       expo.destination_country = shipping.country;
@@ -262,12 +263,12 @@ const CreateExpoForm: FC<CreateCustomerProps> = ({ onClose }) => {
         </div>
       </ExpoForm>
 
-      {Object.keys(shippings).length > 0 && (
+      {/* {Object.keys(shippings).length > 0 && (
         <SelectableShippingList
           shippings={shippings}
           onSelectShipping={handleOnSelectShipping}
         />
-      )}
+      )} */}
 
       <FormCommands>
         <ButtonAct onClick={onClose}>Cancelar</ButtonAct>
