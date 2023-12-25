@@ -3,7 +3,8 @@ import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Root from "routes/root";
 import Dashboard from "components/dashboard/Dashboard";
-import Settings from "components/settings-page/Settings"
+import Settings from "components/settings-page/Settings";
+import Customer from "components/customer/Customer";
 
 import "./index.css";
 
@@ -15,7 +16,7 @@ const router = createBrowserRouter([
       { path: "/dashboard", element: <Dashboard /> },
       {
         path: "/customers",
-        element: <div>Customers page</div>,
+        element: <Customer />,
       },
       {
         path: "/suppliers",
