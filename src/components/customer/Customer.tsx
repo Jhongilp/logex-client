@@ -10,10 +10,7 @@ const Content = styled(StyledContent)`
   height: calc(100vh - 105px);
 `;
 
-const Dashboard = () => {
-
-
-
+const Customer = () => {
   return (
     <StyledMain>
       <Content>
@@ -25,4 +22,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default Customer;
