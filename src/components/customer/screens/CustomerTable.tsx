@@ -13,7 +13,8 @@ import Table from "components/table/Table";
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  width: 100%;
+  width: fit-content;
+  margin-left: 60px;
 
   > h3 {
     color: var(--color-text-dominant);
