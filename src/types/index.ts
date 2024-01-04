@@ -167,7 +167,7 @@ export const PuertoZarpe: { [id: string]: IPuertoZarpe } = {
 };
 
 export interface ICliente {
-  id: string;
+  id: number;
   name: string;
   // shippings: IShipping[];
   country: string;

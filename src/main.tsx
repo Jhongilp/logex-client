@@ -1,12 +1,18 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createClient, Provider, cacheExchange, fetchExchange } from "urql";
 import Root from "routes/root";
 import Dashboard from "components/dashboard/Dashboard";
 import Settings from "components/settings-page/Settings";
 import Customer from "components/customer/Customer";
 
 import "./index.css";
+
+const client = createClient({
+  url: import.meta.env.VITE_API_URL || "http://localhost:4000/graphql",
+  exchanges: [cacheExchange, fetchExchange],
+});
 
 const router = createBrowserRouter([
   {
@@ -44,6 +50,8 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <Provider value={client}>
+      <RouterProvider router={router} />
+    </Provider>
   </React.StrictMode>
 );
