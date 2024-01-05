@@ -13,11 +13,11 @@ export type ModalProps = {
   visible: boolean;
 };
 
-export const Backdrop = styled.div<BackdropProps>`
-  display: ${(props) => (props.open === true ? "flex" : "none")};
+export const Backdrop = styled.div<{ $open: boolean; $full: boolean }>`
+  display: ${(props) => (props.$open === true ? "flex" : "none")};
   /* position: absolute; */
   position: absolute;
-  top: ${(props) => (props.full ? 0 : "50px")};
+  top: ${(props) => (props.$full ? 0 : "50px")};
   left: 0;
   width: 100vw;
   height: 100vh;
@@ -27,7 +27,7 @@ export const Backdrop = styled.div<BackdropProps>`
   z-index: 99999;
 `;
 
-export const StyledModal = styled.div<ModalProps>`
+export const StyledModal = styled.div<{ $visible: boolean }>`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -41,8 +41,8 @@ export const StyledModal = styled.div<ModalProps>`
   box-sizing: border-box;
   transition: all 0.3s ease-out;
   transform: ${(props) =>
-    props.visible ? "translateY(0vh)" : "translateY(-100vh)"};
-  opacity: ${(props) => (props.visible ? "1" : "0")};
+    props.$visible ? "translateY(0vh)" : "translateY(-100vh)"};
+  opacity: ${(props) => (props.$visible ? "1" : "0")};
 `;
 
 const scale = keyframes`
@@ -57,7 +57,7 @@ const scale = keyframes`
 `;
 
 export const CenteredModal = styled(StyledModal)`
-  display: ${(props) => (props.visible ? "flex" : "none")};
+  display: ${(props) => (props.$visible ? "flex" : "none")};
   left: 20%;
   top: 66px;
   border-radius: 5px;
@@ -88,7 +88,7 @@ export const LateralModal = styled(StyledModal)`
   top: 0;
   left: 100%;
   transform: ${(props) =>
-    props.visible ? "translateX(-100%)" : "translateX(0)"};
+    props.$visible ? "translateX(-100%)" : "translateX(0)"};
 `;
 
 export const Modal = ({
@@ -98,14 +98,14 @@ export const Modal = ({
   lateral,
   onClose,
 }: PropsWithChildren<BackdropProps>) => {
-  let modal = <StyledModal visible={open}>{children}</StyledModal>;
+  let modal = <StyledModal $visible={open}>{children}</StyledModal>;
   if (lateral) {
-    modal = <LateralModal visible={open}>{children}</LateralModal>;
+    modal = <LateralModal $visible={open}>{children}</LateralModal>;
   }
 
   return (
     <>
-      <Backdrop open={open} full={full} onClick={onClose} />
+      <Backdrop $open={open} $full={full} onClick={onClose} />
       {modal}
     </>
   );

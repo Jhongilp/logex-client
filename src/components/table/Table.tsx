@@ -293,7 +293,7 @@ export function Table<T>({
                 }
                 return (
                   <RowCell
-                    withPadding={col.type !== PropertyType.Date}
+                    $withPadding={col.type !== PropertyType.Date}
                     className="row-cell"
                     key={`row-${j}-${col.fieldName}`}
                     style={{ width: width[col.fieldName] }}

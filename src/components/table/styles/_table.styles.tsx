@@ -80,16 +80,12 @@ export const Row = styled.div`
   }
 `;
 
-type RowCellProps = {
-  withPadding: boolean;
-}
-
-export const RowCell = styled.div<RowCellProps>`
+export const RowCell = styled.div<{ $withPadding: boolean }>`
   display: flex;
   align-items: center;
   min-width: 60px;
   height: 100%;
-  padding-left: ${props => props.withPadding ? '8px' : 0};
+  padding-left: ${(props) => (props.$withPadding ? "8px" : 0)};
   box-sizing: border-box;
 
   > span {
@@ -97,7 +93,7 @@ export const RowCell = styled.div<RowCellProps>`
     overflow: hidden;
     text-overflow: ellipsis;
   }
-`
+`;
 
 export const EditableBox = styled.div`
   position: fixed;
