@@ -1,9 +1,11 @@
-import React, { FC, useState } from "react";
-import styled from 'styled-components';
+import React, { useState } from "react";
+import styled from "styled-components";
 // import { createCustomer } from "api/customers.api";
 import { ICliente } from "types";
 import { BtnIcon, ButtonAct } from "styles/commons";
 import { CloseIcon } from "svgs";
+import { useMutation } from "urql";
+import { CreateCustomerMutation } from "api/customer.api";
 
 import {
   FormWrapper,
@@ -12,7 +14,6 @@ import {
   CloseFormIconWrapper,
   FormCommands,
 } from "styles/Form/form.styles";
-
 
 const CustomerForm = styled(StyledForm)`
   > div.customer-id {
@@ -30,16 +31,14 @@ const CustomerForm = styled(StyledForm)`
   > div.customer-address {
     grid-area: 3 / 1 / 4 / 13;
   }
-`
-
-
+`;
 
 type CreateCustomerProps = {
   onClose: () => void;
 };
 
-
-export const CreateCustomerForm: FC<CreateCustomerProps> = ({ onClose }) => {
+export const CreateCustomerForm = ({ onClose }: CreateCustomerProps) => {
+  const [customerResult, createCustomer] = useMutation(CreateCustomerMutation);
   const [error, setError] = useState(false);
   const [id, setId] = useState("");
   const [name, setName] = useState("");
@@ -48,24 +47,28 @@ export const CreateCustomerForm: FC<CreateCustomerProps> = ({ onClose }) => {
   const [address, setAddress] = useState("");
 
   const onCreateCustomer = (e: React.FormEvent<HTMLFormElement>) => {
+    console.log("[on submit] e target: ", e.currentTarget.elements);
     e.preventDefault();
-    // const data: ICliente = {
-    //   id,
-    //   name,
-    //   country,
-    //   city,
-    //   address,
-    // };
-    // console.log("[createCustomer] data: ", data);
-    // createCustomer(data)
-    //   .then(() => {
-    //     onClose();
-    //   })
-    //   .catch((error) => {
-    //     console.log("Error creating the new customer: ", error);
-    //     setError(true);
-    //   });
+    const data: Omit<ICliente, "id"> & { userId: string } = {
+      name,
+      country,
+      city,
+      address,
+      userId: "8009653658",
+    };
+    console.log("[createCustomer] data: ", data);
+    createCustomer({ input: data })
+      .then((res) => {
+        console.log("[customer] res on create: ", res);
+        onClose();
+      })
+      .catch((error) => {
+        console.log("Error creating the new customer: ", error);
+        setError(true);
+      });
   };
+
+  console.log("[render][customer] customerResult: ", customerResult);
 
   return (
     <FormWrapper>
@@ -77,7 +80,7 @@ export const CreateCustomerForm: FC<CreateCustomerProps> = ({ onClose }) => {
       <FormHeader>
         <h3>Crear cliente</h3>
       </FormHeader>
-      
+
       <CustomerForm id="create-customer-form" onSubmit={onCreateCustomer}>
         <div className="form-field customer-id">
           <label>Identificación</label>

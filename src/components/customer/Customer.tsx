@@ -15,19 +15,8 @@ import {
 import { Modal } from "styles/Modal/Modal";
 import { CreateCustomerForm } from "components/customer/screens/CreateCustomerForm";
 import { AddIcon } from "svgs";
-
-import { gql, useQuery } from "urql";
-
-const CustomerQuery = gql`
-  query {
-    customers {
-      name
-      country
-      city
-      address
-    }
-  }
-`;
+import { useQuery } from "urql";
+import { CustomerQuery } from "api/customer.api"
 
 const Content = styled(StyledContent)`
   height: calc(100vh - 105px);
