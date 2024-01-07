@@ -49,6 +49,7 @@ export const Row = styled.div`
   height: 32px;
   border-bottom: 1px solid var(--color-text-light);
   position: relative;
+  text-transform: uppercase;
 
   > div.row-offset,
   > div.row-handler {
@@ -74,6 +75,8 @@ export const Row = styled.div`
   }
 
   &:hover {
+    background-color: var(--color-main-bg-terciary);
+    cursor: pointer;
     > div.row-handler {
       display: flex;
     }

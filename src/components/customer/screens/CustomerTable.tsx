@@ -106,12 +106,18 @@ export const CustomerTable = ({ customers }: { customers: ICliente[] }) => {
     // }
   };
 
+  const handleClickOnCustumer = () => {
+    alert("click on customer");
+  };
+
   return (
     <Wrapper>
       <Table
         tableName="settings_table"
         columns={columns}
         rows={customers}
+        rowsClickable
+        onRowClick={handleClickOnCustumer}
         onNewRow={handleOnNewRow}
         onUpdateData={handleOnUpdateData}
       />

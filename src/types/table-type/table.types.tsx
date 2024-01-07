@@ -102,8 +102,8 @@ export type TSelectTypeBoxOptionTag = {
 export type SelectTypeBoxOptionTagList = TSelectTypeBoxOptionTag[];
 export type SelectTypeBoxOptionTagListObj = {
   [key: string]: {
-    data: SelectTypeBoxOptionTagList,
-    editable: boolean,
+    data: SelectTypeBoxOptionTagList;
+    editable: boolean;
   };
 };
 
@@ -111,15 +111,26 @@ export type FetchedSelectTypeBoxOptionTag = {
   options: SelectTypeBoxOptionTagList;
 };
 
+/**
+ * props:
+ * 
+ * - rowsClickable: user can click on any part of the row, we need to pass a function inside onRowClick
+ * - onRowClick: function to trigger action wanted when user click on item row
+ * - editable: boolean. It will be false if rowsClickable is true 
+ */
 export type TableProps<T> = {
   tableName: string;
   columns: IColumn<T>[];
   rows: IRow[];
   selectionOptionLists?: SelectTypeBoxOptionTagListObj;
+  rowsClickable?: boolean; // if true than cells are not editable
+  onRowClick?: () => void;
   onNewRow?: (rowId: string) => void;
   onSelection?: (position: string) => void;
   onUpdateData?: (editableValues: IEditableProps) => void;
-  onUpdateSelectionOptionList?: (columnOptionList: SelectTypeBoxOptionTagList) => void;
+  onUpdateSelectionOptionList?: (
+    columnOptionList: SelectTypeBoxOptionTagList
+  ) => void;
 };
 
 export type EditableBoxProps = {
@@ -131,7 +142,9 @@ export type EditableBoxProps = {
   columnType: PropertyType;
   columnName: string | null;
   onUpdateData?: (newValue: string) => void | undefined;
-  onUpdateSelectionOptionList?: (columnOptionList: SelectTypeBoxOptionTagList) => void;
+  onUpdateSelectionOptionList?: (
+    columnOptionList: SelectTypeBoxOptionTagList
+  ) => void;
 };
 
 export type SelectionOptionLists =

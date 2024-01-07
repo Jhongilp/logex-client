@@ -88,6 +88,8 @@ export function Table<T>({
   columns,
   rows,
   selectionOptionLists,
+  rowsClickable,
+  onRowClick,
   onNewRow,
   onSelection,
   onUpdateData,
@@ -273,9 +275,9 @@ export function Table<T>({
           })}
         </TableHeader>
 
-        {rows.map((row, i) => {
+        {rows.map((row) => {
           return (
-            <Row key={`row-${row.id}`}>
+            <Row key={`row-${row.id}`} onClick={onRowClick} $hovered>
               <div className="row-offset"></div>
               <div className="row-handler">
                 <BtnIcon type="button" onClick={() => onNewRow?.(row.id)}>
@@ -295,7 +297,7 @@ export function Table<T>({
                   <RowCell
                     $withPadding={col.type !== PropertyType.Date}
                     className="row-cell"
-                    key={`row-${j}-${col.fieldName}`}
+                    key={`row-${j}-${String(col.fieldName)}`}
                     style={{ width: width[col.fieldName] }}
                     onClick={(event: React.MouseEvent) =>
                       handleClick(event, col, row)
@@ -315,7 +317,7 @@ export function Table<T>({
             </Row>
           );
         })}
-        {isEditableBoxVisible && <EditableBox />}
+        {!rowsClickable && isEditableBoxVisible && <EditableBox />}
       </TableContainer>
     </TableContext.Provider>
   );
