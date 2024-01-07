@@ -94,6 +94,7 @@ export function Table<T>({
   onSelection,
   onUpdateData,
   onUpdateSelectionOptionList,
+  controlsOmitted,
 }: TableProps<T>) {
   const [width, setWidth] = useState(() => {
     return columns.reduce((accum: any, col) => {
@@ -279,14 +280,16 @@ export function Table<T>({
           return (
             <Row key={`row-${row.id}`} onClick={onRowClick} $hovered>
               <div className="row-offset"></div>
-              <div className="row-handler">
-                <BtnIcon type="button" onClick={() => onNewRow?.(row.id)}>
-                  <AddIcon />
-                </BtnIcon>
-                <BtnIcon type="button" onClick={() => onSelection?.(row.id)}>
-                  <DragIcon />
-                </BtnIcon>
-              </div>
+              {!controlsOmitted && (
+                <div className="row-handler">
+                  <BtnIcon type="button" onClick={() => onNewRow?.(row.id)}>
+                    <AddIcon />
+                  </BtnIcon>
+                  <BtnIcon type="button" onClick={() => onSelection?.(row.id)}>
+                    <DragIcon />
+                  </BtnIcon>
+                </div>
+              )}
 
               {columns.map((col, j) => {
                 let checked = false;

@@ -131,6 +131,7 @@ export type TableProps<T> = {
   onUpdateSelectionOptionList?: (
     columnOptionList: SelectTypeBoxOptionTagList
   ) => void;
+  controlsOmitted?: boolean;
 };
 
 export type EditableBoxProps = {

@@ -120,6 +120,7 @@ export const CustomerTable = ({ customers }: { customers: ICliente[] }) => {
         onRowClick={handleClickOnCustumer}
         onNewRow={handleOnNewRow}
         onUpdateData={handleOnUpdateData}
+        controlsOmitted
       />
     </Wrapper>
   );
