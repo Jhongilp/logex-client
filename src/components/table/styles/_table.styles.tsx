@@ -70,7 +70,7 @@ export const Row = styled.div<{ $hovered: boolean }>`
     }
   }
 
-  > div.row-cell:nth-child(n + 4) {
+  > div.row-cell:nth-child(n + ${props => props.$hovered ? 3 : 4}) {
     border-left: 1px solid var(--color-text-light);
   }
 
