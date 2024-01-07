@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 export const TableContainer = styled.div`
   display: flex;
@@ -43,7 +43,7 @@ export const ColumnName = styled.div`
   }
 `;
 
-export const Row = styled.div`
+export const Row = styled.div<{ $hovered: boolean }>`
   display: flex;
   align-items: center;
   height: 32px;
@@ -75,8 +75,12 @@ export const Row = styled.div`
   }
 
   &:hover {
-    background-color: var(--color-main-bg-terciary);
-    cursor: pointer;
+    ${(props) =>
+      props.$hovered &&
+      css`
+        background-color: var(--color-main-bg-terciary);
+        cursor: pointer;
+      `}
     > div.row-handler {
       display: flex;
     }
