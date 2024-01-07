@@ -43,7 +43,7 @@ export const ColumnName = styled.div`
   }
 `;
 
-export const Row = styled.div<{ $hovered: boolean }>`
+export const Row = styled.div<{ $hovered: boolean; $controlsOmitted: boolean }>`
   display: flex;
   align-items: center;
   height: 32px;
@@ -70,7 +70,7 @@ export const Row = styled.div<{ $hovered: boolean }>`
     }
   }
 
-  > div.row-cell:nth-child(n + ${props => props.$hovered ? 3 : 4}) {
+  > div.row-cell:nth-child(n + ${(props) => (props.$controlsOmitted ? 3 : 4)}) {
     border-left: 1px solid var(--color-text-light);
   }
 

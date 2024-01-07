@@ -278,7 +278,12 @@ export function Table<T>({
 
         {rows.map((row) => {
           return (
-            <Row key={`row-${row.id}`} onClick={onRowClick} $hovered>
+            <Row
+              key={`row-${row.id}`}
+              onClick={onRowClick}
+              $hovered
+              $controlsOmitted={controlsOmitted}
+            >
               <div className="row-offset"></div>
               {!controlsOmitted && (
                 <div className="row-handler">
