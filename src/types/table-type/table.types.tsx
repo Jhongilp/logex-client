@@ -1,5 +1,3 @@
-import React from "react";
-
 import {
   DateIcon,
   CheckboxIcon,
@@ -113,10 +111,10 @@ export type FetchedSelectTypeBoxOptionTag = {
 
 /**
  * props:
- * 
+ *
  * - rowsClickable: user can click on any part of the row, we need to pass a function inside onRowClick
  * - onRowClick: function to trigger action wanted when user click on item row
- * - editable: boolean. It will be false if rowsClickable is true 
+ * - editable: boolean. It will be false if rowsClickable is true
  */
 export type TableProps<T> = {
   tableName: string;
