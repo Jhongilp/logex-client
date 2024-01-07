@@ -150,7 +150,7 @@ export function Table<T>({
 
   useEffect(() => {
     const ro = new ResizeObserver((entries: any) => {
-      for (let entry of entries) {
+      for (const entry of entries) {
         const id = entry.target?.id;
         const w =
           entry.borderBoxSize?.[0]?.inlineSize ||
@@ -167,7 +167,7 @@ export function Table<T>({
         });
       }
     });
-    for (let ref of refs.values()) {
+    for (const ref of refs.values()) {
       ro.observe(ref as any);
     }
 
