@@ -280,7 +280,7 @@ export function Table<T>({
           return (
             <Row
               key={`row-${row.id}`}
-              onClick={onRowClick}
+              onClick={() => onRowClick?.(row.id)}
               $hovered
               $controlsOmitted={controlsOmitted}
             >

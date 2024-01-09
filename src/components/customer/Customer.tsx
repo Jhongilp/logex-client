@@ -3,7 +3,6 @@ import styled from "styled-components";
 // import { useSelector } from "react-redux";
 
 // import ExpoTable from "components/dashboard/screens/expo-table/ExpoTable";
-import { CustomerTable } from "components/customer/screens/CustomerTable";
 import {
   StyledMain,
   StyledContent,
@@ -15,8 +14,7 @@ import {
 import { Modal } from "styles/Modal/Modal";
 import { CreateCustomerForm } from "components/customer/screens/CreateCustomerForm";
 import { AddIcon } from "svgs";
-import { useQuery } from "urql";
-import { CustomerQuery } from "api/customer.api"
+import { Outlet } from "react-router-dom";
 
 const Content = styled(StyledContent)`
   height: calc(100vh - 105px);
@@ -38,16 +36,6 @@ const AddCustomerBtn = styled(ButtonAct)`
 
 const Customer = () => {
   const [isOpen, setOpen] = useState(false);
-  const [results] = useQuery({
-    query: CustomerQuery,
-  });
-
-  const { data, fetching, error } = results;
-
-  if (fetching) return <p>Loading...</p>;
-  if (error) return <p>Oh no... {error.message}</p>;
-
-  console.log("results from user query: ", data);
   return (
     <StyledMain>
       <Content>
@@ -64,7 +52,7 @@ const Customer = () => {
             </SunHeaderContent>
           </StyledSubHeader>
           <h2>CLIENTES</h2>
-          <CustomerTable customers={data.customers} />
+          <Outlet />
         </Wrapper>
       </Content>
     </StyledMain>

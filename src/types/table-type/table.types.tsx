@@ -122,7 +122,7 @@ export type TableProps<T> = {
   rows: IRow[];
   selectionOptionLists?: SelectTypeBoxOptionTagListObj;
   rowsClickable?: boolean; // if true than cells are not editable
-  onRowClick?: () => void;
+  onRowClick?: (itemId: number | string) => void;
   onNewRow?: (rowId: string) => void;
   onSelection?: (position: string) => void;
   onUpdateData?: (editableValues: IEditableProps) => void;

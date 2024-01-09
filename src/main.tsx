@@ -6,6 +6,7 @@ import Root from "routes/root";
 import Dashboard from "components/dashboard/Dashboard";
 import Settings from "components/settings-page/Settings";
 import Customer from "components/customer/Customer";
+import { CustomerTable } from "components/customer/screens/CustomerTable";
 
 import "./index.css";
 
@@ -23,6 +24,16 @@ const router = createBrowserRouter([
       {
         path: "/customers",
         element: <Customer />,
+        children: [
+          {
+            index: true,
+            element: <CustomerTable />
+          },
+          {
+            path: "/customers/:customerId",
+            element: <p>customer page</p>
+          },
+        ],
       },
       {
         path: "/suppliers",
