@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { StyledContent, ContentWrapper } from "styles/commons";
+import { StyledContent, ContentWrapper, ButtonAct } from "styles/commons";
 
 export const StyledCustomerContent = styled(StyledContent)`
   height: calc(100vh - 105px);
@@ -20,7 +20,8 @@ export const StyledCustomerPageMain = styled(StyledContent)`
 export const StyledCustomerDetailsWrapper = styled.div`
   display: flex;
   flex-direction: column;
-`
+`;
+
 export const StyledInfoLabel = styled.div`
   display: flex;
   flex-direction: column;
@@ -41,4 +42,14 @@ export const StyledInfoLabel = styled.div`
     font-family: "Roboto";
     text-transform: uppercase;
   }
+`;
+
+export const StyledCustomerActionWrapper = styled.div`
+  display: flex;
+  gap: 20px;
+  margin-top: 40px;
+`;
+
+export const StyledDeleteCustomerBtn = styled(ButtonAct)`
+  background-color: var(--color-danger);
 `;

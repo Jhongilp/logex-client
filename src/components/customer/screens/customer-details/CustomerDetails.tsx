@@ -5,9 +5,12 @@ import { GetCustomerQuery } from "api/customer.api";
 import { EditCustomerForm } from "components/customer/screens/edit-customer-form/EditCustomerForm";
 import { Modal } from "styles/Modal/Modal";
 
+import { ButtonAct } from "styles/commons";
 import {
   StyledCustomerDetailsWrapper,
   StyledInfoLabel,
+  StyledCustomerActionWrapper,
+  StyledDeleteCustomerBtn,
 } from "components/customer/customer.styles";
 
 export const CustomerDetails = () => {
@@ -32,7 +35,10 @@ export const CustomerDetails = () => {
   return (
     <StyledCustomerDetailsWrapper>
       <Modal open={isOpen} full>
-        <EditCustomerForm onClose={() => setOpen(false)} customer={data?.customer} />
+        <EditCustomerForm
+          onClose={() => setOpen(false)}
+          customer={data?.customer}
+        />
       </Modal>
       <StyledInfoLabel>
         <label>Nombre</label>
@@ -50,7 +56,14 @@ export const CustomerDetails = () => {
         <label>Dirección</label>
         <span>{data?.customer?.address}</span>
       </StyledInfoLabel>
-      <button type="button" onClick={() => setOpen(true)}>Editar</button>
+      <StyledCustomerActionWrapper>
+        <ButtonAct type="button" onClick={() => setOpen(true)}>
+          Editar
+        </ButtonAct>
+        <StyledDeleteCustomerBtn type="button" onClick={() => setOpen(true)}>
+          Eliminar
+        </StyledDeleteCustomerBtn>
+      </StyledCustomerActionWrapper>
     </StyledCustomerDetailsWrapper>
   );
 };

@@ -80,6 +80,7 @@ export const Button = styled.button`
   user-select: none;
   display: flex;
   align-items: center;
+  justify-content: center;
   border: 0;
   padding: 0;
   box-sizing: border-box;
