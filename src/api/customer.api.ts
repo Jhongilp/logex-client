@@ -35,3 +35,15 @@ export const CreateCustomerMutation = gql`
     }
   }
 `;
+
+export const UpdateCustomerMutation = gql`
+  mutation UpdateCustomer($input: UpdateCustomerInput) {
+    customer: updateCustomer(input: $input) {
+      name
+      address
+      city
+      country
+      id
+    }
+  }
+`;
