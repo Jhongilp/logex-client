@@ -16,3 +16,29 @@ export const StyledCustomerPageMain = styled(StyledContent)`
   justify-content: flex-start;
   gap: 20px;
 `;
+
+export const StyledCustomerDetailsWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+`
+export const StyledInfoLabel = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 6px;
+  color: var(--color-text-dominant);
+  box-sizing: border-box;
+
+  > label {
+    font-size: 12px;
+    color: var(--color-primary);
+    margin-bottom: 3px;
+    width: 150px;
+  }
+
+  > span {
+    font-size: 14px;
+    font-family: "Roboto";
+    text-transform: uppercase;
+  }
+`;

@@ -1,4 +1,4 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, useParams } from "react-router-dom";
 import { useQuery } from "urql";
 import { StyledMain, StyledSubHeader, SunHeaderContent } from "styles/commons";
 import { CustomerMenuList } from "components/customer/screens/CustomerMenuList";
@@ -11,16 +11,14 @@ import {
 } from "components/customer/customer.styles";
 
 export const CustomerPage = () => {
+  const { customerId } = useParams();
+
   const [results] = useQuery({
     query: GetCustomerQuery,
-    variables: { id: 1 },
+    variables: { id: parseInt(customerId) },
   });
 
-  const { data, fetching, error } = results;
-  if (fetching) return <p>Loading...</p>;
-  if (error) return <p>Oh no... {error.message}</p>;
-
-  console.log("get customer query: ", results);
+  const { data } = results;
   return (
     <StyledMain>
       <StyledCustomerContent>
