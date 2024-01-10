@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-// import { createCustomer } from "api/customers.api";
 import { ICliente } from "types";
 import { BtnIcon, ButtonAct } from "styles/commons";
 import { CloseIcon } from "svgs";

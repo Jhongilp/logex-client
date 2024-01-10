@@ -14,7 +14,7 @@ import {
   StyledCustomerContent,
 } from "components/customer/customer.styles";
 import { Modal } from "styles/Modal/Modal";
-import { CreateCustomerForm } from "components/customer/screens/CreateCustomerForm";
+import { CreateCustomerForm } from "components/customer/screens/create-customer-form/CreateCustomerForm";
 import { AddIcon } from "svgs";
 import { CustomerTable } from "components/customer/screens/CustomerTable";
 
