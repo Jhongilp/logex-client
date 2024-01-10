@@ -1,3 +1,4 @@
+import { Outlet } from "react-router-dom";
 import { StyledMain, StyledSubHeader, SunHeaderContent } from "styles/commons";
 import { CustomerMenuList } from "components/customer/screens/CustomerMenuList";
 import {
@@ -16,7 +17,7 @@ export const CustomerPage = () => {
           </StyledSubHeader>
           <StyledCustomerPageMain>
             <CustomerMenuList />
-            <div>Customer page content here</div>
+            <Outlet />
           </StyledCustomerPageMain>
         </StyledCustomerWrapper>
       </StyledCustomerContent>
