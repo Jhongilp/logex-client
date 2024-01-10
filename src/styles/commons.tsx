@@ -120,3 +120,53 @@ export const BtnIcon = styled(Button)`
     background-color: var(--color-main-bg);
   }
 `;
+
+/** LIST */
+
+export const StyledMenuListWrapper = styled.ul`
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: var(--color-main-bg);
+
+  li {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 45px;
+    padding: 0 12px;
+
+    a {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      height: 100%;
+      font-size: 16px;
+      font-weight: 400;
+      color: var(--color-text-dominant);
+
+      &:active,
+      &::visited {
+        color: var(--color-text-dominant);
+      }
+    }
+  }
+
+  li:hover {
+    /* background-color: var(--color-main-bg); */
+    background-color: var(--color-main-bg-terciary);
+  }
+
+  li.active {
+    background-color: var(--color-main-bg-terciary);
+    border-left: 2px solid var(--color-text-secondary);
+
+    > a {
+      font-weight: bold;
+    }
+  }
+`;
