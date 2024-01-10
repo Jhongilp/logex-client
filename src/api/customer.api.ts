@@ -12,6 +12,18 @@ export const CustomerQuery = gql`
   }
 `;
 
+export const GetCustomerQuery = gql`
+  query CustomerQuery($id: ID!) {
+    customer(id: $id) {
+      id
+      name
+      country
+      city
+      address
+    }
+  }
+`;
+
 export const CreateCustomerMutation = gql`
   mutation CreateCustomer($input: CreateCustomerInput) {
     customer: createCustomer(input: $input) {
