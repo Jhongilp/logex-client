@@ -5,26 +5,18 @@ import styled from "styled-components";
 // import ExpoTable from "components/dashboard/screens/expo-table/ExpoTable";
 import {
   StyledMain,
-  StyledContent,
-  ContentWrapper,
   StyledSubHeader,
   ButtonAct,
   SunHeaderContent,
 } from "styles/commons";
+import {
+  StyledCustomerWrapper,
+  StyledCustomerContent,
+} from "components/customer/customer.styles";
 import { Modal } from "styles/Modal/Modal";
 import { CreateCustomerForm } from "components/customer/screens/CreateCustomerForm";
 import { AddIcon } from "svgs";
-import { Outlet } from "react-router-dom";
-
-const Content = styled(StyledContent)`
-  height: calc(100vh - 105px);
-`;
-
-const Wrapper = styled(ContentWrapper)`
-  display: flex;
-  flex-direction: column;
-  padding: 0 20px;
-`;
+import { CustomerTable } from "components/customer/screens/CustomerTable";
 
 const AddCustomerBtn = styled(ButtonAct)`
   padding: 0 12px 0 6px;
@@ -38,8 +30,8 @@ const Customer = () => {
   const [isOpen, setOpen] = useState(false);
   return (
     <StyledMain>
-      <Content>
-        <Wrapper>
+      <StyledCustomerContent>
+        <StyledCustomerWrapper>
           <StyledSubHeader>
             <Modal open={isOpen} full>
               <CreateCustomerForm onClose={() => setOpen(false)} />
@@ -52,9 +44,10 @@ const Customer = () => {
             </SunHeaderContent>
           </StyledSubHeader>
           <h2>CLIENTES</h2>
-          <Outlet />
-        </Wrapper>
-      </Content>
+          {/* <Outlet /> */}
+          <CustomerTable />
+        </StyledCustomerWrapper>
+      </StyledCustomerContent>
     </StyledMain>
   );
 };
