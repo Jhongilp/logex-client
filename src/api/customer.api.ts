@@ -47,3 +47,12 @@ export const UpdateCustomerMutation = gql`
     }
   }
 `;
+
+export const DeleteCustomerMutation = gql`
+  mutation DeleteCustomer($id: ID!) {
+    deleteCustomer(id: $id) {
+      id
+      name
+    }
+  }
+`;

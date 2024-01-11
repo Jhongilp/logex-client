@@ -1,9 +1,11 @@
 import { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useQuery } from "urql";
 import { GetCustomerQuery } from "api/customer.api";
 import { EditCustomerForm } from "components/customer/screens/edit-customer-form/EditCustomerForm";
 import { Modal } from "styles/Modal/Modal";
+import { useMutation } from "urql";
+import { DeleteCustomerMutation } from "api/customer.api";
 
 import { ButtonAct } from "styles/commons";
 import {
@@ -14,13 +16,28 @@ import {
 } from "components/customer/customer.styles";
 
 export const CustomerDetails = () => {
-  const [isOpen, setOpen] = useState(false);
+  const [isEditModalOpen, setEditModalOpen] = useState(false);
+  const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
+  const [deleteStatus, deleteCustomer] = useMutation(DeleteCustomerMutation);
+  const navigate = useNavigate();
   const { customerId } = useParams();
 
   const [results] = useQuery({
     query: GetCustomerQuery,
     variables: { id: parseInt(customerId) },
   });
+
+  const handleDeleteCustomer = () => {
+    deleteCustomer({ id: customerId })
+      .then((res) => {
+        console.log("[customer] res on delete: ", res);
+        navigate(`/customers`);
+      })
+      .catch((error) => {
+        console.log("Error updating customer: ", error);
+        setDeleteModalOpen(false);
+      });
+  };
 
   const { data, fetching, error } = results;
   if (fetching) return <p>Loading...</p>;
@@ -31,14 +48,20 @@ export const CustomerDetails = () => {
       </p>
     );
 
-  // console.log("get customer query: ", results);
+  console.log("deleting result: : ", deleteStatus);
   return (
     <StyledCustomerDetailsWrapper>
-      <Modal open={isOpen} full>
+      <Modal open={isEditModalOpen} full>
         <EditCustomerForm
-          onClose={() => setOpen(false)}
+          onClose={() => setEditModalOpen(false)}
           customer={data?.customer}
         />
+      </Modal>
+      <Modal open={isDeleteModalOpen}>
+        <p>¿Desea eliminar {data?.customer?.name}?</p>
+        <StyledDeleteCustomerBtn type="button" onClick={handleDeleteCustomer}>
+          Eliminar
+        </StyledDeleteCustomerBtn>
       </Modal>
       <StyledInfoLabel>
         <label>Nombre</label>
@@ -57,10 +80,13 @@ export const CustomerDetails = () => {
         <span>{data?.customer?.address}</span>
       </StyledInfoLabel>
       <StyledCustomerActionWrapper>
-        <ButtonAct type="button" onClick={() => setOpen(true)}>
+        <ButtonAct type="button" onClick={() => setEditModalOpen(true)}>
           Editar
         </ButtonAct>
-        <StyledDeleteCustomerBtn type="button" onClick={() => setOpen(true)}>
+        <StyledDeleteCustomerBtn
+          type="button"
+          onClick={() => setDeleteModalOpen(true)}
+        >
           Eliminar
         </StyledDeleteCustomerBtn>
       </StyledCustomerActionWrapper>
