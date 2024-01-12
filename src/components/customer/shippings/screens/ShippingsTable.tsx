@@ -8,7 +8,6 @@ import Table from "components/table/Table";
 
 const Wrapper = styled.div`
   display: flex;
-  width: fit-content;
   margin-top: 25px;
   overflow-y: auto;
 `;

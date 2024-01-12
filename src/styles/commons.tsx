@@ -140,7 +140,8 @@ export const ButtonActionIcon = styled(ButtonAct)`
 export const StyledMenuListWrapper = styled.ul`
   display: flex;
   flex-direction: column;
-  width: 200px;
+  width: 250px;
+  min-width: 250px;
   height: 100%;
   margin: 0;
   padding: 0;
