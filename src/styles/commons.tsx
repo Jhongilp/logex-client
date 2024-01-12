@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 export const StyledMain = styled.main`
   display: flex;
@@ -75,7 +75,7 @@ export const PageContent = styled(StyledContent)`
 `;
 
 // COMPONENTS TESTING GITHUB
-export const Button = styled.button`
+export const Button = styled.button<{ $width?: number }>`
   cursor: pointer;
   user-select: none;
   display: flex;
@@ -85,6 +85,11 @@ export const Button = styled.button`
   padding: 0;
   box-sizing: border-box;
   background-color: transparent;
+  ${(props) =>
+    props.$width &&
+    css`
+      width: ${props.$width}px;
+    `}
 
   &:active {
     transform: translateY(-1px);
@@ -119,6 +124,14 @@ export const BtnIcon = styled(Button)`
 
   &:hover {
     background-color: var(--color-main-bg);
+  }
+`;
+
+export const ButtonActionIcon = styled(ButtonAct)`
+  /* padding: 0 12px 0 6px; */
+  > svg {
+    margin-right: 6px;
+    fill: var(--color-main);
   }
 `;
 
