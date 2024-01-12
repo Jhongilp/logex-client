@@ -8,6 +8,7 @@ import Settings from "components/settings-page/Settings";
 import Customer from "components/customer/Customer";
 import { CustomerPage } from "components/customer/screens/CustomerPage";
 import { CustomerDetails } from "components/customer/screens/customer-details/CustomerDetails";
+import { Shippings } from "components/customer/shippings/Shippings";
 
 import "./index.css";
 
@@ -40,7 +41,7 @@ const router = createBrowserRouter([
           },
           {
             path: "/customers/:customerId/shippings",
-            element: <p>customer page SHIPPINGS</p>,
+            element: <Shippings />,
           },
           {
             path: "/customers/:customerId/oc",

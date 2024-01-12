@@ -56,3 +56,22 @@ export const DeleteCustomerMutation = gql`
     }
   }
 `;
+
+export const ShippingsQuery = gql`
+  query GetShippings($customerId: ID) {
+    shippings: shippings(customerId: $customerId) {
+      id
+      consignee
+      notify
+      country
+      city
+      transport_mode
+      address
+      contact
+      email
+      phone
+      obs
+      customerId
+    }
+  }
+`;
