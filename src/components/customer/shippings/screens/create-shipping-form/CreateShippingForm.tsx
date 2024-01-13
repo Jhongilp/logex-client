@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { CreateShippingProps } from "types/props.types";
 import { BtnIcon, ButtonAct } from "styles/commons";
 import {
@@ -8,7 +7,6 @@ import {
   CloseFormIconWrapper,
   FormCommands,
 } from "styles/Form/form.styles";
-// import { createShipping } from "api/customers.api";
 import { IShipping } from "types";
 import { CloseIcon } from "svgs";
 import { useMutation } from "urql";
@@ -18,8 +16,9 @@ export const CreateShippingForm = ({
   onClose,
   customerId,
 }: CreateShippingProps) => {
-  const [shippingResult, createShipping] = useMutation(CreateShippingMutation);
-  const [error, setError] = useState(false);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [_, createShipping] = useMutation(CreateShippingMutation);
+  // const [error, setError] = useState(false);
 
   const onCreateShipping = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -59,7 +58,7 @@ export const CreateShippingForm = ({
       })
       .catch((error) => {
         console.log("Error creating new shipping: ", error);
-        setError(true);
+        // setError(true);
       });
   };
 

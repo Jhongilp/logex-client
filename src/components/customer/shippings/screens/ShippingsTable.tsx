@@ -40,11 +40,11 @@ const columns: IColumn<IShipping>[] = [
   },
 ];
 
-export const ShippingsTable = () => {
+export const ShippingsTable = ({ customerId }: { customerId: number }) => {
   const navigate = useNavigate();
   const [results] = useQuery<{ shippings: IShipping[] }>({
     query: ShippingsQuery,
-    variables: { customerId: parseInt("8") },
+    variables: { customerId },
   });
 
   const { data, fetching, error } = results;
