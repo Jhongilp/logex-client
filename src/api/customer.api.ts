@@ -75,3 +75,21 @@ export const ShippingsQuery = gql`
     }
   }
 `;
+
+export const CreateShippingMutation = gql`
+  mutation CreateShipping($input: CreateShippingInput) {
+    shipping: createShipping(input: $input) {
+      consignee
+      notify
+      country
+      city
+      transport_mode
+      address
+      contact
+      email
+      phone
+      obs
+      customerId
+    }
+  }
+`;
