@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { ShippingsTable } from "components/customer/shippings/screens/ShippingsTable";
 import { Modal } from "styles/Modal/Modal";
 import { ButtonActionIcon } from "styles/commons";
+import { CreateShippingForm } from "components/customer/shippings/screens/create-shipping-form/CreateShippingForm"
 
 import { AddIcon } from "svgs";
 
@@ -19,7 +20,7 @@ export const Shippings = () => {
   return (
     <Wrapper>
       <Modal open={isOpen} full>
-        <div>CREATE SHIPPING FORM</div>
+        <CreateShippingForm onClose={() => setOpen(false)} customerId={8}/>
       </Modal>
       <ButtonActionIcon type="button" onClick={() => setOpen(true)} $width={200}>
         <AddIcon />

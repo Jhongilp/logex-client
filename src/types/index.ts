@@ -186,6 +186,7 @@ export type SupplierList = ISupplier[]
 
 
 export interface IShipping {
+  id: number;
   consignee: string;
   notify: string;
   country: string;
@@ -196,6 +197,7 @@ export interface IShipping {
   email: string;
   phone: string;
   obs: string;
+  customerId: number;
   // ciudad_puerto_zarpe?: ISealingCity;
   ciudad_puerto_zarpe?: OriginCityOptions;
   puerto_zarpe?: SailingPortOptions;

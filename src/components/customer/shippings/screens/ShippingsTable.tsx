@@ -44,6 +44,7 @@ export const ShippingsTable = () => {
   const navigate = useNavigate();
   const [results] = useQuery<{ shippings: IShipping[] }>({
     query: ShippingsQuery,
+    variables: { customerId: parseInt("8") },
   });
 
   const { data, fetching, error } = results;
