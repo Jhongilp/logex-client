@@ -9,6 +9,8 @@ import Customer from "components/customer/Customer";
 import { CustomerPage } from "components/customer/screens/CustomerPage";
 import { CustomerDetails } from "components/customer/screens/customer-details/CustomerDetails";
 import { Shippings } from "components/customer/shippings/Shippings";
+import { ShippingList } from "components/customer/shippings/Shippings";
+import { ShippingDetails } from "components/customer/shippings/screens/shipping-details/ShippingDetails"
 
 import "./index.css";
 
@@ -42,6 +44,16 @@ const router = createBrowserRouter([
           {
             path: "/customers/:customerId/shippings",
             element: <Shippings />,
+            children: [
+              {
+                index: true,
+                element: <ShippingList />,
+              },
+              {
+                path: "/customers/:customerId/shippings/:shippingId",
+                element: <ShippingDetails />,
+              },
+            ],
           },
           {
             path: "/customers/:customerId/oc",
