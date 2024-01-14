@@ -93,3 +93,22 @@ export const CreateShippingMutation = gql`
     }
   }
 `;
+
+export const GetShippingQuery = gql`
+  query GetShipping($id: ID!) {
+    shipping: shipping(id: $id) {
+      id
+      consignee
+      notify
+      country
+      city
+      transport_mode
+      address
+      contact
+      email
+      phone
+      obs
+      customerId
+    }
+  }
+`;
