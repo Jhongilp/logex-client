@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { useParams } from "react-router-dom";
+import { Outlet, useParams } from "react-router-dom";
 import styled from "styled-components";
-import { ShippingsTable } from "components/customer/shippings/screens/ShippingsTable";
+import { ShippingsTable } from "components/customer/shippings/screens/shipping-table/ShippingsTable";
 import { Modal } from "styles/Modal/Modal";
 import { ButtonActionIcon } from "styles/commons";
 import { CreateShippingForm } from "components/customer/shippings/screens/create-shipping-form/CreateShippingForm";
@@ -15,14 +15,12 @@ const Wrapper = styled.div`
   overflow-y: auto;
 `;
 
-export const Shippings = () => {
+export const ShippingList = () => {
   const { customerId } = useParams();
   console.log("[shippings] customerId: ", customerId);
-
   const [isOpen, setOpen] = useState(false);
-
   return (
-    <Wrapper>
+    <>
       <Modal open={isOpen} full>
         <CreateShippingForm
           onClose={() => setOpen(false)}
@@ -37,8 +35,15 @@ export const Shippings = () => {
         <AddIcon />
         <span>SHIPPING</span>
       </ButtonActionIcon>
-
       <ShippingsTable customerId={parseInt(customerId)} />
+    </>
+  );
+};
+
+export const Shippings = () => {
+  return (
+    <Wrapper>
+      <Outlet />
     </Wrapper>
   );
 };
