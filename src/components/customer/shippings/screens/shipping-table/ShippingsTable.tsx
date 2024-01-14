@@ -49,9 +49,9 @@ export const ShippingsTable = ({ customerId }: { customerId: number }) => {
 
   const { data, fetching, error } = results;
 
-  const handleClickOnCustumer = (customerId) => {
-    console.log("click on customer id: ", customerId);
-    navigate(`/customers/${customerId}/info`);
+  const handleClickOnShipping = (shippingId) => {
+    console.log("click on shipping id: ", shippingId);
+    navigate(`/customers/${customerId}/shippings/${shippingId}`);
   };
 
   if (fetching) return <p>Loading...</p>;
@@ -62,11 +62,11 @@ export const ShippingsTable = ({ customerId }: { customerId: number }) => {
   return (
     <Wrapper>
       <Table
-        tableName="settings_table"
+        tableName="shippings_table"
         columns={columns}
         rows={data?.shippings}
         rowsClickable
-        onRowClick={handleClickOnCustumer}
+        onRowClick={handleClickOnShipping}
         controlsOmitted
       />
     </Wrapper>
