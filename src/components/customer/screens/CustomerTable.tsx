@@ -61,7 +61,7 @@ export const CustomerTable = () => {
   return (
     <Wrapper>
       <Table
-        tableName="settings_table"
+        tableName="customers_table"
         columns={columns}
         rows={data?.customers}
         rowsClickable
