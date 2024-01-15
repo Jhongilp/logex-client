@@ -57,7 +57,7 @@ export const CustomerDetails = () => {
           customer={data?.customer}
         />
       </Modal>
-      <Modal open={isDeleteModalOpen}>
+      <Modal open={isDeleteModalOpen} full>
         <p>¿Desea eliminar {data?.customer?.name}?</p>
         <StyledDeleteCustomerBtn type="button" onClick={handleDeleteCustomer}>
           Eliminar
