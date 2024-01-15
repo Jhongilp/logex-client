@@ -56,8 +56,6 @@ export const CustomerTable = () => {
   if (fetching) return <p>Loading...</p>;
   if (error) return <p>Oh no... {error.message}</p>;
 
-  console.log("results from user query: ", data);
-
   return (
     <Wrapper>
       <Table

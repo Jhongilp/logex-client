@@ -16,9 +16,7 @@ export const CreateShippingForm = ({
   onClose,
   customerId,
 }: CreateShippingProps) => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [_, createShipping] = useMutation(CreateShippingMutation);
-  // const [error, setError] = useState(false);
+  const [, createShipping] = useMutation(CreateShippingMutation);
 
   const onCreateShipping = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -50,7 +48,6 @@ export const CreateShippingForm = ({
       customerId
     };
 
-    console.log("formData: ", formData, shipping);
     createShipping({ input: shipping })
       .then((res) => {
         console.log("[shipping] res on create: ", res);
@@ -58,7 +55,6 @@ export const CreateShippingForm = ({
       })
       .catch((error) => {
         console.log("Error creating new shipping: ", error);
-        // setError(true);
       });
   };
 

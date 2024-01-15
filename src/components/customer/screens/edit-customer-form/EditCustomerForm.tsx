@@ -38,7 +38,7 @@ export const EditCustomerForm = ({
   onClose,
   customer,
 }: CreateCustomerProps) => {
-  const [customerResult, updateCustomer] = useMutation(UpdateCustomerMutation);
+  const [, updateCustomer] = useMutation(UpdateCustomerMutation);
   const [error, setError] = useState(false);
 
   const onCreateCustomer = (e: React.FormEvent<HTMLFormElement>) => {
@@ -46,12 +46,10 @@ export const EditCustomerForm = ({
     const dataForm = new FormData(e.currentTarget);
     const data: Partial<ICliente & { userId: string }> = {};
     for (const [key, value] of dataForm) {
-      console.log(`key: ${key}, value: ${value}`);
       data[key] = value;
     }
     data.id = customer?.id;
     data.userId = "8009653658";
-    console.log("data to edit customer: ", data);
 
     updateCustomer({ input: data })
       .then((res) => {
@@ -63,8 +61,6 @@ export const EditCustomerForm = ({
         setError(true);
       });
   };
-
-  console.log("[render][customer] customerResult: ", customerResult);
 
   return (
     <FormWrapper>

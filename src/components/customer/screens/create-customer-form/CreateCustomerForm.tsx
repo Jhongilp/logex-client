@@ -37,7 +37,7 @@ type CreateCustomerProps = {
 };
 
 export const CreateCustomerForm = ({ onClose }: CreateCustomerProps) => {
-  const [customerResult, createCustomer] = useMutation(CreateCustomerMutation);
+  const [, createCustomer] = useMutation(CreateCustomerMutation);
   const [error, setError] = useState(false);
   const [id, setId] = useState("");
   const [name, setName] = useState("");
@@ -46,7 +46,6 @@ export const CreateCustomerForm = ({ onClose }: CreateCustomerProps) => {
   const [address, setAddress] = useState("");
 
   const onCreateCustomer = (e: React.FormEvent<HTMLFormElement>) => {
-    console.log("[on submit] e target: ", e.currentTarget.elements);
     e.preventDefault();
     const data: Omit<ICliente, "id"> & { userId: string } = {
       name,
@@ -55,7 +54,6 @@ export const CreateCustomerForm = ({ onClose }: CreateCustomerProps) => {
       address,
       userId: "8009653658",
     };
-    console.log("[createCustomer] data: ", data);
     createCustomer({ input: data })
       .then((res) => {
         console.log("[customer] res on create: ", res);
@@ -66,8 +64,6 @@ export const CreateCustomerForm = ({ onClose }: CreateCustomerProps) => {
         setError(true);
       });
   };
-
-  console.log("[render][customer] customerResult: ", customerResult);
 
   return (
     <FormWrapper>

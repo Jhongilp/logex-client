@@ -17,7 +17,6 @@ const Wrapper = styled.div`
 
 export const ShippingList = () => {
   const { customerId } = useParams();
-  console.log("[shippings] customerId: ", customerId);
   const [isOpen, setOpen] = useState(false);
   return (
     <>

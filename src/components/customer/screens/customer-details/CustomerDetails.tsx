@@ -18,7 +18,7 @@ import {
 export const CustomerDetails = () => {
   const [isEditModalOpen, setEditModalOpen] = useState(false);
   const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
-  const [deleteStatus, deleteCustomer] = useMutation(DeleteCustomerMutation);
+  const [, deleteCustomer] = useMutation(DeleteCustomerMutation);
   const navigate = useNavigate();
   const { customerId } = useParams();
 
@@ -48,7 +48,6 @@ export const CustomerDetails = () => {
       </p>
     );
 
-  console.log("deleting result: : ", deleteStatus);
   return (
     <StyledCustomerDetailsWrapper>
       <Modal open={isEditModalOpen} full>

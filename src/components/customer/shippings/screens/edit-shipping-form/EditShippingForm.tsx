@@ -45,7 +45,6 @@ export const EditShippingForm = ({ onClose, shipping }: EditShippingProps) => {
       obs: formData.obs,
     };
 
-    console.log("formData: ", formData, shipping);
     updateShipping({ input: shippingData })
       .then((res) => {
         console.log("[shipping] res on update: ", res);

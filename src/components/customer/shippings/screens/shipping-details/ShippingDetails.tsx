@@ -33,10 +33,6 @@ const DeleteShippingModal = ({ customerId, shippingId, isOpen, onClose }) => {
   };
 
   const { fetching, error } = deleteShippingResult;
-  console.log(
-    "[shipping-details] deleteShippingResult: ",
-    deleteShippingResult
-  );
 
   if (fetching) return <p>Deleting ...</p>;
   if (error) return <p>Error deleting shipping. {error.message}</p>;
@@ -65,7 +61,6 @@ export const ShippingDetails = () => {
   const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
 
   const { shippingId } = useParams();
-  console.log("[shipping-details] params: ", shippingId);
   const [results] = useQuery<{ shipping: IShipping }>({
     query: GetShippingQuery,
     variables: { id: parseInt(shippingId) },
