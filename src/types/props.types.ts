@@ -79,9 +79,8 @@ export type CreateShippingProps = {
 };
 
 export type EditShippingProps = {
-  customerId: string;
   onClose: () => void;
-  shippingId: string | null;
+  shipping: IShipping
 };
 
 export type UpdateExpoProgressProps = {
