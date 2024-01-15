@@ -112,3 +112,30 @@ export const GetShippingQuery = gql`
     }
   }
 `;
+
+export const UpdateShippingMutation = gql`
+  mutation UpdateShipping($input: UpdateShippingInput) {
+    shipping: updateShipping(input: $input) {
+      id
+      consignee
+      notify
+      country
+      city
+      transport_mode
+      address
+      contact
+      email
+      phone
+      obs
+      customerId
+    }
+  }
+`;
+
+export const DeleteShippingMutation = gql`
+  mutation DeleteShipping($id: ID!) {
+    deleteShipping(id: $id) {
+      id
+    }
+  }
+`;
