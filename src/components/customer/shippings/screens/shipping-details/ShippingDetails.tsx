@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useQuery } from "urql";
-import { GetShippingQuery } from "api/customer.api";
-import { EditCustomerForm } from "components/customer/screens/edit-customer-form/EditCustomerForm";
+import { GetShippingQuery, DeleteShippingMutation } from "api/customer.api";
+import { EditShippingForm } from "components/customer/shippings/screens/edit-shipping-form/EditShippingForm";
 import { Modal } from "styles/Modal/Modal";
-// import { useMutation } from "urql";
+import { useMutation } from "urql";
 
-import { ButtonAct } from "styles/commons";
+import { BtnIcon, ButtonAct } from "styles/commons";
 import {
   StyledCustomerDetailsWrapper,
   StyledInfoLabel,
@@ -14,30 +14,62 @@ import {
   StyledDeleteCustomerBtn,
 } from "components/customer/customer.styles";
 import { IShipping } from "types";
+import { CloseIcon } from "svgs";
+import { FormHeader, CloseFormIconWrapper } from "styles/Form/form.styles";
+
+const DeleteShippingModal = ({ customerId, shippingId, isOpen, onClose }) => {
+  const [deleteShippingResult, deleteShipping] = useMutation(
+    DeleteShippingMutation
+  );
+  const navigate = useNavigate();
+
+  const handleDeleteShipping = async () => {
+    const res = await deleteShipping({ id: parseInt(shippingId) });
+    console.log("[customer] res on delete: ", res);
+    if (res?.data?.deleteShipping) {
+      onClose();
+      navigate(`/customers/${customerId}/shippings`);
+    }
+  };
+
+  const { fetching, error } = deleteShippingResult;
+  console.log(
+    "[shipping-details] deleteShippingResult: ",
+    deleteShippingResult
+  );
+
+  if (fetching) return <p>Deleting ...</p>;
+  if (error) return <p>Error deleting shipping. {error.message}</p>;
+
+  return (
+    <Modal open={isOpen} full>
+      <CloseFormIconWrapper>
+        <BtnIcon type="button" onClick={onClose}>
+          <CloseIcon />
+        </BtnIcon>
+      </CloseFormIconWrapper>
+      <FormHeader>
+        <h3>Eliminar shipping</h3>
+      </FormHeader>
+
+      <p>¿Desea eliminar shipping instruction?</p>
+      <StyledDeleteCustomerBtn type="button" onClick={handleDeleteShipping}>
+        Eliminar
+      </StyledDeleteCustomerBtn>
+    </Modal>
+  );
+};
 
 export const ShippingDetails = () => {
   const [isEditModalOpen, setEditModalOpen] = useState(false);
   const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
-  // const [deleteStatus, deleteCustomer] = useMutation(DeleteCustomerMutation);
-  const navigate = useNavigate();
-  const params = useParams();
-  console.log("[shipping-details] params: ", params)
-  const [results] = useQuery<{shipping: IShipping}>({
-    query: GetShippingQuery,
-    variables: { id: parseInt(params?.shippingId) },
-  });
 
-  const handleDeleteCustomer = () => {
-    // deleteCustomer({ id: customerId })
-    //   .then((res) => {
-    //     console.log("[customer] res on delete: ", res);
-    //     navigate(`/customers`);
-    //   })
-    //   .catch((error) => {
-    //     console.log("Error updating customer: ", error);
-    //     setDeleteModalOpen(false);
-    //   });
-  };
+  const { shippingId } = useParams();
+  console.log("[shipping-details] params: ", shippingId);
+  const [results] = useQuery<{ shipping: IShipping }>({
+    query: GetShippingQuery,
+    variables: { id: parseInt(shippingId) },
+  });
 
   const { data, fetching, error } = results;
   if (fetching) return <p>Loading...</p>;
@@ -48,21 +80,20 @@ export const ShippingDetails = () => {
       </p>
     );
 
-  // console.log("deleting result: : ", deleteStatus);
   return (
     <StyledCustomerDetailsWrapper>
       <Modal open={isEditModalOpen} full>
-        {/* <EditCustomerForm
+        <EditShippingForm
           onClose={() => setEditModalOpen(false)}
-          customer={data?.customer}
-        /> */}
+          shipping={data?.shipping}
+        />
       </Modal>
-      <Modal open={isDeleteModalOpen}>
-        {/* <p>¿Desea eliminar {data?.customer?.name}?</p> */}
-        <StyledDeleteCustomerBtn type="button" onClick={handleDeleteCustomer}>
-          Eliminar
-        </StyledDeleteCustomerBtn>
-      </Modal>
+      <DeleteShippingModal
+        isOpen={isDeleteModalOpen}
+        onClose={() => setDeleteModalOpen(false)}
+        shippingId={shippingId}
+        customerId={data?.shipping?.customerId}
+      />
       <StyledInfoLabel>
         <label>Consignee</label>
         <span>{data?.shipping?.consignee}</span>
