@@ -2,7 +2,11 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { createClient, Provider, cacheExchange, fetchExchange } from "urql";
+// import { authExchange } from "@urql/exchange-auth";
 import Root from "routes/root";
+import { Home } from "components/landing-page/Home";
+import { SignUp } from "components/landing-page/SignUp";
+import { SignIn } from "components/landing-page/SignIn";
 import Dashboard from "components/dashboard/Dashboard";
 import Settings from "components/settings-page/Settings";
 import Customer from "components/customer/Customer";
@@ -10,13 +14,30 @@ import { CustomerPage } from "components/customer/screens/CustomerPage";
 import { CustomerDetails } from "components/customer/screens/customer-details/CustomerDetails";
 import { Shippings } from "components/customer/shippings/Shippings";
 import { ShippingList } from "components/customer/shippings/Shippings";
-import { ShippingDetails } from "components/customer/shippings/screens/shipping-details/ShippingDetails"
+import { ShippingDetails } from "components/customer/shippings/screens/shipping-details/ShippingDetails";
 
 import "./index.css";
 
 const client = createClient({
   url: import.meta.env.VITE_API_URL || "http://localhost:4000/graphql",
-  exchanges: [cacheExchange, fetchExchange],
+  exchanges: [
+    cacheExchange,
+    // authExchange(async (utils) => {
+    //   let token = await AsyncStorage.getItem(TOKEN_KEY);
+    //   let refreshToken = await AyncStorage.getItem(REFRESH_KEY);
+
+    //   return {
+    //     addAuthToOperation(operation) {
+    //       if (!token) return operation;
+    //       return utils.appendHeaders(operation, {
+    //         Authorization: `Bearer ${token}`,
+    //       });
+    //     },
+    //     // ...
+    //   };
+    // }),
+    fetchExchange,
+  ],
 });
 
 const router = createBrowserRouter([
@@ -24,6 +45,18 @@ const router = createBrowserRouter([
     path: "/",
     element: <Root />,
     children: [
+      {
+        index: true,
+        element: <Home />,
+      },
+      {
+        path: "/signup",
+        element: <SignUp />,
+      },
+      {
+        path: "/signin",
+        element: <SignIn />,
+      },
       { path: "/dashboard", element: <Dashboard /> },
       {
         path: "/customers",
