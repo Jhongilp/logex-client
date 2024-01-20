@@ -30,7 +30,8 @@ export type StateType = {
   settings: ISettingsReducer;
 };
 
-export type ExpoList = { [expoId: string]: IExpo };
+// export type ExpoList = { [expoId: string]: IExpo };
+export type ExpoList = IExpo[];
 export type CustomerList = { [customerId: string]: ICliente };
 export type ShippingList = { [shippingId: string]: IShipping };
 

@@ -1,4 +1,4 @@
-import { StepList } from 'types/stepper-type/stepper.types';
+import { StepList } from "types/stepper-type/stepper.types";
 
 export enum ExpoStatusNumber {
   PrevioCargue = 1,
@@ -99,7 +99,7 @@ export enum SailingPortOptions {
   SPRCTG,
   CONTECAR,
   AGUA_DULCE,
-};
+}
 
 export enum OriginCityOptions {
   BOGOTA,
@@ -182,8 +182,7 @@ export interface ISupplier {
   alias: string;
   createdAt: number;
 }
-export type SupplierList = ISupplier[]
-
+export type SupplierList = ISupplier[];
 
 export interface IShipping {
   id: number;
@@ -223,11 +222,11 @@ export interface IContainer {
   indicadores?: IIndicador[];
   liquidacion?: ILiquidacion;
   // index: number,
-  createdAt: number,
+  createdAt: number;
   // [key: string]: string | boolean | number | undefined | ISello;
 }
 
-export type ContainerList = {[key: string]: IContainer};
+export type ContainerList = { [key: string]: IContainer };
 export type ContainerListArray = IContainer[];
 
 export interface IReserva {
@@ -239,7 +238,7 @@ export interface IReserva {
   ciudad_puerto_zarpe?: ISealingCity;
   puerto_zarpe: IPuertoZarpe;
   destination_country: string;
-  destination_city: string;  
+  destination_city: string;
   booking_number: string;
   documento_transporte_id: string;
   name_motonave?: string;
@@ -257,8 +256,8 @@ export enum ProgressStatus {
   "Sin iniciar" = "Sin iniciar",
   "En curso" = "En curso",
   "En espera" = "En espera",
-  "Retrasado" = "Retrasado", 
-  "Completado" = "Completado"
+  "Retrasado" = "Retrasado",
+  "Completado" = "Completado",
 }
 
 export interface IExpoActivitiesSettings {
@@ -274,32 +273,35 @@ export interface IExpoActivitiesSettings {
   // [key: string]: string | boolean | undefined | ProgressStatus | Date;
 }
 
-export type ExpoActivityList = IExpoActivitiesSettings[]
+export type ExpoActivityList = IExpoActivitiesSettings[];
 
 export interface IExpo {
   consecutivo: string;
-  customer_name: string;
-  destination_country?: string;
-  puerto_destino?: string;
-  transport_mode: ModoTransporte;
-  customer_id: string;
-  booking?: IReserva;
-  selected_shipping?: string;
-  // status: ExpoStatusNumber;
   status: ExpoStatus;
   globalProgress: number;
-  stagesProgress: StepList;
-  todo_list: ExpoActivityList;
-  containers?: ContainerList;
   indicatator_month?: Month;
   oc?: string;
-  documentos?: string[];
-  indicadores?: string[];
-  liquidaciones?: string[];
-  fecha_envio_documentos?: string;
-  docs_tracking_id?: string;
-  observaciones?: string[];
   createdAt: number;
+  shipping: IShipping;
+  customer: {
+    name: string;
+  };
+  // customer_name: string;
+  // destination_country?: string;
+  // puerto_destino?: string;
+  // transport_mode: ModoTransporte;
+  // customer_id: string;
+  // booking?: IReserva;
+  // selected_shipping?: string;
+  // stagesProgress: StepList;
+  // todo_list: ExpoActivityList;
+  // containers?: ContainerList;
+  // documentos?: string[];
+  // indicadores?: string[];
+  // liquidaciones?: string[];
+  // fecha_envio_documentos?: string;
+  // docs_tracking_id?: string;
+  // observaciones?: string[];
 }
 
 export interface IVehiculo {
@@ -322,7 +324,7 @@ export interface IDriver {
 export enum RoleName {
   ADMIN,
   COORD,
-  AUX
+  AUX,
 }
 
 export interface IUser {

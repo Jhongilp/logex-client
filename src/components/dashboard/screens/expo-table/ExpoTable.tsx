@@ -56,18 +56,19 @@ const Header = () => {
 };
 
 const ExpoItem: FunctionComponent<ExpoItemProps> = ({ expo }) => {
-  const {
-    consecutivo,
-    customer_name,
-    destination_country,
-    puerto_destino,
-    status,
-    booking,
-    globalProgress
-  } = expo;
+  // const {
+  //   consecutivo,
+  //   customer_name,
+  //   destination_country,
+  //   puerto_destino,
+  //   status,
+  //   booking,
+  //   globalProgress
+  // } = expo;
+  const consecutivo = expo?.consecutivo;
 
-  const { broker, shipping_company, ciudad_puerto_zarpe, puerto_zarpe } =
-    booking ?? {};
+  // const { broker, shipping_company, ciudad_puerto_zarpe, puerto_zarpe } =
+  //   booking ?? {};
   return (
     <Row>
       <td>
@@ -76,35 +77,41 @@ const ExpoItem: FunctionComponent<ExpoItemProps> = ({ expo }) => {
             <Link to={`/expo/${consecutivo}`}>{consecutivo}</Link>
           </span>
           <span className="lower">
-            {`${
+            Pending / Pending
+            {/* {`${
               ciudad_puerto_zarpe?.alias
                 ? `${ciudad_puerto_zarpe?.alias} / `
                 : ""
             }`}
-            {puerto_zarpe?.alias}
+            {puerto_zarpe?.alias} */}
           </span>
         </Cell>
       </td>
       <td>
         <Cell>
-          <span className="upper">{customer_name}</span>
+          {/* <span className="upper">{customer_name}</span> */}
+          <span className="upper">{expo?.customer?.name}</span>
           <span className="lower">
-            {destination_country} - {puerto_destino}
+            {/* {destination_country} - {puerto_destino} */}
+            {expo?.shipping?.country} - {expo?.shipping?.city}
           </span>
         </Cell>
       </td>
       <td>
         <Cell>
-          <span className="upper">{booking?.booking_number}</span>
+          {/* <span className="upper">{booking?.booking_number}</span> */}
+          <span className="upper">{0}</span>
           <span className="lower">
-            {`${shipping_company ? `${shipping_company} / ` : ""}`}
-            {broker}
+            {/* {`${shipping_company ? `${shipping_company} / ` : ""}`}
+            {broker} */}
+            Pending / Pending
           </span>
         </Cell>
       </td>
       <td>
         <Cell>
-          <Status status={status} globalProgress={globalProgress}/>
+          {/* <Status status={status} globalProgress={globalProgress}/> */}
+          <Status status={expo?.status} globalProgress={expo?.globalProgress}/>
         </Cell>
       </td>
     </Row>
@@ -114,8 +121,9 @@ const ExpoItem: FunctionComponent<ExpoItemProps> = ({ expo }) => {
 const Body: FunctionComponent<TableExpoProps> = ({ exportaciones }) => {
   return (
     <TableBody>
-      {Object.keys(exportaciones).map((expoId) => (
-        <ExpoItem key={expoId} expo={exportaciones[expoId]} />
+      {/* {Object.keys(exportaciones).map((expoId) => ( */}
+      {exportaciones?.map((expo) => (
+        <ExpoItem key={expo.consecutivo} expo={expo} />
       ))}
     </TableBody>
   );

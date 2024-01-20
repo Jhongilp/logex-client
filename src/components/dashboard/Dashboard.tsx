@@ -1,5 +1,7 @@
 import { useState } from "react";
 import styled from "styled-components";
+import { useQuery } from "urql";
+import { GetExposQuery } from "api";
 // import { useSelector } from "react-redux";
 
 import ExpoTable from "components/dashboard/screens/expo-table/ExpoTable";
@@ -15,12 +17,17 @@ const Content = styled(StyledContent)`
 type DashboardView = "resume" | "table";
 
 const Dashboard = () => {
+  const [results] = useQuery<{expos: ExpoList}>({
+    query: GetExposQuery,
+    variables: { userId: "8009653658" },
+  });
+
   const [view, setView] = useState<DashboardView>("resume");
   // const exportaciones: ExpoList = useSelector(
   //   (state: StateType) => state.exportaciones
   // );
-  const exportaciones: ExpoList = [];
-
+  const exportaciones: ExpoList = results?.data?.expos;
+  console.log("[exportaciones] ", exportaciones)
   return (
     <StyledMain>
       {/* <DashboardControls
