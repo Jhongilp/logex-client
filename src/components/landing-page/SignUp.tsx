@@ -39,6 +39,9 @@ export const SignUp = () => {
         role: RoleName.ADMIN,
       };
 
+      // TODO pendiente agregar al formulario el país y ciudad de la empresa.
+      // En la base de datos, crear Company y Usuario al mismo tiempo
+
       const { data, error } = await supabase.auth.signUp({
         email: user.email,
         password: formData.password1,
@@ -49,21 +52,6 @@ export const SignUp = () => {
         },
       });
       console.log("[signup] data: ", data, error);
-      // auth
-      //   .createUserWithEmailAndPassword(formData.email, formData.password1)
-      //   .then((userData) => {
-      //     if (userData.user?.uid) {
-      //       createUser(userData.user.uid, user).then(() => {
-      //         console.log("user created: ", userData.user?.uid);
-      //         loadSettings(user.company_id);
-      //         // loadExpoSettings(user.company_id);
-      //       });
-      //     }
-      //     // history.push(routes.DASHBOARD);
-      //   })
-      //   .catch((error) => {
-      //     console.log(error);
-      //   });
     }
   };
 
