@@ -327,15 +327,22 @@ export enum RoleName {
   AUX,
 }
 
+export interface ICompany {
+  nit: string;
+  name: string;
+  country: string;
+  city: string;
+}
+
 export interface IUser {
-  email: string;
+  id: string;
   first_name: string;
   second_name: string;
   first_lastname: string;
   second_lastname: string;
-  company_name: string;
-  company_id: string;
+  email: string;
   role: RoleName;
+  company: ICompany;
 }
 
 export interface IUserInput extends IUser {
