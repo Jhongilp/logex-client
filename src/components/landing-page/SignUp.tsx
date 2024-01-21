@@ -1,6 +1,6 @@
 import { supabase } from "api";
 
-import { IUser, RoleName } from "types";
+import { ICompany, IUser, RoleName } from "types";
 
 import {
   SignUpForm,
@@ -28,15 +28,22 @@ export const SignUp = () => {
     );
 
     if (formData.password1 && formData.password1 === formData.password2) {
+      const company: ICompany = {
+        nit: formData.company_id,
+        name: formData.company_name,
+        country: formData.country,
+        city: formData.city,
+      };
+
       const user: IUser = {
+        id: "",
         email: formData.email,
-        company_id: formData.company_id,
-        company_name: formData.company_name,
         first_name: formData.company_name,
         second_name: formData.second_name,
         first_lastname: formData.first_lastname,
         second_lastname: formData.second_lastname,
         role: RoleName.ADMIN,
+        company,
       };
 
       // TODO pendiente agregar al formulario el país y ciudad de la empresa.
@@ -52,6 +59,8 @@ export const SignUp = () => {
         },
       });
       console.log("[signup] data: ", data, error);
+      // create user with the id provided by Auth
+      
     }
   };
 
@@ -65,6 +74,14 @@ export const SignUp = () => {
         <div className="form-field user-company_id">
           <label>Nit de la empresa</label>
           <input required name="company_id"></input>
+        </div>
+        <div className="form-field">
+          <label>Country</label>
+          <input required name="country"></input>
+        </div>
+        <div className="form-field ">
+          <label>Ciudad</label>
+          <input required name="city"></input>
         </div>
         <div className="form-field user-first_name">
           <label>Primer nombre</label>
