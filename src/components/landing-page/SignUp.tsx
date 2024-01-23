@@ -1,6 +1,7 @@
 import { supabase } from "api";
-
 import { ICompany, IUser, RoleName } from "types";
+import { useMutation } from "urql";
+import { CreateUserMutation } from "api";
 
 import {
   SignUpForm,
@@ -11,6 +12,7 @@ import { FormCommands } from "styles/Form/form.styles";
 import { ButtonAct } from "styles/commons";
 
 export const SignUp = () => {
+  const [, createUser] = useMutation(CreateUserMutation);
   const onCreateUser = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const elementsArr = Array.from(e.currentTarget.elements) as (
@@ -38,7 +40,7 @@ export const SignUp = () => {
       const user: IUser = {
         id: "",
         email: formData.email,
-        first_name: formData.company_name,
+        first_name: formData.first_name,
         second_name: formData.second_name,
         first_lastname: formData.first_lastname,
         second_lastname: formData.second_lastname,
@@ -46,21 +48,29 @@ export const SignUp = () => {
         company,
       };
 
-      // TODO pendiente agregar al formulario el país y ciudad de la empresa.
-      // En la base de datos, crear Company y Usuario al mismo tiempo
-
-      const { data, error } = await supabase.auth.signUp({
-        email: user.email,
-        password: formData.password1,
-        options: {
-          data: {
-            ...user,
+      try {
+        const { data, error } = await supabase.auth.signUp({
+          email: user.email,
+          password: formData.password1,
+          options: {
+            data: {
+              ...user,
+            },
           },
-        },
-      });
-      console.log("[signup] data: ", data, error);
-      // create user with the id provided by Auth
-      
+        });
+
+        if (error) throw error;
+
+        console.log("[signup] data: ", data, error);
+        user.id = data.user.id;
+        const userCreated = await createUser({ input: user });
+        console.log("[signup] res on create user: ", userCreated);
+      } catch (error) {
+        console.error(
+          "[signup] error creating user: ",
+          error instanceof Error ? error.message : error
+        );
+      }
     }
   };
 
