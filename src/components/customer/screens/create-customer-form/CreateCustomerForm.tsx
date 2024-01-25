@@ -47,12 +47,11 @@ export const CreateCustomerForm = ({ onClose }: CreateCustomerProps) => {
 
   const onCreateCustomer = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const data: Omit<ICliente, "id"> & { userId: string } = {
+    const data: Omit<ICliente, "id"> = {
       name,
       country,
       city,
       address,
-      userId: "8009653658",
     };
     createCustomer({ input: data })
       .then((res) => {

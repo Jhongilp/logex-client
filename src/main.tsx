@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { createClient, Provider, cacheExchange, fetchExchange } from "urql";
-// import { authExchange } from "@urql/exchange-auth";
+import { authExchange } from "@urql/exchange-auth";
 import Root from "routes/root";
 import { Home } from "components/landing-page/Home";
 import { SignUp } from "components/landing-page/SignUp";
@@ -22,20 +22,35 @@ const client = createClient({
   url: import.meta.env.VITE_API_URL || "http://localhost:4000/graphql",
   exchanges: [
     cacheExchange,
-    // authExchange(async (utils) => {
-    //   let token = await AsyncStorage.getItem(TOKEN_KEY);
-    //   let refreshToken = await AyncStorage.getItem(REFRESH_KEY);
-
-    //   return {
-    //     addAuthToOperation(operation) {
-    //       if (!token) return operation;
-    //       return utils.appendHeaders(operation, {
-    //         Authorization: `Bearer ${token}`,
-    //       });
-    //     },
-    //     // ...
-    //   };
-    // }),
+    authExchange(async (utils) => {
+      const localSession = localStorage.getItem(
+        "sb-edmyrapaqwyonmwrazea-auth-token"
+      );
+      const token = JSON.parse(localSession)?.access_token;
+      console.log("[auth exchange] token: ", token);
+      return {
+        addAuthToOperation(operation) {
+          if (!token) return operation;
+          return utils.appendHeaders(operation, {
+            Authorization: `Bearer ${token}`,
+          });
+        },
+        didAuthError(error) {
+          return error.graphQLErrors.some(
+            (e) => e.extensions?.code === "FORBIDDEN"
+          );
+        },
+        async refreshAuth() {
+          // const result = await utils.mutate(REFRESH, { token });
+          // if (result.data?.refreshLogin) {
+          //   token = result.data.refreshLogin.token;
+          //   refreshToken = result.data.refreshLogin.refreshToken;
+          //   localStorage.setItem('token', token);
+          //   localStorage.setItem('refreshToken', refreshToken);
+          // }
+        },
+      };
+    }),
     fetchExchange,
   ],
 });
