@@ -1,8 +1,7 @@
-import React from "react";
-// import { useDispatch } from 'react-redux'
-import styled from "styled-components"
-// import { signOut } from '../../firebase/auth'
-// import { useHistory } from 'react-router-dom'
+import { supabase } from "api";
+import { useNavigate } from "react-router-dom";
+
+import styled from "styled-components";
 
 const StyledHeader = styled.header`
   display: flex;
@@ -19,23 +18,28 @@ const StyledHeader = styled.header`
 `;
 
 const Header = () => {
-  // let history = useHistory();
-  // const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   return (
     <StyledHeader>
       <h1>LOGEX APP</h1>
       <div>
         <div>
-          <button type="button" onClick={() => {
-            // signOut();
-            // dispatch({type: 'USER_LOGOUT'})
-            // history.push("/")
-          }}>Logout</button>
+          <button
+            type="button"
+            onClick={async () => {
+              const { error } = await supabase.auth.signOut();
+              if (!error) {
+                navigate("/");
+              }
+            }}
+          >
+            Logout
+          </button>
         </div>
       </div>
     </StyledHeader>
   );
-}
-
+};
 
 export default Header;
