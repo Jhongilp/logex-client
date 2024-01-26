@@ -1,4 +1,5 @@
 import { supabase } from "api";
+import { useNavigate } from "react-router-dom";
 import { ICompany, IUser, RoleName } from "types";
 import { useMutation } from "urql";
 import { CreateUserMutation } from "api";
@@ -13,6 +14,8 @@ import { ButtonAct } from "styles/commons";
 
 export const SignUp = () => {
   const [, createUser] = useMutation(CreateUserMutation);
+  const navigate = useNavigate();
+
   const onCreateUser = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const elementsArr = Array.from(e.currentTarget.elements) as (
@@ -65,6 +68,7 @@ export const SignUp = () => {
         user.id = data.user.id;
         const userCreated = await createUser({ input: user });
         console.log("[signup] res on create user: ", userCreated);
+        navigate(`/dashboard`);
       } catch (error) {
         console.error(
           "[signup] error creating user: ",
