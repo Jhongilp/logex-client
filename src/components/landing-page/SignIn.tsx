@@ -1,8 +1,5 @@
 import { supabase } from "api";
 import { useNavigate } from "react-router-dom";
-import { ICompany, IUser, RoleName } from "types";
-import { useMutation } from "urql";
-import { CreateUserMutation } from "api";
 
 import {
   SignUpForm,
@@ -13,7 +10,6 @@ import { FormCommands } from "styles/Form/form.styles";
 import { ButtonAct } from "styles/commons";
 
 export const SignIn = () => {
-  const [, createUser] = useMutation(CreateUserMutation);
   const navigate = useNavigate();
 
   const onCreateUser = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -32,46 +28,20 @@ export const SignIn = () => {
       {}
     );
 
-    if (formData.password1 && formData.password1 === formData.password2) {
-      const company: ICompany = {
-        nit: formData.company_id,
-        name: formData.company_name,
-        country: formData.country,
-        city: formData.city,
-      };
-
-      const user: IUser = {
-        id: "",
-        email: formData.email,
-        first_name: formData.first_name,
-        second_name: formData.second_name,
-        first_lastname: formData.first_lastname,
-        second_lastname: formData.second_lastname,
-        role: RoleName.ADMIN,
-        company,
-      };
-
+    if (formData.email && formData.password1) {
       try {
-        const { data, error } = await supabase.auth.signUp({
-          email: user.email,
+        const { data, error } = await supabase.auth.signInWithPassword({
+          email: formData.email,
           password: formData.password1,
-          options: {
-            data: {
-              ...user,
-            },
-          },
         });
 
         if (error) throw error;
 
-        console.log("[signup] data: ", data, error);
-        user.id = data.user.id;
-        const userCreated = await createUser({ input: user });
-        console.log("[signup] res on create user: ", userCreated);
+        console.log("[signin] data: ", data, error);
         navigate(`/dashboard`);
       } catch (error) {
         console.error(
-          "[signup] error creating user: ",
+          "[signup] error signing in: ",
           error instanceof Error ? error.message : error
         );
       }
