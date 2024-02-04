@@ -30,14 +30,12 @@ export const SignIn = () => {
 
     if (formData.email && formData.password1) {
       try {
-        const { data, error } = await supabase.auth.signInWithPassword({
+        const { error } = await supabase.auth.signInWithPassword({
           email: formData.email,
           password: formData.password1,
         });
 
         if (error) throw error;
-
-        console.log("[signin] data: ", data, error);
         navigate(`/dashboard`);
       } catch (error) {
         console.error(

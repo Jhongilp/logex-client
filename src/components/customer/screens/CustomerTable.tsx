@@ -49,7 +49,6 @@ export const CustomerTable = () => {
   const { data, fetching, error } = results;
 
   const handleClickOnCustumer = (customerId) => {
-    console.log("click on customer id: ", customerId);
     navigate(`/customers/${customerId}/info`);
   };
 

@@ -40,7 +40,7 @@ const columns: IColumn<IShipping>[] = [
   },
 ];
 
-export const ShippingsTable = ({ customerId }: { customerId: number }) => {
+export const ShippingsTable = ({ customerId }: { customerId: string }) => {
   const navigate = useNavigate();
   const [results] = useQuery<{ shippings: IShipping[] }>({
     query: ShippingsQuery,
@@ -50,7 +50,6 @@ export const ShippingsTable = ({ customerId }: { customerId: number }) => {
   const { data, fetching, error } = results;
 
   const handleClickOnShipping = (shippingId) => {
-    console.log("click on shipping id: ", shippingId);
     navigate(`/customers/${customerId}/shippings/${shippingId}`);
   };
 

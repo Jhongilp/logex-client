@@ -1,4 +1,4 @@
-import { StepList } from "types/stepper-type/stepper.types";
+// import { StepList } from "types/stepper-type/stepper.types";
 
 export enum ExpoStatusNumber {
   PrevioCargue = 1,
@@ -65,7 +65,7 @@ interface IInspeccion {}
 interface ISello {}
 interface IIndicador {}
 interface ILiquidacion {}
-interface IDocument {}
+// interface IDocument {}
 
 export interface IBroker {
   id: string;
@@ -196,7 +196,7 @@ export interface IShipping {
   email: string;
   phone: string;
   obs: string;
-  customerId: number;
+  customerId: string;
   // ciudad_puerto_zarpe?: ISealingCity;
   ciudad_puerto_zarpe?: OriginCityOptions;
   puerto_zarpe?: SailingPortOptions;

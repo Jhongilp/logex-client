@@ -63,8 +63,6 @@ export const SignUp = () => {
         });
 
         if (error) throw error;
-
-        console.log("[signup] data: ", data, error);
         user.id = data.user.id;
         const userCreated = await createUser({ input: user });
         console.log("[signup] res on create user: ", userCreated);
