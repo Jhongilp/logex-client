@@ -27,7 +27,6 @@ const client = createClient({
         "sb-edmyrapaqwyonmwrazea-auth-token"
       );
       const token = JSON.parse(localSession)?.access_token;
-      console.log("[auth exchange] token: ", token);
       return {
         addAuthToOperation(operation) {
           if (!token) return operation;
@@ -40,15 +39,7 @@ const client = createClient({
             (e) => e.extensions?.code === "FORBIDDEN"
           );
         },
-        async refreshAuth() {
-          // const result = await utils.mutate(REFRESH, { token });
-          // if (result.data?.refreshLogin) {
-          //   token = result.data.refreshLogin.token;
-          //   refreshToken = result.data.refreshLogin.refreshToken;
-          //   localStorage.setItem('token', token);
-          //   localStorage.setItem('refreshToken', refreshToken);
-          // }
-        },
+        async refreshAuth() {},
       };
     }),
     fetchExchange,
