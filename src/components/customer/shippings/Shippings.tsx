@@ -23,7 +23,7 @@ export const ShippingList = () => {
       <Modal open={isOpen} full>
         <CreateShippingForm
           onClose={() => setOpen(false)}
-          customerId={parseInt(customerId)}
+          customerId={customerId}
         />
       </Modal>
       <ButtonActionIcon
@@ -34,7 +34,7 @@ export const ShippingList = () => {
         <AddIcon />
         <span>SHIPPING</span>
       </ButtonActionIcon>
-      <ShippingsTable customerId={parseInt(customerId)} />
+      <ShippingsTable customerId={customerId} />
     </>
   );
 };

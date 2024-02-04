@@ -21,10 +21,9 @@ export const CustomerDetails = () => {
   const [, deleteCustomer] = useMutation(DeleteCustomerMutation);
   const navigate = useNavigate();
   const { customerId } = useParams();
-
   const [results] = useQuery({
     query: GetCustomerQuery,
-    variables: { id: parseInt(customerId) },
+    variables: { id: customerId },
   });
 
   const handleDeleteCustomer = () => {

@@ -75,7 +75,7 @@ export type CustomerParams = {
 };
 
 export type CreateShippingProps = {
-  customerId: number;
+  customerId: string;
   onClose: () => void;
 };
 

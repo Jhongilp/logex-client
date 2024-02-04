@@ -12,10 +12,10 @@ import {
 
 export const CustomerPage = () => {
   const { customerId } = useParams();
-
+  // console.log("[customer page] id: ", customerId);
   const [results] = useQuery({
     query: GetCustomerQuery,
-    variables: { id: parseInt(customerId) },
+    variables: { id: customerId },
   });
 
   const { data } = results;
