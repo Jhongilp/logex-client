@@ -1,6 +1,4 @@
 import { useState, useEffect } from "react";
-// import { Auth } from "@supabase/auth-ui-react";
-// import { ThemeSupa } from "@supabase/auth-ui-shared";
 import { LandingPage } from "components/landing-page/LandingPage";
 import { supabase } from "api";
 
@@ -8,6 +6,7 @@ import { Outlet } from "react-router-dom";
 import styled from "styled-components";
 import Header from "components/header/Header";
 import Sidebar from "components/sidebar/Sidebar";
+import { Toaster } from "react-hot-toast";
 
 import { GlobalStyles } from "styles/global";
 
@@ -44,12 +43,6 @@ export default function Root() {
     return () => subscription.unsubscribe();
   }, []);
 
-  console.log("[root] session: ", session);
-
-  // if (!session) {
-  //   return <Auth supabaseClient={supabase} appearance={{ theme: ThemeSupa }} />;
-  // }
-
   return (
     <Wrapper>
       <GlobalStyles />
@@ -59,6 +52,7 @@ export default function Root() {
         <>
           <Header />
           <Main>
+            <Toaster />
             <Sidebar />
             <Outlet />
           </Main>

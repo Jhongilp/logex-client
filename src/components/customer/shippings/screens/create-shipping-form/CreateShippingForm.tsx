@@ -1,3 +1,5 @@
+import toast from "react-hot-toast";
+
 import { CreateShippingProps } from "types/props.types";
 import { BtnIcon, ButtonAct } from "styles/commons";
 import {
@@ -45,17 +47,28 @@ export const CreateShippingForm = ({
       email: formData.email,
       phone: formData.phone,
       obs: formData.obs,
-      customerId
+      customerId,
     };
 
-    createShipping({ input: shipping })
-      .then((res) => {
-        console.log("[shipping] res on create: ", res);
-        onClose();
-      })
-      .catch((error) => {
-        console.log("Error creating new shipping: ", error);
-      });
+    toast.promise(
+      createShipping({ input: shipping })
+        .then((res) => {
+          console.log("[shipping] res on create: ", res);
+          if (res.error) {
+            throw res.error;
+          }
+          onClose();
+        })
+        .catch((error) => {
+          toast.success;
+          console.log("Error creating new shipping: ", error);
+        }),
+      {
+        loading: "Creating shipping",
+        success: "Shipping creada con éxito",
+        error: "Error creando Shipping",
+      }
+    );
   };
 
   return (
