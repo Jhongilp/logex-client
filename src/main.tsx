@@ -1,7 +1,13 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { createClient, Provider, cacheExchange, fetchExchange } from "urql";
+import {
+  createClient,
+  Provider,
+  cacheExchange,
+  fetchExchange,
+  subscriptionExchange,
+} from "urql";
 import { authExchange } from "@urql/exchange-auth";
 import Root from "routes/root";
 import { Home } from "components/landing-page/Home";
@@ -15,11 +21,18 @@ import { CustomerDetails } from "components/customer/screens/customer-details/Cu
 import { Shippings } from "components/customer/shippings/Shippings";
 import { ShippingList } from "components/customer/shippings/Shippings";
 import { ShippingDetails } from "components/customer/shippings/screens/shipping-details/ShippingDetails";
+import { createClient as createSSEClient } from "graphql-sse";
 
 import "./index.css";
 
+const sseClient = createSSEClient({
+  url: "http://localhost:4000/graphql",
+  // url: "http://its.urql:4000/graphql",
+});
+
 const client = createClient({
-  url: import.meta.env.VITE_API_URL || "http://localhost:4000/graphql",
+  url: "http://localhost:4000/graphql",
+  // url: "/graphql/stream",
   exchanges: [
     cacheExchange,
     authExchange(async (utils) => {
@@ -43,6 +56,18 @@ const client = createClient({
       };
     }),
     fetchExchange,
+    subscriptionExchange({
+      forwardSubscription(operation) {
+        return {
+          subscribe: (sink) => {
+            const dispose = sseClient.subscribe(operation, sink);
+            return {
+              unsubscribe: dispose,
+            };
+          },
+        };
+      },
+    }),
   ],
 });
 

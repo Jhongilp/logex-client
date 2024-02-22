@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import { useQuery } from "urql";
+import { useQuery, useSubscription } from "urql";
 import { CustomerQuery } from "api/customer.api";
 import { ICliente } from "types";
 import { PropertyType, IColumn } from "types/table-type/table.types";
@@ -40,8 +40,29 @@ const columns: IColumn<ICliente>[] = [
   },
 ];
 
+const onCustomerUpdates = `
+  subscription {
+    customers {
+      id
+      name
+      country
+      shippings {
+        id
+        consignee
+      }
+    }
+  }
+`;
+
+const handleSubscription = (customers = [], response) => {
+  console.log("[customers] subs result: ", response)
+  return [response?.customers, ...customers];
+};
+
 export const CustomerTable = () => {
   const navigate = useNavigate();
+  const [res] = useSubscription({ query: onCustomerUpdates }, handleSubscription);
+  console.log("[customers][render] subs result: ", res)
   const [results] = useQuery({
     query: CustomerQuery,
   });
@@ -55,6 +76,7 @@ export const CustomerTable = () => {
   if (fetching) return <p>Loading...</p>;
   if (error) return <p>Oh no... {error.message}</p>;
 
+  console.log("[customers] ", data?.customers);
   return (
     <Wrapper>
       <Table
