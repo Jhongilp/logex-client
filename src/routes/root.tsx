@@ -7,6 +7,7 @@ import styled from "styled-components";
 import Header from "components/header/Header";
 import Sidebar from "components/sidebar/Sidebar";
 import { Toaster } from "react-hot-toast";
+import { useInitializeSubscriptions } from "hooks";
 
 import { GlobalStyles } from "styles/global";
 
@@ -25,6 +26,21 @@ const Main = styled.div`
   background-color: #f6f7f9;
   height: 100%;
 `;
+
+const App = () => {
+  useInitializeSubscriptions();
+
+  return (
+    <>
+      <Header />
+      <Main>
+        <Toaster />
+        <Sidebar />
+        <Outlet />
+      </Main>
+    </>
+  );
+};
 
 export default function Root() {
   const [session, setSession] = useState(null);
@@ -47,18 +63,7 @@ export default function Root() {
   return (
     <Wrapper>
       <GlobalStyles />
-      {!session ? (
-        <LandingPage />
-      ) : (
-        <>
-          <Header />
-          <Main>
-            <Toaster />
-            <Sidebar />
-            <Outlet />
-          </Main>
-        </>
-      )}
+      {!session ? <LandingPage /> : <App />}
     </Wrapper>
   );
 }
