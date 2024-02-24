@@ -1,10 +1,11 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import { useQuery, useSubscription } from "urql";
+import { useQuery } from "urql";
 import { CustomerQuery } from "api/customer.api";
 import { ICliente } from "types";
 import { PropertyType, IColumn } from "types/table-type/table.types";
 import Table from "components/table/Table";
+import { useAppSelector } from "hooks/store.hooks";
 
 const Wrapper = styled.div`
   display: flex;
@@ -40,34 +41,14 @@ const columns: IColumn<ICliente>[] = [
   },
 ];
 
-const onCustomerUpdates = `
-  subscription {
-    customers {
-      id
-      name
-      country
-      shippings {
-        id
-        consignee
-      }
-    }
-  }
-`;
-
-const handleSubscription = (customers = [], response) => {
-  console.log("[customers] subs result: ", response)
-  return [response?.customers, ...customers];
-};
-
 export const CustomerTable = () => {
+  const customers = useAppSelector((state) => state.customers);
   const navigate = useNavigate();
-  const [res] = useSubscription({ query: onCustomerUpdates }, handleSubscription);
-  console.log("[customers][render] subs result: ", res)
-  const [results] = useQuery({
+  const [results] = useQuery<{ customers: ICliente[] }>({
     query: CustomerQuery,
   });
 
-  const { data, fetching, error } = results;
+  const { fetching, error } = results;
 
   const handleClickOnCustumer = (customerId) => {
     navigate(`/customers/${customerId}/info`);
@@ -76,13 +57,13 @@ export const CustomerTable = () => {
   if (fetching) return <p>Loading...</p>;
   if (error) return <p>Oh no... {error.message}</p>;
 
-  console.log("[customers] ", data?.customers);
+  console.log("[customers] from store:", customers);
   return (
     <Wrapper>
       <Table
         tableName="customers_table"
         columns={columns}
-        rows={data?.customers}
+        rows={customers || []}
         rowsClickable
         onRowClick={handleClickOnCustumer}
         controlsOmitted
