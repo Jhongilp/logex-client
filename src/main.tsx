@@ -1,6 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import { Provider as ReduxProvider } from "react-redux";
+import { store } from "store";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+
 import {
   createClient,
   Provider,
@@ -60,6 +63,7 @@ const client = createClient({
       forwardSubscription(operation) {
         return {
           subscribe: (sink) => {
+            // @ts-expect-error it works
             const dispose = sseClient.subscribe(operation, sink);
             return {
               unsubscribe: dispose,
@@ -152,8 +156,10 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <Provider value={client}>
-      <RouterProvider router={router} />
-    </Provider>
+    <ReduxProvider store={store}>
+      <Provider value={client}>
+        <RouterProvider router={router} />
+      </Provider>
+    </ReduxProvider>
   </React.StrictMode>
 );
