@@ -139,3 +139,18 @@ export const DeleteShippingMutation = gql`
     }
   }
 `;
+
+
+// Subscriptions
+
+export const onCustomerUpdates = `
+  subscription {
+    customers {
+      id
+      name
+      country
+      city
+      address
+    }
+  }
+`;
