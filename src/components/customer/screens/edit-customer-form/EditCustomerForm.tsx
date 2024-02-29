@@ -38,10 +38,10 @@ export const EditCustomerForm = ({
   onClose,
   customer,
 }: CreateCustomerProps) => {
-  const [, updateCustomer] = useMutation(UpdateCustomerMutation);
+  const [, updateCustomer] = useMutation(UpdateCustomerMutation); 
   const [error, setError] = useState(false);
 
-  const onCreateCustomer = (e: React.FormEvent<HTMLFormElement>) => {
+  const onUpdateCustomer = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const dataForm = new FormData(e.currentTarget);
     const data: Partial<ICliente & { userId: string }> = {};
@@ -49,7 +49,6 @@ export const EditCustomerForm = ({
       data[key] = value;
     }
     data.id = customer?.id;
-    data.userId = "8009653658";
 
     updateCustomer({ input: data })
       .then((res) => {
@@ -73,7 +72,7 @@ export const EditCustomerForm = ({
         <h3>Crear cliente</h3>
       </FormHeader>
 
-      <CustomerForm id="create-customer-form" onSubmit={onCreateCustomer}>
+      <CustomerForm id="create-customer-form" onSubmit={onUpdateCustomer}>
         <div className="form-field customer-name">
           <label>Nombre</label>
           <input name="name" defaultValue={customer?.name} required></input>
