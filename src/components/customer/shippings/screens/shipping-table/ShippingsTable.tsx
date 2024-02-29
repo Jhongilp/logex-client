@@ -5,6 +5,7 @@ import { ShippingsQuery } from "api/customer.api";
 import { IShipping } from "types";
 import { PropertyType, IColumn } from "types/table-type/table.types";
 import Table from "components/table/Table";
+import { useAppSelector } from "hooks/store.hooks";
 
 const Wrapper = styled.div`
   display: flex;
@@ -41,6 +42,7 @@ const columns: IColumn<IShipping>[] = [
 ];
 
 export const ShippingsTable = ({ customerId }: { customerId: string }) => {
+  const shippings = useAppSelector((state) => state.shippings);
   const navigate = useNavigate();
   const [results] = useQuery<{ shippings: IShipping[] }>({
     query: ShippingsQuery,
@@ -63,7 +65,7 @@ export const ShippingsTable = ({ customerId }: { customerId: string }) => {
       <Table
         tableName="shippings_table"
         columns={columns}
-        rows={data?.shippings}
+        rows={shippings}
         rowsClickable
         onRowClick={handleClickOnShipping}
         controlsOmitted
