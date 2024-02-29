@@ -140,7 +140,6 @@ export const DeleteShippingMutation = gql`
   }
 `;
 
-
 // Subscriptions
 
 export const onCustomerUpdates = `
@@ -151,6 +150,25 @@ export const onCustomerUpdates = `
       country
       city
       address
+    }
+  }
+`;
+
+export const onShippingUpdates = `
+  subscription {
+    shippings {
+      id
+      consignee
+      notify
+      country
+      city
+      transport_mode
+      address
+      contact
+      email
+      phone
+      obs
+      customerId
     }
   }
 `;
