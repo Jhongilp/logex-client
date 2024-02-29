@@ -18,7 +18,9 @@ export const CreateShippingForm = ({
   onClose,
   customerId,
 }: CreateShippingProps) => {
-  const [, createShipping] = useMutation(CreateShippingMutation);
+  const [, createShipping] = useMutation<{ shipping: IShipping }>(
+    CreateShippingMutation
+  );
 
   const onCreateShipping = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

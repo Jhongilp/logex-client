@@ -24,7 +24,7 @@ const DeleteShippingModal = ({ customerId, shippingId, isOpen, onClose }) => {
   const navigate = useNavigate();
 
   const handleDeleteShipping = async () => {
-    const res = await deleteShipping({ id: parseInt(shippingId) });
+    const res = await deleteShipping({ id: shippingId });
     console.log("[customer] res on delete: ", res);
     if (res?.data?.deleteShipping) {
       onClose();
@@ -63,17 +63,18 @@ export const ShippingDetails = () => {
   const { shippingId } = useParams();
   const [results] = useQuery<{ shipping: IShipping }>({
     query: GetShippingQuery,
-    variables: { id: parseInt(shippingId) },
+    variables: { id: shippingId },
   });
 
   const { data, fetching, error } = results;
   if (fetching) return <p>Loading...</p>;
-  if (error)
+  if (error) {
     return (
       <p>
         No es posible obtener datos del cliente en este momento. {error.message}
       </p>
     );
+  }
 
   return (
     <StyledCustomerDetailsWrapper>
