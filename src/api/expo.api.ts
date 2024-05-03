@@ -1,13 +1,12 @@
 import { gql } from "urql";
 
 export const GetExposQuery = gql`
-  query GetExpos($userId: ID!) {
-    expos: expos(userId: $userId) {
+  query GetExpos() {
+    expos: expos {
       id
       consecutivo
       status
       globalProgress
-      indicatator_month
       createdAt
       customer {
         name
@@ -19,6 +18,23 @@ export const GetExposQuery = gql`
         city
         contact
         transport_mode
+      }
+    }
+  }
+`;
+
+export const CreateExpoMutation = gql`
+  mutation CreateExpo($input: CreateExpoInput) {
+    expo: createExpo(input: $input) {
+      consecutivo
+      status
+      globalProgress
+      createdAt
+      shipping {
+        consignee
+      }
+      customer {
+        name
       }
     }
   }

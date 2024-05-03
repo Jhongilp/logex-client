@@ -1,19 +1,21 @@
-import React, { FC, useState } from "react";
-import { useSelector } from "react-redux";
+import { useState } from "react";
+import { useAppSelector } from "hooks/store.hooks";
 import styled from "styled-components";
 
-import { ExpoStatus } from "types";
-import { StateType, CustomerList, ShippingList } from "types/props.types";
+import {
+  ExpoStatusNumber,
+  ICliente,
+  IExpo,
+  IExpoInput,
+  IShipping,
+} from "types";
+import { CustomerList } from "types/props.types";
 
-import { getShippingList } from "api/customers.api";
-import { createExpo } from "api/exportaciones.api";
-import { getCompanyExpoDefaultActivities } from "api/settings.api";
-import { IExpo, ModoTransporte } from "types";
 import { BtnIcon, ButtonAct } from "styles/commons";
 import { List } from "styles/List/list.styles";
 import { CloseIcon } from "svgs";
 import { AddIcon } from "svgs";
-// import SelectableShippingList from "components/shippings/selectable-shipping-list/SelectableShippingList";
+import { SelectableShippingList } from "components/customer/shippings/screens/selectable-shipping-list/SelectableShippingList";
 
 import {
   FormWrapper,
@@ -22,6 +24,8 @@ import {
   CloseFormIconWrapper,
   FormCommands,
 } from "styles/Form/form.styles";
+import { useMutation, useQuery } from "urql";
+import { CreateExpoMutation, CustomerQuery, ShippingsQuery } from "api";
 
 const ExpoFormWrapper = styled(FormWrapper)`
   min-height: 300px;
@@ -86,22 +90,24 @@ type CreateCustomerProps = {
 };
 
 type CustomerFilteredListProps = {
-  customers: CustomerList;
-  list: string[];
-  onSelect: (e: React.MouseEvent) => void;
+  customers: ICliente[];
+  onSelect: (customer: ICliente) => void;
 };
 
-const CustomerFilteredList: FC<CustomerFilteredListProps> = ({
+const CustomerFilteredList = ({
   customers,
-  list,
   onSelect,
-}) => {
+}: CustomerFilteredListProps) => {
   return (
     <StyledFilteredList>
       <List>
-        {list.map((customerId) => (
-          <li key={customerId} id={customerId} onMouseDown={onSelect}>
-            {customers[customerId].name}
+        {customers.map((customer) => (
+          <li
+            key={customer.id}
+            id={`${customer.id}`}
+            onMouseDown={() => onSelect(customer)}
+          >
+            {customer.name}
           </li>
         ))}
       </List>
@@ -109,99 +115,96 @@ const CustomerFilteredList: FC<CustomerFilteredListProps> = ({
   );
 };
 
-const CreateExpoForm: FC<CreateCustomerProps> = ({ onClose }) => {
-  const [error] = useState(false);
+const CreateExpoForm = ({ onClose }: CreateCustomerProps) => {
+  const [, createExpo] = useMutation<{ expo: IExpo }>(CreateExpoMutation);
+  const [selectedShippingId, setSelectShippingId] = useState<string | null>(
+    null
+  );
 
-  const [selectedShipping, setSelectShipping] = useState<string | null>(null);
-  const [shippings, setShippings] = useState<ShippingList>({});
   const [consecutivo, setConsecutivo] = useState("");
-  const [transportMode, setTransportMode] = useState(ModoTransporte.MARITIMO);
-  const [customerName, setCustomerName] = useState("");
-  const [customerId, setCustomerId] = useState("");
-  const [customerIdFilteredList, setCustomerList] = useState<string[]>([]);
+  const [selectedCustomer, setSelectedCustomer] = useState<ICliente | null>(
+    null
+  );
+  const [customerFilteredList, setCustomerList] = useState<ICliente[]>([]); // filtered list based on input type
   const [isFiltering, setFiltering] = useState(false);
-
-  // const customers: CustomerList = useSelector(
-  //   (state: StateType) => state.customers
-  // );
-  const customers: CustomerList = [{}];
+  const [error] = useState(false);
+  useQuery<{ customers: ICliente[] }>({
+    query: CustomerQuery,
+  });
+  const [shippingResults] = useQuery<{ shippings: IShipping[] }>({
+    query: ShippingsQuery,
+    variables: { customerId: selectedCustomer?.id },
+  });
+  const customers = useAppSelector((state) => state.customers);
 
   const onCreateExpo = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const expoActivitiesList = await getCompanyExpoDefaultActivities();
+    // const expoActivitiesList = await getCompanyExpoDefaultActivities();
+    // const expoActivitiesList = [];
 
-    const expo: IExpo = {
-      // id: "", // add later with Firestore
+    const expo: IExpoInput = {
       consecutivo,
-      customer_id: customerId,
-      transport_mode: transportMode,
-      customer_name: customerName,
-      status: ExpoStatus.PrevioCargue,
+      customerId: selectedCustomer.id,
+      shippingId: "",
+      status: ExpoStatusNumber.PrevioCargue,
       globalProgress: 0,
-      stagesProgress: [],
-      createdAt: Date.now(),
-      todo_list: expoActivitiesList,
+      // stagesProgress: [],
+      // todo_list: expoActivitiesList,
     };
 
-    if (selectedShipping) {
-      const shipping = shippings[selectedShipping];
-      expo.selected_shipping = selectedShipping;
-      expo.destination_country = shipping.country;
-      expo.puerto_destino = shipping.city;
+    if (selectedShippingId) {
+      expo.shippingId = selectedShippingId;
     }
-    console.log("[createCustomer] expo: ", expo);
-    createExpo(expo).then(() => {
-      onClose();
-    });
-  };
-
-  const handleOnSelectMode = (e: React.FormEvent<HTMLSelectElement>) => {
-    const value = e.currentTarget.value as ModoTransporte;
-    setTransportMode(value);
+    console.log("[onCreateExpo] expo: ", expo);
+    createExpo({ input: expo })
+      .then((res) => {
+        console.log("[expo] res on create: ", res);
+        onClose();
+      })
+      .catch((error) => {
+        console.log("Error creating the new expo: ", error);
+      });
   };
 
   const handleOnCustomerName = (e: React.FormEvent<HTMLInputElement>) => {
     const value = e.currentTarget.value;
 
-    const findCustomer = (customers: CustomerList, query: string): string[] => {
-      const results = Object.keys(customers).filter((customer) => {
-        return customers[customer].name
-          .toLowerCase()
-          .includes(query.toLowerCase());
+    const findCustomer = (
+      customers: CustomerList,
+      query: string
+    ): ICliente[] => {
+      const results = customers.filter((customer) => {
+        return customer.name.toLowerCase().includes(query.toLowerCase());
       });
       return results;
     };
 
     const results = findCustomer(customers, value);
     console.log("results: ", results);
-    setCustomerName(value);
     setCustomerList(results);
   };
 
-  const handleOnSelectCustomer = (e: React.MouseEvent) => {
-    const customerId = e.currentTarget.id;
-    setCustomerId(customerId);
-    setCustomerName(customers[customerId].name);
+  const handleOnSelectCustomer = (selectedCustomer) => {
+    setSelectedCustomer(selectedCustomer);
     setFiltering(false);
-    showCustomerShippings(customerId);
   };
 
-  const showCustomerShippings = (customerId: string) => {
-    getShippingList(customerId)
-      .then((data) => {
-        setShippings(data);
-      })
-      .catch((error) => {
-        console.log("Error fetching shippings from this customer. ", error);
-      });
-  };
+  // const showCustomerShippings = (customerId: string) => {
+  //   getShippingList(customerId)
+  //     .then((data) => {
+  //       setShippings(data);
+  //     })
+  //     .catch((error) => {
+  //       console.log("Error fetching shippings from this customer. ", error);
+  //     });
+  // };
 
   const handleOnSelectShipping = (
     e: React.SyntheticEvent<HTMLInputElement>
   ) => {
     console.log("ON SELECT ID:", e.currentTarget.id);
-    setSelectShipping(e.currentTarget.id);
+    setSelectShippingId(e.currentTarget.id);
   };
 
   return (
@@ -227,27 +230,18 @@ const CreateExpoForm: FC<CreateCustomerProps> = ({ onClose }) => {
             placeholder="EXP-"
           ></input>
         </div>
-        <div className="form-field expo-transport-mode">
-          <label>Modalidad</label>
-          <select required value={transportMode} onChange={handleOnSelectMode}>
-            <option value={ModoTransporte.AEREO}>Aereo</option>
-            <option value={ModoTransporte.MARITIMO}>Marítimo</option>
-            <option value={ModoTransporte.TERRESTRE}>Terrestre</option>
-          </select>
-        </div>
         <div className="form-field expo-customer">
           <label>Cliente</label>
           <input
             onFocus={() => setFiltering(true)}
             onBlur={() => setFiltering(false)}
-            value={customerName}
+            value={selectedCustomer?.name ?? ""}
             onChange={handleOnCustomerName}
             required
           ></input>
-          {isFiltering && customerIdFilteredList.length > 0 && (
+          {isFiltering && customerFilteredList.length > 0 && (
             <CustomerFilteredList
               customers={customers}
-              list={customerIdFilteredList}
               onSelect={handleOnSelectCustomer}
             />
           )}
@@ -263,12 +257,12 @@ const CreateExpoForm: FC<CreateCustomerProps> = ({ onClose }) => {
         </div>
       </ExpoForm>
 
-      {/* {Object.keys(shippings).length > 0 && (
+      {shippingResults?.data?.shippings?.length > 0 && (
         <SelectableShippingList
-          shippings={shippings}
+          shippings={shippingResults.data.shippings}
           onSelectShipping={handleOnSelectShipping}
         />
-      )} */}
+      )}
 
       <FormCommands>
         <ButtonAct onClick={onClose}>Cancelar</ButtonAct>

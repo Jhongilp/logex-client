@@ -33,8 +33,8 @@ const Status: FunctionComponent<StatusProps> = ({ status,  globalProgress}) => {
         <div className="status-icon">{stepIcon[status]}</div>
         <span>{status}</span>
       </StatusRow>
-      <StatusRow lower>
-        <StatusProgress progress={globalProgress}/>
+      <StatusRow $lower={true}>
+        <StatusProgress $progress={globalProgress}/>
         <span className="status-progress">{`${globalProgress}%`}</span>
 
       </StatusRow>

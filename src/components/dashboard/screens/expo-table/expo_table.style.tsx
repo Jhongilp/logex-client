@@ -90,13 +90,13 @@ export const StatusWrapper = styled.div`
 `;
 
 type RowProps = {
-  upper?: boolean;
-  lower?: boolean;
+  $upper?: boolean;
+  $lower?: boolean;
 };
 
 export const StatusRow = styled.div<RowProps>`
   display: flex;
-  align-items: ${(props) => (props.lower ? "baseline" : "center")};
+  align-items: ${(props) => (props.$lower ? "baseline" : "center")};
   width: 100%;
   height: 100%;
 
@@ -112,7 +112,7 @@ export const StatusRow = styled.div<RowProps>`
 
   & > span {
     ${(props) =>
-      props.lower &&
+      props.$lower &&
       css`
         font-size: 12px;
       `}
@@ -128,7 +128,7 @@ export const Circle = styled.div`
 `;
 
 type StatusProgressProps = {
-  progress: number;
+  $progress: number;
 };
 
 export const StatusProgress = styled.div<StatusProgressProps>`
@@ -143,7 +143,7 @@ export const StatusProgress = styled.div<StatusProgressProps>`
     content: "";
     top: 0;
     left: 0;
-    width: ${({ progress }) => `${progress}%`};
+    width: ${({ $progress }) => `${$progress}%`};
     height: 100%;
     background-color: var(--color-primary);
   }

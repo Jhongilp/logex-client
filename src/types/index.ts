@@ -167,7 +167,7 @@ export const PuertoZarpe: { [id: string]: IPuertoZarpe } = {
 };
 
 export interface ICliente {
-  id: number;
+  id: string;
   name: string;
   // shippings: IShipping[];
   country: string;
@@ -275,6 +275,16 @@ export interface IExpoActivitiesSettings {
 
 export type ExpoActivityList = IExpoActivitiesSettings[];
 
+// consecutivo,
+// customer_id: customerId,
+// transport_mode: transportMode,
+// customer_name: customerName,
+// status: ExpoStatus.PrevioCargue,
+// globalProgress: 0,
+// stagesProgress: [],
+// createdAt: Date.now(),
+// todo_list: expoActivitiesList,
+
 export interface IExpo {
   consecutivo: string;
   status: ExpoStatus;
@@ -303,6 +313,16 @@ export interface IExpo {
   // docs_tracking_id?: string;
   // observaciones?: string[];
 }
+
+export type IExpoInput = {
+  consecutivo;
+  status: ExpoStatusNumber;
+  globalProgress: 0;
+  customerId: string;
+  shippingId: string;
+  // stagesProgress: [];
+  // todo_list: ExpoActivityList;
+};
 
 export interface IVehiculo {
   id: string;

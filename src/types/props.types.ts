@@ -3,7 +3,7 @@ import {
   IExpo,
   ICliente,
   IShipping,
-  IUser,
+  // IUser,
   ExpoActivityList,
   ContainerListArray,
   SupplierList,
@@ -23,17 +23,19 @@ export interface MenuExpoLink {
   label: string;
 }
 
-export type StateType = {
-  exportaciones: ExpoList;
-  customers: CustomerList;
-  users: IUser;
-  settings: ISettingsReducer;
-};
+// export type StateType = {
+//   exportaciones: ExpoList;
+//   customers: CustomerList;
+//   users: IUser;
+//   settings: ISettingsReducer;
+// };
 
 // export type ExpoList = { [expoId: string]: IExpo };
 export type ExpoList = IExpo[];
-export type CustomerList = { [customerId: string]: ICliente };
-export type ShippingList = { [shippingId: string]: IShipping };
+// export type CustomerList = { [customerId: string]: ICliente };
+export type CustomerList = ICliente[];
+// export type ShippingList = { [shippingId: string]: IShipping };
+export type ShippingList = IShipping[];
 
 export type SelectableShippingProps = {
   shippings: ShippingList;
