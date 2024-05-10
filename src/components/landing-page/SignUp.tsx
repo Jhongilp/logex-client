@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { ICompany, IUser, RoleName } from "types";
 import { useMutation } from "urql";
 import { CreateUserMutation } from "api";
+// import { initialExpoSettingList } from 'app_constants'
+
 
 import {
   SignUpForm,
@@ -14,6 +16,7 @@ import { ButtonAct } from "styles/commons";
 
 export const SignUp = () => {
   const [, createUser] = useMutation(CreateUserMutation);
+  // const [, createDefaultExpoActivities] = useMutation(CreateDefaultExpoActivitiesMutation);
   const navigate = useNavigate();
 
   const onCreateUser = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -66,6 +69,8 @@ export const SignUp = () => {
         user.id = data.user.id;
         const userCreated = await createUser({ input: user });
         console.log("[signup] res on create user: ", userCreated);
+        // const defaultActivities = await createDefaultExpoActivities({input: initialExpoSettingList})
+        // console.log("[signup] res on create activities: ", defaultActivities);
         navigate(`/dashboard`);
       } catch (error) {
         console.error(

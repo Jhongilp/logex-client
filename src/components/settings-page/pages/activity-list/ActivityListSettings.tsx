@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import styled from "styled-components";
+import { useQuery } from "urql";
+import { DefaultExpoActivitiesQuery } from "api";
 
 // import {
 //   getCompanyExpoDefaultActivities,
@@ -73,8 +75,15 @@ const getEmptyRow = () => {
 };
 
 const ActivityListSettings = () => {
-  const [settings, setSettings] = useState<ExpoActivityList>([]);
+  // const [settings, setSettings] = useState<ExpoActivityList>([]);
+  const [results] = useQuery<{ defaultExpoActivities: ExpoActivityList }>({
+    query: DefaultExpoActivitiesQuery,
+  });
 
+  const { data, fetching, error } = results;
+
+  if (fetching) return <p>Loading...</p>;
+  if (error) return <p>Oh no... {error.message}</p>;
   // useEffect(() => {
   //   getCompanyExpoDefaultActivities()
   //     .then((res) => {
@@ -84,40 +93,40 @@ const ActivityListSettings = () => {
   //     .catch((error) => {});
   // }, []);
 
-  const update = (newSettings: ExpoActivityList) => {
-    // const backup = [...settings];
-    // setSettings(newSettings);
-    // updateExpoSettings(newSettings)
-    //   .then(() => {
-    //     console.log("settings updated!");
-    //   })
-    //   .catch((error) => {
-    //     console.warn("Error updating settings: ", error);
-    //     setSettings(backup);
-    //   });
-  };
+  // const update = (newSettings: ExpoActivityList) => {
+  //   // const backup = [...settings];
+  //   // setSettings(newSettings);
+  //   // updateExpoSettings(newSettings)
+  //   //   .then(() => {
+  //   //     console.log("settings updated!");
+  //   //   })
+  //   //   .catch((error) => {
+  //   //     console.warn("Error updating settings: ", error);
+  //   //     setSettings(backup);
+  //   //   });
+  // };
 
   const handleOnNewRow = (todoItemId: string) => {
-    const clone = [...settings];
-    const listItemIndex = clone.findIndex(
-      (todoItem) => todoItem.id === todoItemId
-    );
-    clone.splice(listItemIndex + 1, 0, getEmptyRow());
-    update(clone);
+    // const clone = [...settings];
+    // const listItemIndex = clone.findIndex(
+    //   (todoItem) => todoItem.id === todoItemId
+    // );
+    // clone.splice(listItemIndex + 1, 0, getEmptyRow());
+    // update(clone);
   };
 
   const handleOnUpdateData = (editableValue: IEditableProps) => {
-    const clone = [...settings];
-    const { value, rowId, columnName } = editableValue;
-    if (rowId && columnName) {
-      const rowIndex = clone.findIndex((todoItem) => todoItem.id === rowId);
-      const row = settings[rowIndex];
-      clone[rowIndex] = {
-        ...row,
-        [columnName]: value,
-      };
-      update(clone);
-    }
+    // const clone = [...settings];
+    // const { value, rowId, columnName } = editableValue;
+    // if (rowId && columnName) {
+    //   const rowIndex = clone.findIndex((todoItem) => todoItem.id === rowId);
+    //   const row = settings[rowIndex];
+    //   clone[rowIndex] = {
+    //     ...row,
+    //     [columnName]: value,
+    //   };
+    //   update(clone);
+    // }
   };
 
   return (
@@ -126,7 +135,7 @@ const ActivityListSettings = () => {
       <Table
         tableName="settings_table"
         columns={columns}
-        rows={settings}
+        rows={data?.defaultExpoActivities}
         onNewRow={handleOnNewRow}
         onUpdateData={handleOnUpdateData}
       />

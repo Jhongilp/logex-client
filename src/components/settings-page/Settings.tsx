@@ -34,7 +34,7 @@ const Settings = () => {
           {/* <SettingsMenu /> */}
 
           <Content className="settings-content">
-            <ActivityListSettings />
+            <ActivityListSettings /> 
           </Content>
         </Wrapper>
       </StyledContent>

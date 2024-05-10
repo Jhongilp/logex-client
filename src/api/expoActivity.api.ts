@@ -1,0 +1,29 @@
+import { gql } from "urql";
+
+export const DefaultExpoActivitiesQuery = gql`
+  query GetDefaultExpoActivities {
+    defaultExpoActivities: defaultExpoActivities {
+      id
+      name
+      status
+      progress
+      responsible
+      optional
+      enabled
+    }
+  }
+`;
+
+export const CreateDefaultExpoActivitiesMutation = gql`
+  mutation CreateDefaultExpoActivities($input: CreateDefaultActivitiesInput) {
+    defaultActivities: createDefaultActivities(input: $input) {
+      id
+      name
+      status
+      progress
+      responsible
+      optional
+      enabled
+    }
+  }
+`;
