@@ -24,6 +24,8 @@ import { CustomerDetails } from "components/customer/screens/customer-details/Cu
 import { Shippings } from "components/customer/shippings/Shippings";
 import { ShippingList } from "components/customer/shippings/Shippings";
 import { ShippingDetails } from "components/customer/shippings/screens/shipping-details/ShippingDetails";
+import { ExpoPage } from "components/expo-page/ExpoPage"
+
 import { createClient as createSSEClient } from "graphql-sse";
 
 import "./index.css";
@@ -150,6 +152,10 @@ const router = createBrowserRouter([
         path: "/settings",
         element: <Settings />,
       },
+      {
+        path: "/expo/:expoId",
+        element: <ExpoPage />
+      }
     ],
   },
 ]);
