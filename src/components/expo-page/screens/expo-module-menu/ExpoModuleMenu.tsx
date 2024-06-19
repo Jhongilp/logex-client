@@ -1,5 +1,6 @@
-import React, { FC } from "react";
-import { Link, useRouteMatch } from "react-router-dom";
+import { FC } from "react";
+// import { Link, useRouteMatch } from "react-router-dom";
+import { Link, useMatch } from "react-router-dom";
 import styled from "styled-components";
 import { ExpoParams, MenuExpoLink } from "types/props.types";
 
@@ -70,11 +71,12 @@ const routes = [
 ];
 
 const ExpoMenuLink: FC<MenuExpoLink> = ({ to, label }) => {
-  let match = useRouteMatch({
-    path: to,
-    exact: false,
-  });
-
+  // let match = useRouteMatch({
+  //   path: to,
+  //   exact: false,
+  // });
+  const match = useMatch(to);
+  console.log("match? ", match);
   return (
     <li className={match ? "active" : ""}>
       <Link to={to}>{label}</Link>

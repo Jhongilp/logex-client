@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { ExpoStatus } from "types";
 import { ExpoParams } from "types/props.types";
-import { useExpo } from "api/exportaciones.api";
+// import { useExpo } from "api/exportaciones.api";
 import Checklist from "components/checklist/Checklist";
 import Checkpoint, { useExpoStage } from "components/checkpoint/CheckPoint";
 
@@ -12,13 +12,14 @@ import {
   ExpoActivitiesWrapper,
 } from "components/expo-page/screens/activity-module/activity_module.style";
 
-const ActivityModule = () => {
+export const ActivityModule = () => {
   const [expoStageFilter, setExpoStageFilter] = useState(
     ExpoStatus.PrevioCargue
   );
   const { expoId } = useParams<ExpoParams>();
-  const { expo } = useExpo(expoId);
-  const { stages, currentExpoStage } = useExpoStage(expo?.todo_list);
+  // const { expo } = useExpo(expoId);
+  const expo: any = {};
+  const { stages, currentExpoStage } = useExpoStage(expo?.todo_list); // ! add default activity list
   const handleOnStageFilter = (stageName: string) => {
     setExpoStageFilter(stageName as ExpoStatus);
   };
@@ -61,5 +62,3 @@ const ActivityModule = () => {
     </Wrapper>
   );
 };
-
-export default ActivityModule;

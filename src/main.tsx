@@ -24,7 +24,8 @@ import { CustomerDetails } from "components/customer/screens/customer-details/Cu
 import { Shippings } from "components/customer/shippings/Shippings";
 import { ShippingList } from "components/customer/shippings/Shippings";
 import { ShippingDetails } from "components/customer/shippings/screens/shipping-details/ShippingDetails";
-import { ExpoPage } from "components/expo-page/ExpoPage"
+import { ExpoPage } from "components/expo-page/ExpoPage";
+import { ActivityModule } from "components/expo-page/screens/activity-module/ActivityModule";
 
 import { createClient as createSSEClient } from "graphql-sse";
 
@@ -81,6 +82,7 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <Root />,
+    errorElement: <div>404 Not Found.</div>,
     children: [
       {
         index: true,
@@ -154,8 +156,18 @@ const router = createBrowserRouter([
       },
       {
         path: "/expo/:expoId",
-        element: <ExpoPage />
-      }
+        element: <ExpoPage />,
+        children: [
+          {
+            index: true,
+            element: <ActivityModule />,
+          },
+          {
+            path: "/expo/:expoId/actividades",
+            element: <ActivityModule />,
+          },
+        ],
+      },
     ],
   },
 ]);
