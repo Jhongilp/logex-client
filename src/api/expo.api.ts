@@ -3,7 +3,6 @@ import { gql } from "urql";
 export const GetExposQuery = gql`
   query GetExpos() {
     expos: expos {
-      id
       consecutivo
       status
       globalProgress
@@ -18,6 +17,40 @@ export const GetExposQuery = gql`
         city
         contact
         transport_mode
+      }
+      
+    }
+  }
+`;
+
+export const GetExpoQuery = gql`
+  query ExpoQuery($expoId: ID!) {
+    expo(id: $expoId) {
+      consecutivo
+      status
+      globalProgress
+      createdAt
+      customer {
+        name
+      }
+      shipping {
+        id
+        consignee
+        country
+        city
+        contact
+        transport_mode
+      }
+      todoList {
+        id
+        name
+        status
+        progress
+        responsible
+        optional
+        enabled
+        completedAt
+        deadline
       }
     }
   }
