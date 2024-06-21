@@ -296,6 +296,7 @@ export interface IExpo {
   customer: {
     name: string;
   };
+  todoList: ExpoActivityList;
   // customer_name: string;
   // destination_country?: string;
   // puerto_destino?: string;
@@ -304,7 +305,6 @@ export interface IExpo {
   // booking?: IReserva;
   // selected_shipping?: string;
   // stagesProgress: StepList;
-  // todo_list: ExpoActivityList;
   // containers?: ContainerList;
   // documentos?: string[];
   // indicadores?: string[];

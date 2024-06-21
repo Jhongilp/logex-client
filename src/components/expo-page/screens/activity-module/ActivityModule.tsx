@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { ExpoStatus } from "types";
+import { useQuery } from "urql";
+import { ExpoStatus, IExpo } from "types";
 import { ExpoParams } from "types/props.types";
-// import { useExpo } from "api/exportaciones.api";
+import { GetExpoQuery } from "api";
 import Checklist from "components/checklist/Checklist";
 import Checkpoint, { useExpoStage } from "components/checkpoint/CheckPoint";
 
@@ -13,13 +14,19 @@ import {
 } from "components/expo-page/screens/activity-module/activity_module.style";
 
 export const ActivityModule = () => {
+  const { expoId } = useParams<ExpoParams>();
+  const [results] = useQuery<{ expo: IExpo }>({
+    query: GetExpoQuery,
+    variables: { expoId: expoId },
+  });
+  const { data, fetching, error } = results;
   const [expoStageFilter, setExpoStageFilter] = useState(
     ExpoStatus.PrevioCargue
   );
-  const { expoId } = useParams<ExpoParams>();
   // const { expo } = useExpo(expoId);
-  const expo: any = {};
-  const { stages, currentExpoStage } = useExpoStage(expo?.todo_list); // ! add default activity list
+
+  const expo = data?.expo;
+  const { stages, currentExpoStage } = useExpoStage(expo?.todoList); // ! add default activity list
   const handleOnStageFilter = (stageName: string) => {
     setExpoStageFilter(stageName as ExpoStatus);
   };
@@ -40,6 +47,13 @@ export const ActivityModule = () => {
   //     });
   // };
 
+  if (fetching) {
+    return <p>Loading</p>;
+  }
+  if (error) {
+    return <p>There was an error fetching expo</p>;
+  }
+
   return (
     <Wrapper>
       <Checkpoint
@@ -54,7 +68,7 @@ export const ActivityModule = () => {
       </ExpoStatusHeader>
       <ExpoActivitiesWrapper>
         <Checklist
-          list={expo.todo_list ?? []}
+          list={expo.todoList ?? []}
           expoId={expoId}
           expoStageFilter={expoStageFilter}
         />
