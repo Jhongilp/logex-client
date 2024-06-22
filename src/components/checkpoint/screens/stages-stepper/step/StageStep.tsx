@@ -1,15 +1,15 @@
-import React, { FC, useState, useRef, useEffect } from "react";
+import { FC, useState, useRef, useEffect } from "react";
 import { CheckpointProps } from "types/stepper-type/stepper.types";
 import {
   ProgressBarCheckpoint,
   CheckpointWrapper,
   CheckpointProgressIndicator,
   CheckpointBtn,
-  CompleteIndicator
+  CompleteIndicator,
 } from "components/checkpoint/check_point.styles";
 
 import { DoneIcon } from "svgs";
-import { stepIcon } from 'utils';
+import { stepIcon } from "utils";
 
 type CircularProgressProps = {
   progress: number;
@@ -116,7 +116,7 @@ const CheckpointCircularProgress: FC<
 
         {isCompleted && (
           <CompleteIndicator>
-              <DoneIcon />
+            <DoneIcon />
           </CompleteIndicator>
         )}
       </CheckpointWrapper>
