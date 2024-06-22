@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { ICompany, IUser, RoleName } from "types";
 import { useMutation } from "urql";
 import { CreateUserMutation } from "api";
-// import { initialExpoSettingList } from 'app_constants'
 
 
 import {
