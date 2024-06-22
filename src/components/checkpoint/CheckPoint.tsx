@@ -6,30 +6,30 @@ import { StepList, UseExpoStage } from "types/stepper-type/stepper.types";
 
 import { ExpoActivityList, IExpoActivitiesSettings } from "types";
 
-const defaultSteps: StepList = [
+const defaultSteps: StepList<ExpoStatus> = [
   {
-    name: ExpoStatus.PrevioCargue,
+    name: "PREVIO_CARGUE",
     progress: 0,
   },
   {
-    name: ExpoStatus.TransitoPuerto,
+    name: "TRANSITO_PUERTO",
     progress: 0,
   },
   {
-    name: ExpoStatus.EnPuerto,
+    name: "EN_PUERTO",
     progress: 0,
   },
   {
-    name: ExpoStatus.TransitoInternacional,
+    name: "TRANSITO_INTERNACIONAL",
     progress: 0,
   },
   {
-    name: ExpoStatus.EnDestino,
+    name: "EN_DESTINO",
     progress: 0,
   },
 ];
 
-export const getProgress = (list: ExpoActivityList): StepList => {
+export const getProgress = (list: ExpoActivityList): StepList<ExpoStatus> => {
   const steps = [...defaultSteps];
   const stageActivityCounter = list.reduce(
     (
@@ -71,17 +71,16 @@ export const getProgress = (list: ExpoActivityList): StepList => {
 };
 
 export const useExpoStage = (list: ExpoActivityList) => {
-  const [state, setState] = useState<UseExpoStage>({
+  const [state, setState] = useState<UseExpoStage<ExpoStatus>>({
     stages: [],
-    currentExpoStage: ExpoStatus.PrevioCargue,
+    currentExpoStage: "PREVIO_CARGUE",
   });
 
   useEffect(() => {
     if (list?.length) {
       const stages = getProgress(list);
       const currentExpoStage =
-        stages.find((stage) => stage.progress !== 100)?.name ??
-        ExpoStatus.PrevioCargue;
+        stages.find((stage) => stage.progress !== 100)?.name ?? "PREVIO_CARGUE";
       setState({ stages, currentExpoStage });
     }
   }, [list]);
@@ -89,7 +88,7 @@ export const useExpoStage = (list: ExpoActivityList) => {
   return state;
 };
 
-const getGlobalProgress = (stages: StepList) => {
+const getGlobalProgress = (stages: StepList<ExpoStatus>) => {
   const count = stages.reduce((accum, stage) => {
     return accum + stage.progress;
   }, 0);
@@ -100,7 +99,7 @@ export const getStagesProgress = (list: ExpoActivityList) => {
   const stages = getProgress(list);
   const currentExpoStage: ExpoStatus =
     (stages.find((stage) => stage.progress !== 100)?.name as ExpoStatus) ??
-    ExpoStatus.PrevioCargue;
+    "PREVIO_CARGUE";
 
   const globalProgress = getGlobalProgress(stages);
   return {
@@ -110,9 +109,9 @@ export const getStagesProgress = (list: ExpoActivityList) => {
 };
 
 interface CheckPointProps {
-  steps: StepList;
-  currentExpoStage: ExpoStatus | string;
-  expoStageSelected: ExpoStatus | string;
+  steps: StepList<ExpoStatus>;
+  currentExpoStage: ExpoStatus;
+  expoStageSelected: ExpoStatus;
   onStageFilter: (name: string) => void;
 }
 

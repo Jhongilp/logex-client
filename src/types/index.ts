@@ -1,35 +1,43 @@
 // import { StepList } from "types/stepper-type/stepper.types";
 
-export enum ExpoStatusNumber {
-  PrevioCargue = 1,
-  TransitoPuerto,
-  EnPuerto,
-  TransitoInternacional,
-  EnDestino,
-  Finalizado,
-}
+export type ExpoStatus =
+  | "PREVIO_CARGUE"
+  | "TRANSITO_PUERTO"
+  | "EN_PUERTO"
+  | "TRANSITO_INTERNACIONAL"
+  | "EN_DESTINO"
+  | "FINALIZADO";
 
-export enum ExpoStatus {
-  PrevioCargue = "Previo Cargue",
-  TransitoPuerto = "Transito Puerto",
-  EnPuerto = "En Puerto",
-  TransitoInternacional = "Transito Internacional",
-  EnDestino = "En Destino",
-  Finalizado = "Finalizado",
-}
+// export enum ExpoStatusNumber {
+//   PrevioCargue = 1,
+//   TransitoPuerto,
+//   EnPuerto,
+//   TransitoInternacional,
+//   EnDestino,
+//   Finalizado,
+// }
 
-interface ObjectLiteral {
-  [key: number]: ExpoStatus;
-}
+// export enum ExpoStatus {
+//   PrevioCargue = "Previo Cargue",
+//   TransitoPuerto = "Transito Puerto",
+//   EnPuerto = "En Puerto",
+//   TransitoInternacional = "Transito Internacional",
+//   EnDestino = "En Destino",
+//   Finalizado = "Finalizado",
+// }
 
-export const STATUS: ObjectLiteral = {
-  1: ExpoStatus.PrevioCargue,
-  2: ExpoStatus.TransitoPuerto,
-  3: ExpoStatus.EnPuerto,
-  4: ExpoStatus.TransitoInternacional,
-  5: ExpoStatus.EnDestino,
-  6: ExpoStatus.Finalizado,
-};
+// interface ObjectLiteral {
+//   [key: number]: ExpoStatus;
+// }
+
+// export const STATUS: ObjectLiteral = {
+//   1: ExpoStatus.PrevioCargue,
+//   2: ExpoStatus.TransitoPuerto,
+//   3: ExpoStatus.EnPuerto,
+//   4: ExpoStatus.TransitoInternacional,
+//   5: ExpoStatus.EnDestino,
+//   6: ExpoStatus.Finalizado,
+// };
 
 export enum ContainerType {
   _20 = "20'",
@@ -275,16 +283,6 @@ export interface IExpoActivitiesSettings {
 
 export type ExpoActivityList = IExpoActivitiesSettings[];
 
-// consecutivo,
-// customer_id: customerId,
-// transport_mode: transportMode,
-// customer_name: customerName,
-// status: ExpoStatus.PrevioCargue,
-// globalProgress: 0,
-// stagesProgress: [],
-// createdAt: Date.now(),
-// todo_list: expoActivitiesList,
-
 export interface IExpo {
   consecutivo: string;
   status: ExpoStatus;
@@ -316,7 +314,8 @@ export interface IExpo {
 
 export type IExpoInput = {
   consecutivo;
-  status: ExpoStatusNumber;
+  // status: ExpoStatus;
+  status: number; // ! I don't think we need this here
   globalProgress: 0;
   customerId: string;
   shippingId: string;

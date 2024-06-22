@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+// import { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useQuery } from "urql";
 import { DefaultExpoActivitiesQuery } from "api";
@@ -9,7 +9,6 @@ import { DefaultExpoActivitiesQuery } from "api";
 // } from "api/settings.api";
 import {
   ExpoActivityList,
-  ExpoStatus,
   IExpoActivitiesSettings,
   ProgressStatus,
 } from "types";
@@ -66,7 +65,7 @@ const getEmptyRow = () => {
     id,
     name: "",
     responsible: "",
-    status: ExpoStatus.PrevioCargue,
+    status: "PREVIO_CARGUE",
     enabled: true,
     optional: false,
     progress: ProgressStatus["Sin iniciar"],

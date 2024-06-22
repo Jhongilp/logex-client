@@ -20,15 +20,12 @@ export const ActivityModule = () => {
     variables: { expoId: expoId },
   });
   const { data, fetching, error } = results;
-  const [expoStageFilter, setExpoStageFilter] = useState(
-    ExpoStatus.PrevioCargue
-  );
-  // const { expo } = useExpo(expoId);
+  const [expoStageFilter, setExpoStageFilter] = useState<ExpoStatus>("PREVIO_CARGUE");
 
   const expo = data?.expo;
   const { stages, currentExpoStage } = useExpoStage(expo?.todoList); // ! add default activity list
-  const handleOnStageFilter = (stageName: string) => {
-    setExpoStageFilter(stageName as ExpoStatus);
+  const handleOnStageFilter = (stageName: ExpoStatus) => {
+    setExpoStageFilter(stageName);
   };
 
   useEffect(() => {

@@ -3,7 +3,6 @@ import { useAppSelector } from "hooks/store.hooks";
 import styled from "styled-components";
 
 import {
-  ExpoStatusNumber,
   ICliente,
   IExpo,
   IExpoInput,
@@ -147,7 +146,7 @@ const CreateExpoForm = ({ onClose }: CreateCustomerProps) => {
       consecutivo,
       customerId: selectedCustomer.id,
       shippingId: "",
-      status: ExpoStatusNumber.PrevioCargue,
+      status: 0, // !don't think we need to pass this
       globalProgress: 0,
       // stagesProgress: [],
       // todo_list: expoActivitiesList,

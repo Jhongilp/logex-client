@@ -12,7 +12,7 @@ import { PropertyType, IColumn } from "types/table-type/table.types";
 
 import Table from "components/table/Table";
 import TodoItem from "components/checklist/screens/todo-item/TodoItem";
-import { getStagesProgress } from 'components/checkpoint/CheckPoint';
+import { getStagesProgress } from "components/checkpoint/CheckPoint";
 
 type ChecklistProps = {
   list: ExpoActivityList;
@@ -74,7 +74,7 @@ const Checklist: FC<ChecklistProps> = ({ list, expoId, expoStageFilter }) => {
           todo_list: clone,
           globalProgress,
           status: currentExpoStage,
-        }
+        };
         // updateTodoItemProgress(expoId, data).then(() => {
         //   setItem(null);
         //   setTodoItemId(null);
@@ -86,29 +86,27 @@ const Checklist: FC<ChecklistProps> = ({ list, expoId, expoStageFilter }) => {
 
   const handleDelete = () => {
     const clone = [...list];
-      if (todoItemId) {
-        const listItemIndex = clone.findIndex(
-          (todoItem) => todoItem.id === todoItemId
-        );
+    if (todoItemId) {
+      const listItemIndex = clone.findIndex(
+        (todoItem) => todoItem.id === todoItemId
+      );
 
+      clone.splice(listItemIndex, 1);
 
-        clone.splice(listItemIndex, 1);
+      const { globalProgress, currentExpoStage } = getStagesProgress(clone);
 
-
-        const { globalProgress, currentExpoStage } = getStagesProgress(clone);
-
-        console.log("[todo list] ", clone, globalProgress, currentExpoStage)
-        const data: UpdateExpoProgressProps = {
-          todo_list: clone,
-          globalProgress,
-          status: currentExpoStage,
-        }
-        // updateTodoItemProgress(expoId, data).then(() => {
-        //   setItem(null);
-        //   setTodoItemId(null);
-        // });
-      }
-  }
+      console.log("[todo list] ", clone, globalProgress, currentExpoStage);
+      const data: UpdateExpoProgressProps = {
+        todo_list: clone,
+        globalProgress,
+        status: currentExpoStage,
+      };
+      // updateTodoItemProgress(expoId, data).then(() => {
+      //   setItem(null);
+      //   setTodoItemId(null);
+      // });
+    }
+  };
 
   const todoListFiltered = list.filter?.((todo) => {
     return todo.status === expoStageFilter;

@@ -6,17 +6,17 @@ export enum CheckpointType {
   COMPLETED_WITH_ICON
 }
 
-export interface Step {
-  name: string;
+export interface Step<T> {
+  name: T;
   progress: number;
 }
 
-export type StepList = Step[];
+export type StepList<T> = Step<T>[];
 
 export type StepClickFn = (name: string) => void;
 
-export interface StepperProps {
-  steps: StepList;
+export interface StepperProps<T> {
+  steps: StepList<T>;
   height: number;
   activeStep: string;
   selectedStep: string;
@@ -35,9 +35,9 @@ export interface CheckpointProps {
   onStepClick: StepClickFn
 }
 
-export interface UseExpoStage {
-  stages: StepList;
-  currentExpoStage: ExpoStatus | string;
+export interface UseExpoStage<T> {
+  stages: StepList<T>;
+  currentExpoStage: ExpoStatus;
 }
 
 export interface ProgressBarProps {
