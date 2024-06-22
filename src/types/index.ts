@@ -8,37 +8,6 @@ export type ExpoStatus =
   | "EN_DESTINO"
   | "FINALIZADO";
 
-// export enum ExpoStatusNumber {
-//   PrevioCargue = 1,
-//   TransitoPuerto,
-//   EnPuerto,
-//   TransitoInternacional,
-//   EnDestino,
-//   Finalizado,
-// }
-
-// export enum ExpoStatus {
-//   PrevioCargue = "Previo Cargue",
-//   TransitoPuerto = "Transito Puerto",
-//   EnPuerto = "En Puerto",
-//   TransitoInternacional = "Transito Internacional",
-//   EnDestino = "En Destino",
-//   Finalizado = "Finalizado",
-// }
-
-// interface ObjectLiteral {
-//   [key: number]: ExpoStatus;
-// }
-
-// export const STATUS: ObjectLiteral = {
-//   1: ExpoStatus.PrevioCargue,
-//   2: ExpoStatus.TransitoPuerto,
-//   3: ExpoStatus.EnPuerto,
-//   4: ExpoStatus.TransitoInternacional,
-//   5: ExpoStatus.EnDestino,
-//   6: ExpoStatus.Finalizado,
-// };
-
 export enum ContainerType {
   _20 = "20'",
   _40 = "40'",
