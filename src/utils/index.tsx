@@ -25,7 +25,7 @@ export const expoStatusToString = (stage: ExpoStatus): string => {
 type stepIconProps = {
   [K in ExpoStatus]: ReactNode;
 };
-// export const stepIcon: { [key: string]: ReactNode } = {
+
 export const stepIcon: stepIconProps = {
   PREVIO_CARGUE: <Warehouse />,
   TRANSITO_PUERTO: <Truck />,
