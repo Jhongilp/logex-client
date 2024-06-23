@@ -27,3 +27,17 @@ export const CreateDefaultExpoActivitiesMutation = gql`
     }
   }
 `;
+
+export const updateDefaultExpoActivity = gql`
+  mutation updateDefaultExpoActivity($input: UpdateDefaultActivityInput) {
+    updateDefaultExpoActivity(input: $input) {
+      id
+      name
+      status
+      progress
+      responsible
+      optional
+      enabled
+    }
+  }
+`;
