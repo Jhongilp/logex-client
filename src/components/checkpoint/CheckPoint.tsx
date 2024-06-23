@@ -40,14 +40,14 @@ export const getProgress = (list: ExpoActivityList): StepList<ExpoStatus> => {
         accum[activity.status] = {
           total: accum[activity.status].total + 1,
           completed:
-            activity.progress === "Completado"
+            activity.progress === "COMPLETADO"
               ? accum[activity.status].completed + 1
               : accum[activity.status].completed,
         };
       } else {
         accum[activity.status] = {
           total: 1,
-          completed: activity.progress === "Completado" ? 1 : 0,
+          completed: activity.progress === "COMPLETADO" ? 1 : 0,
         };
       }
 

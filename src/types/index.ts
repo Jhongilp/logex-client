@@ -229,13 +229,12 @@ export interface IReserva {
   // contenedores: string[];
 }
 
-export enum ProgressStatus {
-  "Sin iniciar" = "Sin iniciar",
-  "En curso" = "En curso",
-  "En espera" = "En espera",
-  "Retrasado" = "Retrasado",
-  "Completado" = "Completado",
-}
+export type ProgressStatus =
+  | "SIN_INICIAR"
+  | "EN_CURSO"
+  | "EN_ESPERA"
+  | "RETRASADO"
+  | "COMPLETADO";
 
 export interface IExpoActivitiesSettings {
   id: number | string;

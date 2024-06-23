@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { IExpoActivitiesSettings, ProgressStatus } from "types";
 import { Modal } from "styles/Modal/Modal";
 import { ButtonAct } from "styles/commons";
+import { progressStatusToString } from "utils";
 
 export const Wrapper = styled.div`
   display: flex;
@@ -51,9 +52,8 @@ const TodoItem: FC<TodoItemProps> = ({
   onUpdateProgress,
   onDelete,
 }) => {
-  const [progressStatus, setProgressStatus] = useState(
-    ProgressStatus["Sin iniciar"]
-  );
+  const [progressStatus, setProgressStatus] =
+    useState<ProgressStatus>("SIN_INICIAR");
 
   const handleOnSelectMode = (e: React.FormEvent<HTMLSelectElement>) => {
     const value = e.currentTarget.value as ProgressStatus;
@@ -67,11 +67,11 @@ const TodoItem: FC<TodoItemProps> = ({
         <ItemProgressStatusInput>
           <label>Estado</label>
           <select value={progressStatus} onChange={handleOnSelectMode}>
-            <option>{ProgressStatus["Sin iniciar"]}</option>
-            <option>{ProgressStatus["En curso"]}</option>
-            <option>{ProgressStatus["En espera"]}</option>
-            <option>{ProgressStatus["Retrasado"]}</option>
-            <option>{ProgressStatus["Completado"]}</option>
+            <option>{progressStatusToString("SIN_INICIAR")}</option>
+            <option>{progressStatusToString("EN_CURSO")}</option>
+            <option>{progressStatusToString("EN_ESPERA")}</option>
+            <option>{progressStatusToString("RETRASADO")}</option>
+            <option>{progressStatusToString("COMPLETADO")}</option>
           </select>
           <ButtonAct
             type="button"

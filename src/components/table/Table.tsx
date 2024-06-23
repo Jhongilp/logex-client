@@ -28,6 +28,7 @@ import EditableDateTypeBox from "components/table/screens/cells-type/EditableDat
 import EditableBox from "components/table/screens/editable-box/EditableBox";
 
 import { AddIcon, DragIcon } from "svgs";
+import { progressStatusToString } from "utils";
 
 const ctxDefaultValue = {
   x: 0,
@@ -53,7 +54,7 @@ function getCellType<T>(
   checked: boolean
 ) {
   const text = row[col.fieldName as string];
-  let progress = ProgressStatus["Sin iniciar"];
+  let progress = progressStatusToString("SIN_INICIAR");
   // TODO: this might be wrong, the correct way should col.fieldName === PropertyType.Progress
   if (col.fieldName === "progress") {
     progress = row[col.fieldName as string] as ProgressStatus;

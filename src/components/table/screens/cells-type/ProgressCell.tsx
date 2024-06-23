@@ -1,6 +1,7 @@
-import React, { FC } from "react";
+import { FC } from "react";
 import styled from "styled-components";
 import { ProgressStatus } from "types";
+import { ProgressString } from "utils";
 
 const Wrapper = styled.div`
   display: flex;
@@ -15,12 +16,12 @@ const ProgressCircle = styled.div`
   background-color: #ccc;
 `;
 
-const progressColor = {
-  [ProgressStatus["Sin iniciar"]]: "gray",
-  [ProgressStatus["En curso"]]: "orange",
-  [ProgressStatus["En espera"]]: "purple",
-  [ProgressStatus["Retrasado"]]: "red",
-  [ProgressStatus["Completado"]]: "var(--color-secondary)",
+const progressColor: ProgressString = {
+  SIN_INICIAR: "gray",
+  EN_CURSO: "orange",
+  EN_ESPERA: "purple",
+  RETRASADO: "red",
+  COMPLETADO: "var(--color-secondary)",
 };
 
 const ProgressCell: FC<{ status: ProgressStatus }> = ({ status }) => {

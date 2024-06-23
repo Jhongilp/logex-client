@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 import { Crane, Truck, Ship, Warehouse, DoneAllIcon } from "svgs";
-import { ExpoStatus } from "types";
+import { ExpoStatus, ProgressStatus } from "types";
 import { SelectTypeBoxOptionTagList } from "types/table-type/table.types";
 
 type StageString = {
@@ -20,6 +20,25 @@ export const expoStatusToString = (stage: ExpoStatus): string => {
     return obj["PREVIO_CARGUE"];
   }
   return obj[stage];
+};
+
+export type ProgressString = {
+  [K in ProgressStatus]: string;
+};
+export const progressStatusToString = (
+  progressStatus: ProgressStatus
+): string => {
+  const obj: ProgressString = {
+    SIN_INICIAR: "Sin iniciar",
+    EN_CURSO: "En curso",
+    EN_ESPERA: "En espera",
+    RETRASADO: "Retrasado",
+    COMPLETADO: "Completado",
+  };
+  if (!obj[progressStatus]) {
+    return obj["SIN_INICIAR"];
+  }
+  return obj[progressStatus];
 };
 
 type stepIconProps = {
