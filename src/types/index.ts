@@ -238,7 +238,7 @@ export enum ProgressStatus {
 }
 
 export interface IExpoActivitiesSettings {
-  id: string;
+  id: number | string;
   name: string;
   status: ExpoStatus;
   progress: ProgressStatus;
@@ -247,6 +247,7 @@ export interface IExpoActivitiesSettings {
   enabled: boolean;
   completedAt?: Date | undefined;
   deadline?: Date | undefined;
+  __typename: string; // urlq property
   // [key: string]: string | boolean | undefined | ProgressStatus | Date;
 }
 

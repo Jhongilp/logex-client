@@ -28,7 +28,7 @@ export const CreateDefaultExpoActivitiesMutation = gql`
   }
 `;
 
-export const updateDefaultExpoActivity = gql`
+export const updateDefaultExpoActivityQuery = gql`
   mutation updateDefaultExpoActivity($input: UpdateDefaultActivityInput) {
     updateDefaultExpoActivity(input: $input) {
       id

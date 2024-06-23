@@ -1,18 +1,15 @@
-// import { useState, useEffect } from "react";
 import styled from "styled-components";
-import { useQuery } from "urql";
-import { DefaultExpoActivitiesQuery } from "api";
+import { useQuery, useMutation } from "urql";
+import {
+  DefaultExpoActivitiesQuery,
+  updateDefaultExpoActivityQuery,
+} from "api";
 
-// import {
-//   getCompanyExpoDefaultActivities,
-//   updateExpoSettings,
-// } from "api/settings.api";
 import {
   ExpoActivityList,
   IExpoActivitiesSettings,
-  ProgressStatus,
+  // ProgressStatus,
 } from "types";
-import { uuid } from "utils";
 import {
   PropertyType,
   IColumn,
@@ -59,22 +56,25 @@ const columns: IColumn<IExpoActivitiesSettings>[] = [
   },
 ];
 
-const getEmptyRow = () => {
-  const id = uuid();
-  const emptyRow: IExpoActivitiesSettings = {
-    id,
-    name: "",
-    responsible: "",
-    status: "PREVIO_CARGUE",
-    enabled: true,
-    optional: false,
-    progress: ProgressStatus["Sin iniciar"],
-  };
-  return emptyRow;
-};
+// const getEmptyRow = () => {
+//   // const id = uuid();
+//   const id = 999999; // temp value
+//   const emptyRow: IExpoActivitiesSettings = {
+//     id,
+//     name: "",
+//     responsible: "",
+//     status: "PREVIO_CARGUE",
+//     enabled: true,
+//     optional: false,
+//     progress: ProgressStatus["Sin iniciar"],
+//   };
+//   return emptyRow;
+// };
 
 const ActivityListSettings = () => {
-  // const [settings, setSettings] = useState<ExpoActivityList>([]);
+  const [, updateDefaultExpoActivity] = useMutation(
+    updateDefaultExpoActivityQuery
+  );
   const [results] = useQuery<{ defaultExpoActivities: ExpoActivityList }>({
     query: DefaultExpoActivitiesQuery,
   });
@@ -83,27 +83,6 @@ const ActivityListSettings = () => {
 
   if (fetching) return <p>Loading...</p>;
   if (error) return <p>Oh no... {error.message}</p>;
-  // useEffect(() => {
-  //   getCompanyExpoDefaultActivities()
-  //     .then((res) => {
-  //       console.log("getCompanyExpoDefaultActivities: ", res);
-  //       setSettings(res);
-  //     })
-  //     .catch((error) => {});
-  // }, []);
-
-  // const update = (newSettings: ExpoActivityList) => {
-  //   // const backup = [...settings];
-  //   // setSettings(newSettings);
-  //   // updateExpoSettings(newSettings)
-  //   //   .then(() => {
-  //   //     console.log("settings updated!");
-  //   //   })
-  //   //   .catch((error) => {
-  //   //     console.warn("Error updating settings: ", error);
-  //   //     setSettings(backup);
-  //   //   });
-  // };
 
   const handleOnNewRow = (todoItemId: string) => {
     // const clone = [...settings];
@@ -115,18 +94,26 @@ const ActivityListSettings = () => {
   };
 
   const handleOnUpdateData = (editableValue: IEditableProps) => {
-    // const clone = [...settings];
-    // const { value, rowId, columnName } = editableValue;
-    // if (rowId && columnName) {
-    //   const rowIndex = clone.findIndex((todoItem) => todoItem.id === rowId);
-    //   const row = settings[rowIndex];
-    //   clone[rowIndex] = {
-    //     ...row,
-    //     [columnName]: value,
-    //   };
-    //   update(clone);
-    // }
+    console.log("[settings] [onUpdateData] editableValue: ", editableValue);
+    const { value, rowId, columnName } = editableValue;
+    const activity = data?.defaultExpoActivities.find((act) => act.id == rowId);
+    delete activity.__typename; // urlq property
+    const updated = {
+      ...activity,
+      [columnName]: value,
+    };
+    updateDefaultExpoActivity({ input: updated })
+      .then((res) => {
+        console.log("[activity][update] res: ", res);
+      })
+      .catch((error) => {
+        console.log("[activity][update] error: ", error);
+      });
   };
+
+  data?.defaultExpoActivities.sort((a, b) => {
+    return parseInt(a.id as string) - parseInt(b.id as string);
+  });
 
   return (
     <Wrapper>
