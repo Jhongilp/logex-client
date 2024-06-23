@@ -149,11 +149,7 @@ export const EditShippingForm = ({ onClose, shipping }: EditShippingProps) => {
         </div>
         <div className="form-field observations">
           <label>Observaciones</label>
-          <textarea
-            name="obs"
-            id="obs"
-            defaultValue={shipping?.obs}
-          ></textarea>
+          <textarea name="obs" id="obs" defaultValue={shipping?.obs}></textarea>
         </div>
       </StyledForm>
       <FormCommands>
