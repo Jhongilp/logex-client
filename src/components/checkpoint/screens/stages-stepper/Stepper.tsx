@@ -9,6 +9,7 @@ import {
   ProgressBarContainer,
   ProgresBarIndicator,
 } from "components/checkpoint/check_point.styles";
+import { ExpoStatus } from "types";
 
 const STEP_SIZE = 40;
 const STEP_SIZE_SMALL = 26;
@@ -46,7 +47,7 @@ const Checkpoint: FC<CheckpointProps> = ({
   );
 };
 
-const Stepper: FC<StepperProps> = ({
+const Stepper: FC<StepperProps<ExpoStatus>> = ({
   steps,
   height,
   onStepClick,
@@ -60,7 +61,7 @@ const Stepper: FC<StepperProps> = ({
     const progress = getStepPosition(length, indexActiveStep);
     setProgress(progress);
   }, [length, activeStep, indexActiveStep]);
-  console.log("[stepper] [render] steps: ", steps);
+
   return (
     <StepperWrapper>
       <ProgressBarContainer>
@@ -73,7 +74,7 @@ const Stepper: FC<StepperProps> = ({
           if (isActive || isSelected) {
             size = STEP_SIZE;
           }
-          console.log("[stepper] step: ", step);
+
           return (
             <Checkpoint
               key={step.name}
@@ -90,7 +91,7 @@ const Stepper: FC<StepperProps> = ({
           );
         })}
 
-        <ProgresBarIndicator progress={progress} />
+        <ProgresBarIndicator $progress={progress} />
       </ProgressBarContainer>
     </StepperWrapper>
   );

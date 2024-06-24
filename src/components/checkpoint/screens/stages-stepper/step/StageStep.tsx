@@ -70,7 +70,7 @@ const CheckpointCircularProgress: FC<
       }}
     >
       <CheckpointWrapper>
-        <CheckpointBtn isActive title={name} onClick={() => onStepClick(name)}>
+        <CheckpointBtn $isActive title={name} onClick={() => onStepClick(name)}>
           <svg
             className="progress-ring"
             viewBox="0 0 24 24"
@@ -94,9 +94,9 @@ const CheckpointCircularProgress: FC<
         {!isActive && (
           <CheckpointProgressIndicator>
             <CheckpointBtn
-              isCompleted={isCompleted}
-              isSelected={isSelected}
-              isStepIcon
+              $isCompleted={isCompleted}
+              $isSelected={isSelected}
+              $isStepIcon
               title={name}
               onClick={() => onStepClick(name)}
             >
@@ -107,7 +107,7 @@ const CheckpointCircularProgress: FC<
         {isActive && (
           <CheckpointProgressIndicator>
             <CheckpointBtn
-              isActive
+              $isActive
               title={name}
               onClick={() => onStepClick(name)}
             >{`${progress}%`}</CheckpointBtn>

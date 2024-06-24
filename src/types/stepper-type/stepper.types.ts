@@ -41,12 +41,12 @@ export interface UseExpoStage<T> {
 }
 
 export interface ProgressBarProps {
-  progress: number;
+  $progress: number;
 }
 
 export interface CheckpointBtnProps {
-  isActive?: boolean;
-  isStepIcon?: boolean;
-  isCompleted?: boolean;
-  isSelected?: boolean;
+  $isActive?: boolean;
+  $isStepIcon?: boolean;
+  $isCompleted?: boolean;
+  $isSelected?: boolean;
 }

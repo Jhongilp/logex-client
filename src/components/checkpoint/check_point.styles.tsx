@@ -34,7 +34,7 @@ export const ProgressBarContainer = styled.div`
 
 export const ProgresBarIndicator = styled.div<ProgressBarProps>`
   position: absolute;
-  width: ${(props) => props.progress}%;
+  width: ${(props) => props.$progress}%; 
   height: 100%;
   top: 0;
   left: 0;
@@ -86,13 +86,13 @@ export const CheckpointBtn = styled.button<CheckpointBtnProps>`
   font-weight: bold;
   color: var(--color-text-dominant);
   ${(props) =>
-    !props.isActive &&
+    !props.$isActive &&
     css`
       background-color: white;
-      border: 1px solid ${props.isCompleted ? "var(--color-secondary)" : "#ddd"};
+      border: 1px solid ${props.$isCompleted ? "var(--color-secondary)" : "#ddd"};
     `}
   ${(props) =>
-    props.isSelected &&
+    props.$isSelected &&
     css`
       border: 2px solid var(--color-primary);
     `}
@@ -105,14 +105,14 @@ export const CheckpointBtn = styled.button<CheckpointBtnProps>`
     background-color: var(--color-main);
     border-radius: 50%;
     ${(props) =>
-      props.isStepIcon &&
+      props.$isStepIcon &&
       css`
         width: 16px;
         height: 16px;
       `}
     ${(props) =>
-      props.isStepIcon &&
-      props.isSelected &&
+      props.$isStepIcon &&
+      props.$isSelected &&
       css`
         width: 28px;
         height: 28px;
