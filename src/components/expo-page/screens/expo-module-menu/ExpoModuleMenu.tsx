@@ -76,7 +76,6 @@ const ExpoMenuLink: FC<MenuExpoLink> = ({ to, label }) => {
   //   exact: false,
   // });
   const match = useMatch(to);
-  console.log("match? ", match);
   return (
     <li className={match ? "active" : ""}>
       <Link to={to}>{label}</Link>

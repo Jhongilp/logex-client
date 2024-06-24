@@ -47,7 +47,6 @@ export default function Root() {
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
-      console.log("[auth] session: ", session);
       setSession(session);
     });
 
