@@ -1,5 +1,6 @@
 import { FC, useState, useCallback } from "react";
-// import { updateTodoItemProgress } from "api/exportaciones.api";
+import { useMutation } from "urql";
+import { updateTodoExpoActivityMutation } from "api";
 import { ChecklistStyled, ChecklistWrapper } from "./_checklist";
 import {
   ExpoActivityList,
@@ -7,7 +8,7 @@ import {
   ProgressStatus,
   ExpoStatus,
 } from "types";
-import { UpdateExpoProgressProps } from "types/props.types";
+// import { UpdateExpoProgressProps } from "types/props.types";
 import { PropertyType, IColumn } from "types/table-type/table.types";
 
 import Table from "components/table/Table";
@@ -16,7 +17,6 @@ import { getStagesProgress } from "components/checkpoint/CheckPoint";
 
 type ChecklistProps = {
   list: ExpoActivityList;
-  expoId: string;
   expoStageFilter: ExpoStatus;
 };
 
@@ -43,7 +43,10 @@ const columns: IColumn<IExpoActivitiesSettings>[] = [
   },
 ];
 
-const Checklist: FC<ChecklistProps> = ({ list, expoId, expoStageFilter }) => {
+const Checklist: FC<ChecklistProps> = ({ list, expoStageFilter }) => {
+  const [, updateTodoExpoActivity] = useMutation(
+    updateTodoExpoActivityMutation
+  );
   const [item, setItem] = useState<IExpoActivitiesSettings | null>(null);
   const [todoItemId, setTodoItemId] = useState<string | null>(null);
   const handleOnOpen = useCallback(
@@ -60,29 +63,35 @@ const Checklist: FC<ChecklistProps> = ({ list, expoId, expoStageFilter }) => {
     [list]
   );
 
-  const handleOnUpdateProgress = useCallback(
-    (progressStatus: ProgressStatus) => {
-      const clone = [...list];
-      if (todoItemId) {
-        const listItemIndex = clone.findIndex(
-          (todoItem) => todoItem.id === todoItemId
-        );
-        const item = clone[listItemIndex];
-        item.progress = progressStatus;
-        const { globalProgress, currentExpoStage } = getStagesProgress(clone);
-        const data: UpdateExpoProgressProps = {
-          todo_list: clone,
-          globalProgress,
+  const handleOnUpdateProgress = (progressStatus: ProgressStatus) => {
+    const clone = [...list];
+
+    if (todoItemId) {
+      const listItemIndex = clone.findIndex(
+        (todoItem) => todoItem.id === todoItemId
+      );
+      const item = clone[listItemIndex];
+      item.progress = progressStatus;
+      delete item.__typename;
+      const { globalProgress, currentExpoStage } = getStagesProgress(clone);
+
+      updateTodoExpoActivity({
+        input: {
+          activity: item,
           status: currentExpoStage,
-        };
-        // updateTodoItemProgress(expoId, data).then(() => {
-        //   setItem(null);
-        //   setTodoItemId(null);
-        // });
-      }
-    },
-    [expoId, list, todoItemId]
-  );
+          globalProgress,
+        },
+      })
+        .then((res) => {
+          console.log("[todo][progress update] res: ", res);
+          setItem(null);
+          setTodoItemId(null);
+        })
+        .catch((error) => {
+          console.log("[todo][progress update] error: ", error);
+        });
+    }
+  };
 
   const handleDelete = () => {
     const clone = [...list];
@@ -96,11 +105,11 @@ const Checklist: FC<ChecklistProps> = ({ list, expoId, expoStageFilter }) => {
       const { globalProgress, currentExpoStage } = getStagesProgress(clone);
 
       console.log("[todo list] ", clone, globalProgress, currentExpoStage);
-      const data: UpdateExpoProgressProps = {
-        todo_list: clone,
-        globalProgress,
-        status: currentExpoStage,
-      };
+      // const data: UpdateExpoProgressProps = {
+      //   todo_list: clone,
+      //   globalProgress,
+      //   status: currentExpoStage,
+      // };
       // updateTodoItemProgress(expoId, data).then(() => {
       //   setItem(null);
       //   setTodoItemId(null);

@@ -66,7 +66,6 @@ export const ActivityModule = () => {
       <ExpoActivitiesWrapper>
         <Checklist
           list={expo.todoList ?? []}
-          expoId={expoId}
           expoStageFilter={expoStageFilter}
         />
       </ExpoActivitiesWrapper>

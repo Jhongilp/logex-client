@@ -22,19 +22,18 @@ export const expoStatusToString = (stage: ExpoStatus): string => {
   return obj[stage];
 };
 
-export type ProgressString = {
-  [K in ProgressStatus]: string;
+export const progressStatusObj = {
+  SIN_INICIAR: "Sin iniciar",
+  EN_CURSO: "En curso",
+  EN_ESPERA: "En espera",
+  RETRASADO: "Retrasado",
+  COMPLETADO: "Completado",
 };
+
 export const progressStatusToString = (
   progressStatus: ProgressStatus
 ): string => {
-  const obj: ProgressString = {
-    SIN_INICIAR: "Sin iniciar",
-    EN_CURSO: "En curso",
-    EN_ESPERA: "En espera",
-    RETRASADO: "Retrasado",
-    COMPLETADO: "Completado",
-  };
+  const obj = progressStatusObj;
   if (!obj[progressStatus]) {
     return obj["SIN_INICIAR"];
   }

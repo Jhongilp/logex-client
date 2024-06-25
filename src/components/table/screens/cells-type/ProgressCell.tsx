@@ -1,7 +1,6 @@
 import { FC } from "react";
 import styled from "styled-components";
-import { ProgressStatus } from "types";
-import { ProgressString } from "utils";
+import { ProgressStatus, ProgressString } from "types";
 
 const Wrapper = styled.div`
   display: flex;

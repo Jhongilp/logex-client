@@ -1,4 +1,5 @@
 // import { StepList } from "types/stepper-type/stepper.types";
+import { progressStatusObj } from "utils";
 
 export type ExpoStatus =
   | "PREVIO_CARGUE"
@@ -229,15 +230,15 @@ export interface IReserva {
   // contenedores: string[];
 }
 
-export type ProgressStatus =
-  | "SIN_INICIAR"
-  | "EN_CURSO"
-  | "EN_ESPERA"
-  | "RETRASADO"
-  | "COMPLETADO";
+export type ProgressStatus = keyof typeof progressStatusObj;
+
+export type ProgressString = {
+  [K in ProgressStatus]: string;
+};
 
 export interface IExpoActivitiesSettings {
   id: number | string;
+  expoId: string;
   name: string;
   status: ExpoStatus;
   progress: ProgressStatus;

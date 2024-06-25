@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { IExpoActivitiesSettings, ProgressStatus } from "types";
 import { Modal } from "styles/Modal/Modal";
 import { ButtonAct } from "styles/commons";
-import { progressStatusToString } from "utils";
+import { progressStatusObj } from "utils";
 
 export const Wrapper = styled.div`
   display: flex;
@@ -57,6 +57,7 @@ const TodoItem: FC<TodoItemProps> = ({
 
   const handleOnSelectMode = (e: React.FormEvent<HTMLSelectElement>) => {
     const value = e.currentTarget.value as ProgressStatus;
+    console.log("[handleOnSelectMode] value: ", value);
     setProgressStatus(value);
   };
 
@@ -67,11 +68,11 @@ const TodoItem: FC<TodoItemProps> = ({
         <ItemProgressStatusInput>
           <label>Estado</label>
           <select value={progressStatus} onChange={handleOnSelectMode}>
-            <option>{progressStatusToString("SIN_INICIAR")}</option>
-            <option>{progressStatusToString("EN_CURSO")}</option>
-            <option>{progressStatusToString("EN_ESPERA")}</option>
-            <option>{progressStatusToString("RETRASADO")}</option>
-            <option>{progressStatusToString("COMPLETADO")}</option>
+            {Object.entries(progressStatusObj).map(([key, value]) => (
+              <option key={key} value={key}>
+                {value}
+              </option>
+            ))}
           </select>
           <ButtonAct
             type="button"

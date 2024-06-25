@@ -43,6 +43,7 @@ export const GetExpoQuery = gql`
       }
       todoList {
         id
+        expoId
         name
         status
         progress

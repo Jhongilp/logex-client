@@ -45,16 +45,9 @@ export const updateDefaultExpoActivityQuery = gql`
 export const updateTodoExpoActivityMutation = gql`
   mutation updateExpoTodoActivity($input: UpdateTodoExpoActivityInput) {
     updateTodoExpoActivity(input: $input) {
-      id
-      name
+      consecutivo
       status
-      progress
-      responsible
-      optional
-      enabled
-      completedAt
-      deadline
-      expoId
+      globalProgress
     }
   }
 `;
