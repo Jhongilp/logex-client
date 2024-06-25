@@ -1,10 +1,37 @@
-import { IContainer, SupplierRole } from "types";
+import { IContainer, IExpo, IShipping, SupplierRole } from "types";
 
 import {
   PropertyType,
   IColumn,
   SelectTypeBoxOptionTagList,
 } from "types/table-type/table.types";
+
+const initialShipping: IShipping = {
+  id: "",
+  consignee: "",
+  notify: "",
+  country: "",
+  city: "",
+  address: "",
+  phone: "",
+  email: "",
+  transport_mode: "",
+  obs: "",
+  customerId: "",
+  contact: "",
+};
+
+export const initialExpo: IExpo = {
+  consecutivo: "",
+  customer: {
+    name: "",
+  },
+  status: "PREVIO_CARGUE",
+  globalProgress: 0,
+  todoList: [],
+  shipping: initialShipping,
+  createdAt: 0,
+};
 
 export const initialContainerTypeOptions: SelectTypeBoxOptionTagList = [
   {
