@@ -163,7 +163,7 @@ export interface ISupplier {
 export type SupplierList = ISupplier[];
 
 export interface IShipping {
-  id: number;
+  id: string;
   consignee: string;
   notify: string;
   country: string;
@@ -260,17 +260,17 @@ export interface IExpo {
   indicatator_month?: Month;
   oc?: string;
   createdAt: number;
-  shipping: IShipping;
   customer: {
     name: string;
   };
+  shipping: IShipping;
+  booking?: IReserva;
   todoList: ExpoActivityList;
   // customer_name: string;
   // destination_country?: string;
   // puerto_destino?: string;
   // transport_mode: ModoTransporte;
   // customer_id: string;
-  // booking?: IReserva;
   // selected_shipping?: string;
   // stagesProgress: StepList;
   // containers?: ContainerList;
