@@ -1,10 +1,5 @@
 import { useState, useEffect, useContext } from "react";
-// import { useParams } from "react-router-dom";
-// import { useQuery } from "urql";
 import { ExpoStatus } from "types";
-// import { ExpoStatus, IExpo } from "types";
-// import { ExpoParams } from "types/props.types";
-// import { GetExpoQuery } from "api";
 import Checklist from "components/checklist/Checklist";
 import Checkpoint, { useExpoStage } from "components/checkpoint/CheckPoint";
 import { ExpoContext } from "components/expo-page/ExpoPage";
