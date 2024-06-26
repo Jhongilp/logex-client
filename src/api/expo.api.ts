@@ -36,10 +36,33 @@ export const GetExpoQuery = gql`
       shipping {
         id
         consignee
+        notify
         country
         city
         contact
         transport_mode
+      }
+      booking {
+        expoId
+        consignee
+        notify
+        shippingCompany
+        broker
+        transportMode
+        cityBondPort
+        bondPort
+        destinationCountry
+        destinationCity
+        bookingNumber
+        billOfLandingId
+        vesselName
+        voyage
+        eta
+        etd
+        etaDestination
+        documentsDeadline
+        inPortDeadline
+        rollover
       }
       todoList {
         id
