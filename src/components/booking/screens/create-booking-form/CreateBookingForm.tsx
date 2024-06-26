@@ -1,19 +1,17 @@
 import { useContext } from "react";
-import styled from "styled-components";
-import { IReserva, ModoTransporte, CiudadZarpe, PuertoZarpe } from "types";
+import { useMutation } from "urql";
+import { IBooking, ModoTransporte, CiudadZarpe, PuertoZarpe } from "types";
 import { FormHeader, FormCommands } from "styles/Form/form.styles";
 import { ButtonAct } from "styles/commons";
-import { StyledCreateBookingForm } from "components/booking/screens/create-booking-form/create_booking.styles";
+import {
+  StyledCreateBookingForm,
+  BookingFormWrapper,
+} from "components/booking/screens/create-booking-form/create_booking.styles";
 import { ExpoContext } from "components/expo-page/ExpoPage";
-
-const BookingFormWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  height: 100%;
-`;
+import { createBookingMutation } from "api";
 
 const CreateBookingForm = () => {
+  const [, createBooking] = useMutation(createBookingMutation);
   const expo = useContext(ExpoContext);
   const shipping = expo?.shipping;
 
@@ -35,36 +33,41 @@ const CreateBookingForm = () => {
       {}
     );
 
-    const booking: IReserva = {
+    const booking: IBooking = {
+      expoId: expo.consecutivo,
       consignee: data.consignee,
       notify: data.notify,
-      shipping_company: data.shipping_company,
+      shippingCompany: data.shippingCompany,
       broker: data.broker,
-      booking_number: data.booking_number,
-      documento_transporte_id: data.documento_transporte_id,
-      transport_mode: data.transport_mode as ModoTransporte,
-      date_cierre_documental: new Date(data.date_cierre_documental).getTime(),
-      date_cierre_fisico: new Date(data.date_cierre_fisico).getTime(),
-      ciudad_puerto_zarpe: CiudadZarpe[data.ciudad_puerto_zarpe],
-      puerto_zarpe: PuertoZarpe[data.puerto_zarpe],
-      eta: new Date(data.eta).getTime(),
-      etd: new Date(data.etd).getTime(),
-      eta_destino: new Date(data.eta_destino).getTime(),
-      destination_country: data.destination_country,
-      destination_city: data.destination_city,
-      name_motonave: data.name_motonave,
+      bookingNumber: data.bookingNumber,
+      billOfLandingId: data.billOfLandingId,
+      transportMode: data.transportMode,
+      cityBondPort: data.cityBondPort,
+      bondPort: data.bondPort,
+      documentsDeadline: new Date(data.documentsDeadline).toISOString(),
+      inPortDeadline: new Date(data.inPortDeadline).toISOString(),
+      eta: new Date(data.eta).toISOString(),
+      etd: new Date(data.etd).toISOString(),
+      etaDestination: new Date(data.etaDestination).toISOString(),
+      destinationCountry: data.destinationCountry,
+      destinationCity: data.destinationCity,
+      vesselName: data.vesselName,
       voyage: data.voyage,
-      // contenedores: [],
+      rollover: false,
     };
-    console.log("form data: ", data);
-    console.log("reserva: ", booking);
-    // createBooking(expoId, booking)
-    //   .then((res) => {
-    //     console.log("Booking created. ", res);
-    //   })
-    //   .catch((error) => {
-    //     console.log("Error creating booking. ", error);
-    //   });
+
+    console.log("form data: booking", booking);
+
+    createBooking({ input: booking })
+      .then((res) => {
+        console.log("Booking created. ", res);
+      })
+      .catch((error) => {
+        console.log("Error creating booking. ", error);
+      });
+
+    // console.log("form data: ", data);
+    // console.log("reserva: ", booking);
   };
 
   console.log("[booking] shipping: ", shipping);
@@ -104,22 +107,18 @@ const CreateBookingForm = () => {
           </div>
           <div className="form-field booking-shipping_company">
             <label>Naviera</label>
-            <input
-              required
-              name="shipping_company"
-              id="shipping_company"
-            ></input>
+            <input required name="shippingCompany" id="shippingCompany"></input>
           </div>
           <div className="form-field booking-booking_number">
             <label>Reserva No.</label>
-            <input required name="booking_number" id="booking_number"></input>
+            <input required name="bookingNumber" id="bookingNumber"></input>
           </div>
           <div className="form-field booking-documento_transporte_id">
             <label>Documento transporte No.</label>
             <input
               // required
-              name="documento_transporte_id"
-              id="documento_transporte_id"
+              name="billOfLandingId"
+              id="billOfLandingId"
             ></input>
           </div>
 
@@ -128,7 +127,7 @@ const CreateBookingForm = () => {
             <select
               required
               defaultValue={shipping?.transport_mode || ModoTransporte.MARITIMO}
-              name="transport_mode"
+              name="transportMode"
             >
               <option value={ModoTransporte.AEREO}>Aereo</option>
               <option value={ModoTransporte.MARITIMO}>Marítimo</option>
@@ -141,8 +140,8 @@ const CreateBookingForm = () => {
             <input
               required
               type="date"
-              name="date_cierre_documental"
-              id="date_cierre_documental"
+              name="documentsDeadline"
+              id="documentsDeadline"
             ></input>
           </div>
           <div className="form-field booking-date_cierre_fisico">
@@ -150,13 +149,13 @@ const CreateBookingForm = () => {
             <input
               required
               type="date"
-              name="date_cierre_fisico"
-              id="date_cierre_fisico"
+              name="inPortDeadline"
+              id="inPortDeadline"
             ></input>
           </div>
           <div className="form-field booking-ciudad_puerto_zarpe">
             <label>Ciudad origen</label>
-            <select required name="ciudad_puerto_zarpe">
+            <select required name="cityBondPort">
               {Object.keys(CiudadZarpe).map((city) => (
                 <option key={city} value={city}>
                   {city}
@@ -166,7 +165,7 @@ const CreateBookingForm = () => {
           </div>
           <div className="form-field booking-puerto_zarpe">
             <label>Puerto origen</label>
-            <select required name="puerto_zarpe">
+            <select required name="bondPort">
               {Object.keys(PuertoZarpe).map((port) => (
                 <option key={port} value={port}>
                   {port}
@@ -182,8 +181,8 @@ const CreateBookingForm = () => {
             <label>País destino</label>
             <input
               required
-              name="destination_country"
-              id="destination_country"
+              name="destinationCountry"
+              id="destinationCountry"
               defaultValue={shipping?.country || ""}
             ></input>
           </div>
@@ -191,8 +190,8 @@ const CreateBookingForm = () => {
             <label>Ciudad destino</label>
             <input
               required
-              name="destination_city"
-              id="destination_city"
+              name="destinationCity"
+              id="destinationCity"
               defaultValue={shipping?.city || ""}
             ></input>
           </div>
@@ -205,13 +204,13 @@ const CreateBookingForm = () => {
             <input
               required
               type="date"
-              name="eta_destino"
-              id="eta_destino"
+              name="etaDestination"
+              id="etaDestination"
             ></input>
           </div>
           <div className="form-field booking-name_motonave">
             <label>Motonave</label>
-            <input required name="name_motonave" id="name_motonave"></input>
+            <input required name="vesselName" id="vesselName"></input>
           </div>
           <div className="form-field booking-voyage">
             <label>Viaje</label>

@@ -1,6 +1,12 @@
 import styled from "styled-components";
-
 import { StyledForm } from "styles/Form/form.styles";
+
+export const BookingFormWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+`;
 
 export const StyledCreateBookingForm = styled(StyledForm)`
   > div.booking-consignee {

@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import styled from "styled-components";
 import { ButtonAct } from "styles/commons";
-
 import CreateBookingForm from "components/booking/screens/create-booking-form/CreateBookingForm";
+import { ExpoContext } from "components/expo-page/ExpoPage";
 
 const BookingWrapper = styled.div`
   display: flex;
@@ -34,6 +34,7 @@ enum BookingState {
 
 export const Booking = () => {
   const [step, setStep] = useState(BookingState.CREATING);
+  const expo = useContext(ExpoContext);
 
   return (
     <BookingWrapper>

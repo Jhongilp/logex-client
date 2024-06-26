@@ -79,26 +79,26 @@ export const ExpoPage = () => {
 
               <div className="expo--booking">
                 <label>Reserva No:</label>
-                <span>{expo.booking?.booking_number}</span>
+                <span>{expo.booking?.bookingNumber}</span>
               </div>
               <div className="expo--bl">
                 <label>BL No:</label>
-                <span>{expo.booking?.documento_transporte_id ?? ""}</span>
+                <span>{expo.booking?.billOfLandingId ?? ""}</span>
               </div>
 
               <div className="expo--sailing-city">
                 <label>Ciudad zarpe:</label>
-                <span>{expo.booking?.ciudad_puerto_zarpe?.alias}</span>
+                <span>{expo.booking?.cityBondPort}</span>
                 {/* <span>{expo.ciudad_puerto_zarpe?.name}</span> */}
               </div>
               <div className="expo--origin-port">
                 <label>Terminal porturario:</label>
-                <span>{expo.booking?.puerto_zarpe?.alias}</span>
+                <span>{expo.booking?.bondPort}</span>
                 {/* <span>{expo.sealing_port?.alias}</span> */}
               </div>
               <div className="expo--shipper">
                 <label>Naviera:</label>
-                <span>{expo.booking?.shipping_company}</span>
+                <span>{expo.booking?.shippingCompany}</span>
                 {/* <span>{expo.shipping_company}</span> */}
               </div>
               <div className="expo--voyage">
@@ -106,7 +106,7 @@ export const ExpoPage = () => {
                 {/* <span>V25N / VERONICA</span> */}
                 <span>{`${
                   expo.booking?.voyage ? `${expo.booking?.voyage} / ` : ""
-                } ${expo.booking?.name_motonave ?? ""}`}</span>
+                } ${expo.booking?.vesselName ?? ""}`}</span>
               </div>
 
               <div className="expo--broker">
@@ -138,7 +138,7 @@ export const ExpoPage = () => {
                       <label>Cierre documental:</label>
                       <span>
                         {new Date(
-                          expo.booking?.date_cierre_documental || ""
+                          expo.booking?.documentsDeadline || ""
                         ).toLocaleDateString()}
                       </span>
                     </li>
@@ -146,7 +146,7 @@ export const ExpoPage = () => {
                       <label>Cierre físico:</label>
                       <span>
                         {new Date(
-                          expo.booking?.date_cierre_fisico || ""
+                          expo.booking?.inPortDeadline || ""
                         ).toLocaleDateString()}
                       </span>
                     </li>
@@ -161,9 +161,9 @@ export const ExpoPage = () => {
                     <li>
                       <label>ETA destino:</label>
                       <span>
-                        {expo.booking?.eta_destino
+                        {expo.booking?.etaDestination
                           ? new Date(
-                              expo.booking?.eta_destino
+                              expo.booking?.etaDestination
                             ).toLocaleDateString()
                           : ""}
                       </span>
