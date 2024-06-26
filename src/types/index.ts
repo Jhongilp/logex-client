@@ -207,27 +207,28 @@ export interface IContainer {
 export type ContainerList = { [key: string]: IContainer };
 export type ContainerListArray = IContainer[];
 
-export interface IReserva {
+export interface IBooking {
+  expoId: string;
+  bookingNumber: string;
   consignee: string;
   notify: string;
-  shipping_company: string;
+  shippingCompany: string;
   broker: string;
-  transport_mode: ModoTransporte;
-  ciudad_puerto_zarpe?: ISealingCity;
-  puerto_zarpe: IPuertoZarpe;
-  destination_country: string;
-  destination_city: string;
-  booking_number: string;
-  documento_transporte_id: string;
-  name_motonave?: string;
-  voyage?: string;
-  eta: number;
-  etd: number;
-  eta_destino: number;
-  date_cierre_documental: number;
-  date_cierre_fisico: number;
-  rollover?: boolean;
-  // contenedores: string[];
+  transportMode: string;
+  cityBondPort: string;
+  bondPort: string;
+  destinationCountry: string;
+  destinationCity: string;
+  billOfLandingId: string;
+  vesselName: string;
+  voyage: string;
+  eta?: string;
+  etd?: string;
+  etaDestination?: string;
+  documentsDeadline?: string;
+  inPortDeadline?: string;
+  rollover: boolean;
+  // // contenedores: string[];
 }
 
 export type ProgressStatus = keyof typeof progressStatusObj;
@@ -264,7 +265,7 @@ export interface IExpo {
     name: string;
   };
   shipping: IShipping;
-  booking?: IReserva;
+  booking?: IBooking;
   todoList: ExpoActivityList;
   // customer_name: string;
   // destination_country?: string;
