@@ -8,7 +8,7 @@ import {
   BookingFormWrapper,
 } from "components/booking/screens/create-booking-form/create_booking.styles";
 import { ExpoContext } from "components/expo-page/ExpoPage";
-import { createBookingMutation } from "api";
+import { updateBookingMutation } from "api";
 
 const dateStringToInputDate = (dateString: string = "") => {
   // console.log("dateString: ", dateString);
@@ -21,7 +21,7 @@ const dateStringToInputDate = (dateString: string = "") => {
 };
 
 export const EditBookingForm = () => {
-  const [, createBooking] = useMutation(createBookingMutation);
+  const [, updateBooking] = useMutation(updateBookingMutation);
   const expo = useContext(ExpoContext);
   const booking = expo?.booking;
 
@@ -44,6 +44,7 @@ export const EditBookingForm = () => {
     );
 
     const updatedBooking: IBooking = {
+      id: booking?.id,
       expoId: expo.consecutivo,
       consignee: data.consignee,
       notify: data.notify,
@@ -68,13 +69,13 @@ export const EditBookingForm = () => {
 
     console.log("form data: booking", updatedBooking);
 
-    // createBooking({ input: updatedBooking })
-    //   .then((res) => {
-    //     console.log("Booking created. ", res);
-    //   })
-    //   .catch((error) => {
-    //     console.log("Error creating booking. ", error);
-    //   });
+    updateBooking({ input: updatedBooking })
+      .then((res) => {
+        console.log("Booking updated. ", res);
+      })
+      .catch((error) => {
+        console.log("Error updating booking. ", error);
+      });
 
     // console.log("form data: ", data);
     // console.log("reserva: ", booking);
