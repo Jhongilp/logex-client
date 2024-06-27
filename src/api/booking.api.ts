@@ -26,3 +26,31 @@ export const createBookingMutation = gql`
     }
   }
 `;
+
+export const updateBookingMutation = gql`
+  mutation updateBooking($input: UpdateBookingInput) {
+    updateBooking(input: $input) {
+      id
+      expoId
+      consignee
+      notify
+      shippingCompany
+      broker
+      transportMode
+      cityBondPort
+      bondPort
+      destinationCountry  
+      destinationCity
+      bookingNumber
+      billOfLandingId
+      vesselName
+      voyage
+      eta
+      etd
+      etaDestination
+      documentsDeadline
+      inPortDeadline
+      rollover
+    }
+  }
+`;
