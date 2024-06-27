@@ -10,6 +10,16 @@ import {
 import { ExpoContext } from "components/expo-page/ExpoPage";
 import { createBookingMutation } from "api";
 
+const dateStringToInputDate = (dateString: string = "") => {
+  // console.log("dateString: ", dateString);
+  try {
+    const dateInput = new Date(dateString).toISOString().slice(0, 10);
+    return dateInput;
+  } catch (error) {
+    console.error("Error parsing date string: ", error);
+  }
+};
+
 export const EditBookingForm = () => {
   const [, createBooking] = useMutation(createBookingMutation);
   const expo = useContext(ExpoContext);
@@ -58,19 +68,19 @@ export const EditBookingForm = () => {
 
     console.log("form data: booking", updatedBooking);
 
-    createBooking({ input: updatedBooking })
-      .then((res) => {
-        console.log("Booking created. ", res);
-      })
-      .catch((error) => {
-        console.log("Error creating booking. ", error);
-      });
+    // createBooking({ input: updatedBooking })
+    //   .then((res) => {
+    //     console.log("Booking created. ", res);
+    //   })
+    //   .catch((error) => {
+    //     console.log("Error creating booking. ", error);
+    //   });
 
     // console.log("form data: ", data);
     // console.log("reserva: ", booking);
   };
 
-  console.log("[edit][booking] : ", booking);
+  // console.log("[edit][booking] : ", booking);
 
   return (
     <BookingFormWrapper>
@@ -103,7 +113,12 @@ export const EditBookingForm = () => {
           </div>
           <div className="form-field booking-broker">
             <label>Agente de carga</label>
-            <input required name="broker" id="broker"></input>
+            <input
+              required
+              name="broker"
+              id="broker"
+              defaultValue={booking?.broker}
+            ></input>
           </div>
           <div className="form-field booking-shipping_company">
             <label>Naviera</label>
@@ -153,7 +168,7 @@ export const EditBookingForm = () => {
               type="date"
               name="documentsDeadline"
               id="documentsDeadline"
-              defaultValue={booking?.documentsDeadline}
+              defaultValue={dateStringToInputDate(booking?.documentsDeadline)}
             ></input>
           </div>
           <div className="form-field booking-date_cierre_fisico">
@@ -163,7 +178,7 @@ export const EditBookingForm = () => {
               type="date"
               name="inPortDeadline"
               id="inPortDeadline"
-              defaultValue={booking?.inPortDeadline}
+              defaultValue={dateStringToInputDate(booking?.inPortDeadline)}
             ></input>
           </div>
           <div className="form-field booking-ciudad_puerto_zarpe">
@@ -197,7 +212,7 @@ export const EditBookingForm = () => {
               type="date"
               name="eta"
               id="eta"
-              defaultValue={booking?.eta}
+              defaultValue={dateStringToInputDate(booking?.eta)}
             ></input>
           </div>
           <div className="form-field booking-destination_country">
@@ -225,7 +240,7 @@ export const EditBookingForm = () => {
               type="date"
               name="etd"
               id="etd"
-              defaultValue={booking?.etd}
+              defaultValue={dateStringToInputDate(booking?.etd)}
             ></input>
           </div>
           <div className="form-field booking-eta_destino">
@@ -235,7 +250,7 @@ export const EditBookingForm = () => {
               type="date"
               name="etaDestination"
               id="etaDestination"
-              defaultValue={booking?.etaDestination}
+              defaultValue={dateStringToInputDate(booking?.etaDestination)}
             ></input>
           </div>
           <div className="form-field booking-name_motonave">
