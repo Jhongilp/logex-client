@@ -1,7 +1,7 @@
-import { useState, useContext } from "react";
+import { useContext } from "react";
 import styled from "styled-components";
-import { ButtonAct } from "styles/commons";
-import CreateBookingForm from "components/booking/screens/create-booking-form/CreateBookingForm";
+import { CreateBookingForm } from "components/booking/screens/create-booking-form/CreateBookingForm";
+import { EditBookingForm } from "components/booking/screens/edit-booking-form/EditBookingForm";
 import { ExpoContext } from "components/expo-page/ExpoPage";
 
 const BookingWrapper = styled.div`
@@ -12,29 +12,10 @@ const BookingWrapper = styled.div`
   color: var(--color-text-dominant);
 `;
 
-const BookingProcessOption = styled.div`
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  width: 400px;
-  height: 100px;
-  margin: 0 auto;
-  background-color: var(--color-main-bg);
-
-  > button {
-    height: 50px;
-  }
-`;
-
-enum BookingState {
-  INIT,
-  REQUESTING, // not anable yet, this will be used when sending email with the booking request
-  CREATING,
-}
-
 export const Booking = () => {
-  const [step, setStep] = useState(BookingState.CREATING);
   const expo = useContext(ExpoContext);
+
+  const isBookingCreated = expo?.booking?.id;
 
   return (
     <BookingWrapper>
@@ -42,25 +23,9 @@ export const Booking = () => {
         <h1>RESERVA</h1>
       </div>
       <div>
-        {step === BookingState.INIT && (
-          <BookingProcessOption>
-            <ButtonAct
-              type="button"
-              onClick={() => setStep(BookingState.CREATING)}
-            >
-              INGRESAR RESERVA
-            </ButtonAct>
-            <ButtonAct
-              type="button"
-              onClick={() => setStep(BookingState.REQUESTING)}
-              disabled
-            >
-              SOLICITAR RESERVA
-            </ButtonAct>
-          </BookingProcessOption>
-        )}
-
-        <div>{step === BookingState.CREATING && <CreateBookingForm />}</div>
+        <div>
+          {isBookingCreated ? <EditBookingForm /> : <CreateBookingForm />}
+        </div>
       </div>
     </BookingWrapper>
   );

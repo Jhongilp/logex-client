@@ -10,7 +10,7 @@ import {
 import { ExpoContext } from "components/expo-page/ExpoPage";
 import { createBookingMutation } from "api";
 
-const CreateBookingForm = () => {
+export const CreateBookingForm = () => {
   const [, createBooking] = useMutation(createBookingMutation);
   const expo = useContext(ExpoContext);
   const shipping = expo?.shipping;
@@ -226,5 +226,3 @@ const CreateBookingForm = () => {
     </BookingFormWrapper>
   );
 };
-
-export default CreateBookingForm;

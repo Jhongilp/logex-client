@@ -1,4 +1,5 @@
 import { useContext } from "react";
+import { useMutation } from "urql";
 import { IBooking, ModoTransporte, CiudadZarpe, PuertoZarpe } from "types";
 import { FormHeader, FormCommands } from "styles/Form/form.styles";
 import { ButtonAct } from "styles/commons";
@@ -7,10 +8,12 @@ import {
   BookingFormWrapper,
 } from "components/booking/screens/create-booking-form/create_booking.styles";
 import { ExpoContext } from "components/expo-page/ExpoPage";
+import { createBookingMutation } from "api";
 
-const CreateBookingForm = () => {
+export const EditBookingForm = () => {
+  const [, createBooking] = useMutation(createBookingMutation);
   const expo = useContext(ExpoContext);
-  const shipping = expo?.shipping;
+  const booking = expo?.booking;
 
   const onCreateBooking = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -30,39 +33,44 @@ const CreateBookingForm = () => {
       {}
     );
 
-    const booking: IBooking = {
+    const updatedBooking: IBooking = {
+      expoId: expo.consecutivo,
       consignee: data.consignee,
       notify: data.notify,
-      shipping_company: data.shipping_company,
+      shippingCompany: data.shippingCompany,
       broker: data.broker,
-      booking_number: data.booking_number,
-      documento_transporte_id: data.documento_transporte_id,
-      transport_mode: data.transport_mode as ModoTransporte,
-      date_cierre_documental: new Date(data.date_cierre_documental).getTime(),
-      date_cierre_fisico: new Date(data.date_cierre_fisico).getTime(),
-      ciudad_puerto_zarpe: CiudadZarpe[data.ciudad_puerto_zarpe],
-      puerto_zarpe: PuertoZarpe[data.puerto_zarpe],
-      eta: new Date(data.eta).getTime(),
-      etd: new Date(data.etd).getTime(),
-      eta_destino: new Date(data.eta_destino).getTime(),
-      destination_country: data.destination_country,
-      destination_city: data.destination_city,
-      name_motonave: data.name_motonave,
+      bookingNumber: data.bookingNumber,
+      billOfLandingId: data.billOfLandingId,
+      transportMode: data.transportMode,
+      cityBondPort: data.cityBondPort,
+      bondPort: data.bondPort,
+      documentsDeadline: new Date(data.documentsDeadline).toISOString(),
+      inPortDeadline: new Date(data.inPortDeadline).toISOString(),
+      eta: new Date(data.eta).toISOString(),
+      etd: new Date(data.etd).toISOString(),
+      etaDestination: new Date(data.etaDestination).toISOString(),
+      destinationCountry: data.destinationCountry,
+      destinationCity: data.destinationCity,
+      vesselName: data.vesselName,
       voyage: data.voyage,
-      // contenedores: [],
+      rollover: false,
     };
-    console.log("form data: ", data);
-    console.log("reserva: ", booking);
-    // createBooking(expoId, booking)
-    //   .then((res) => {
-    //     console.log("Booking created. ", res);
-    //   })
-    //   .catch((error) => {
-    //     console.log("Error creating booking. ", error);
-    //   });
+
+    console.log("form data: booking", updatedBooking);
+
+    createBooking({ input: updatedBooking })
+      .then((res) => {
+        console.log("Booking created. ", res);
+      })
+      .catch((error) => {
+        console.log("Error creating booking. ", error);
+      });
+
+    // console.log("form data: ", data);
+    // console.log("reserva: ", booking);
   };
 
-  console.log("[booking] shipping: ", shipping);
+  console.log("[edit][booking] : ", booking);
 
   return (
     <BookingFormWrapper>
@@ -81,7 +89,7 @@ const CreateBookingForm = () => {
               required
               name="consignee"
               id="consignee"
-              defaultValue={shipping?.consignee || ""}
+              defaultValue={booking?.consignee || ""}
             ></input>
           </div>
           <div className="form-field booking-notify">
@@ -90,7 +98,7 @@ const CreateBookingForm = () => {
               required
               name="notify"
               id="notify"
-              defaultValue={shipping?.notify || ""}
+              defaultValue={booking?.notify || ""}
             ></input>
           </div>
           <div className="form-field booking-broker">
@@ -101,20 +109,27 @@ const CreateBookingForm = () => {
             <label>Naviera</label>
             <input
               required
-              name="shipping_company"
-              id="shipping_company"
+              name="shippingCompany"
+              id="shippingCompany"
+              defaultValue={booking?.shippingCompany}
             ></input>
           </div>
           <div className="form-field booking-booking_number">
             <label>Reserva No.</label>
-            <input required name="booking_number" id="booking_number"></input>
+            <input
+              required
+              name="bookingNumber"
+              id="bookingNumber"
+              defaultValue={booking?.bookingNumber}
+            ></input>
           </div>
           <div className="form-field booking-documento_transporte_id">
             <label>Documento transporte No.</label>
             <input
               // required
-              name="documento_transporte_id"
-              id="documento_transporte_id"
+              name="billOfLandingId"
+              id="billOfLandingId"
+              defaultValue={booking?.billOfLandingId}
             ></input>
           </div>
 
@@ -122,8 +137,8 @@ const CreateBookingForm = () => {
             <label>Modalidad</label>
             <select
               required
-              defaultValue={shipping?.transport_mode || ModoTransporte.MARITIMO}
-              name="transport_mode"
+              defaultValue={booking?.transportMode || ModoTransporte.MARITIMO}
+              name="transportMode"
             >
               <option value={ModoTransporte.AEREO}>Aereo</option>
               <option value={ModoTransporte.MARITIMO}>Marítimo</option>
@@ -136,8 +151,9 @@ const CreateBookingForm = () => {
             <input
               required
               type="date"
-              name="date_cierre_documental"
-              id="date_cierre_documental"
+              name="documentsDeadline"
+              id="documentsDeadline"
+              defaultValue={booking?.documentsDeadline}
             ></input>
           </div>
           <div className="form-field booking-date_cierre_fisico">
@@ -145,13 +161,18 @@ const CreateBookingForm = () => {
             <input
               required
               type="date"
-              name="date_cierre_fisico"
-              id="date_cierre_fisico"
+              name="inPortDeadline"
+              id="inPortDeadline"
+              defaultValue={booking?.inPortDeadline}
             ></input>
           </div>
           <div className="form-field booking-ciudad_puerto_zarpe">
             <label>Ciudad origen</label>
-            <select required name="ciudad_puerto_zarpe">
+            <select
+              required
+              name="cityBondPort"
+              defaultValue={booking?.cityBondPort}
+            >
               {Object.keys(CiudadZarpe).map((city) => (
                 <option key={city} value={city}>
                   {city}
@@ -161,7 +182,7 @@ const CreateBookingForm = () => {
           </div>
           <div className="form-field booking-puerto_zarpe">
             <label>Puerto origen</label>
-            <select required name="puerto_zarpe">
+            <select required name="bondPort" defaultValue={booking?.bondPort}>
               {Object.keys(PuertoZarpe).map((port) => (
                 <option key={port} value={port}>
                   {port}
@@ -171,56 +192,75 @@ const CreateBookingForm = () => {
           </div>
           <div className="form-field booking-eta">
             <label>ETA</label>
-            <input required type="date" name="eta" id="eta"></input>
+            <input
+              required
+              type="date"
+              name="eta"
+              id="eta"
+              defaultValue={booking?.eta}
+            ></input>
           </div>
           <div className="form-field booking-destination_country">
             <label>País destino</label>
             <input
               required
-              name="destination_country"
-              id="destination_country"
-              defaultValue={shipping?.country || ""}
+              name="destinationCountry"
+              id="destinationCountry"
+              defaultValue={booking?.destinationCountry || ""}
             ></input>
           </div>
           <div className="form-field booking-destination_city">
             <label>Ciudad destino</label>
             <input
               required
-              name="destination_city"
-              id="destination_city"
-              defaultValue={shipping?.city || ""}
+              name="destinationCity"
+              id="destinationCity"
+              defaultValue={booking?.destinationCity || ""}
             ></input>
           </div>
           <div className="form-field booking-etd">
             <label>ETD</label>
-            <input required type="date" name="etd" id="etd"></input>
+            <input
+              required
+              type="date"
+              name="etd"
+              id="etd"
+              defaultValue={booking?.etd}
+            ></input>
           </div>
           <div className="form-field booking-eta_destino">
             <label>ETA destino</label>
             <input
               required
               type="date"
-              name="eta_destino"
-              id="eta_destino"
+              name="etaDestination"
+              id="etaDestination"
+              defaultValue={booking?.etaDestination}
             ></input>
           </div>
           <div className="form-field booking-name_motonave">
             <label>Motonave</label>
-            <input required name="name_motonave" id="name_motonave"></input>
+            <input
+              required
+              name="vesselName"
+              id="vesselName"
+              defaultValue={booking?.vesselName}
+            ></input>
           </div>
           <div className="form-field booking-voyage">
             <label>Viaje</label>
-            <input required name="voyage" id="voyage"></input>
+            <input
+              required
+              name="voyage"
+              id="voyage"
+              defaultValue={booking?.voyage}
+            ></input>
           </div>
         </StyledCreateBookingForm>
         <FormCommands>
-          {/* <ButtonAct onClick={handleOnClickBack}>Atrás</ButtonAct> */}
-          {/* <ButtonAct onClick={onClose}>Cancelar</ButtonAct> */}
           <ButtonAct form="create-booking-form">Crear Reserva</ButtonAct>
         </FormCommands>
       </>
     </BookingFormWrapper>
   );
 };
-
-export default CreateBookingForm;

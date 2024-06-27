@@ -208,6 +208,7 @@ export type ContainerList = { [key: string]: IContainer };
 export type ContainerListArray = IContainer[];
 
 export interface IBooking {
+  id?: string;
   expoId: string;
   bookingNumber: string;
   consignee: string;

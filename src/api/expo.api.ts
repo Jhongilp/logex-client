@@ -43,6 +43,7 @@ export const GetExpoQuery = gql`
         transport_mode
       }
       booking {
+        id
         expoId
         consignee
         notify
