@@ -115,7 +115,7 @@ export const FormCommands = styled.div`
 
   > button:nth-of-type(1) {
     margin-right: 6px;
-    background-color: var(--color-text);
+    /* background-color: var(--color-text); */
     justify-content: center;
   }
   > button:nth-of-type(2) {
