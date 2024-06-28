@@ -101,6 +101,8 @@ export const StatusRow = styled.div<RowProps>`
   height: 100%;
 
   > div.status-icon {
+    width: 24px;
+    height: 24px;
     /* margin-left: auto; */
     margin-right: 6px;
   }
