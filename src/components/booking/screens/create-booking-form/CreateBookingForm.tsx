@@ -218,8 +218,6 @@ export const CreateBookingForm = () => {
           </div>
         </StyledCreateBookingForm>
         <FormCommands>
-          {/* <ButtonAct onClick={handleOnClickBack}>Atrás</ButtonAct> */}
-          {/* <ButtonAct onClick={onClose}>Cancelar</ButtonAct> */}
           <ButtonAct form="create-booking-form">Crear Reserva</ButtonAct>
         </FormCommands>
       </>
