@@ -274,7 +274,7 @@ export const EditBookingForm = () => {
           </div>
         </StyledCreateBookingForm>
         <FormCommands>
-          <ButtonAct form="create-booking-form">Crear Reserva</ButtonAct>
+          <ButtonAct form="create-booking-form">Editar</ButtonAct>
         </FormCommands>
       </>
     </BookingFormWrapper>
