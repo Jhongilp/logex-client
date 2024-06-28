@@ -1,6 +1,6 @@
 import { FunctionComponent } from "react";
 import { Link } from "react-router-dom";
-import { ExpoStatus } from "types";
+import { ExpoStatus, IBooking } from "types";
 import { TableExpoProps, ExpoItemProps } from "types/props.types";
 
 import {
@@ -14,29 +14,28 @@ import {
   Cell,
   StatusWrapper,
   StatusRow,
-  // Circle,
+  Circle,
   StatusProgress,
 } from "components/dashboard/screens/expo-table/expo_table.style";
-import { stepIcon } from 'utils';
-
+import { expoStatusToString, stepIcon } from "utils";
 
 type StatusProps = {
   status: ExpoStatus;
-  globalProgress: number,
+  globalProgress: number;
 };
 
-const Status: FunctionComponent<StatusProps> = ({ status,  globalProgress}) => {
+const Status: FunctionComponent<StatusProps> = ({ status, globalProgress }) => {
+  console.log("[status] ", status)
   return (
     <StatusWrapper>
       <StatusRow>
-        {/* <Circle /> */}
-        <div className="status-icon">{stepIcon[status]}</div>
-        <span>{status}</span>
+        <Circle />
+        <div className="status-icon">{stepIcon[status]}</div> 
+        <span>{expoStatusToString(status)?.toUpperCase()}</span>
       </StatusRow>
       <StatusRow $lower={true}>
-        <StatusProgress $progress={globalProgress}/>
+        <StatusProgress $progress={globalProgress} />
         <span className="status-progress">{`${globalProgress}%`}</span>
-
       </StatusRow>
     </StatusWrapper>
   );
@@ -56,19 +55,9 @@ const Header = () => {
 };
 
 const ExpoItem: FunctionComponent<ExpoItemProps> = ({ expo }) => {
-  // const {
-  //   consecutivo,
-  //   customer_name,
-  //   destination_country,
-  //   puerto_destino,
-  //   status,
-  //   booking,
-  //   globalProgress
-  // } = expo;
   const consecutivo = expo?.consecutivo;
+  const booking = expo?.booking ?? ({} as IBooking);
 
-  // const { broker, shipping_company, ciudad_puerto_zarpe, puerto_zarpe } =
-  //   booking ?? {};
   return (
     <Row>
       <td>
@@ -77,41 +66,33 @@ const ExpoItem: FunctionComponent<ExpoItemProps> = ({ expo }) => {
             <Link to={`/expo/${consecutivo}`}>{consecutivo}</Link>
           </span>
           <span className="lower">
-            Pending / Pending
-            {/* {`${
-              ciudad_puerto_zarpe?.alias
-                ? `${ciudad_puerto_zarpe?.alias} / `
-                : ""
-            }`}
-            {puerto_zarpe?.alias} */}
+            {`${booking?.cityBondPort ? `${booking?.cityBondPort} / ` : ""}`}
+            {booking?.bondPort}
           </span>
         </Cell>
       </td>
       <td>
         <Cell>
-          {/* <span className="upper">{customer_name}</span> */}
           <span className="upper">{expo?.customer?.name}</span>
           <span className="lower">
-            {/* {destination_country} - {puerto_destino} */}
             {expo?.shipping?.country} - {expo?.shipping?.city}
           </span>
         </Cell>
       </td>
       <td>
         <Cell>
-          {/* <span className="upper">{booking?.booking_number}</span> */}
-          <span className="upper">{0}</span>
+          <span className="upper">{booking?.bookingNumber}</span>
           <span className="lower">
-            {/* {`${shipping_company ? `${shipping_company} / ` : ""}`}
-            {broker} */}
-            Pending / Pending
+            {`${
+              booking?.shippingCompany ? `${booking?.shippingCompany} / ` : ""
+            }`}
+            {booking?.broker}
           </span>
         </Cell>
       </td>
       <td>
         <Cell>
-          {/* <Status status={status} globalProgress={globalProgress}/> */}
-          <Status status={expo?.status} globalProgress={expo?.globalProgress}/>
+          <Status status={expo?.status} globalProgress={expo?.globalProgress} />
         </Cell>
       </td>
     </Row>
@@ -121,7 +102,6 @@ const ExpoItem: FunctionComponent<ExpoItemProps> = ({ expo }) => {
 const Body: FunctionComponent<TableExpoProps> = ({ exportaciones }) => {
   return (
     <TableBody>
-      {/* {Object.keys(exportaciones).map((expoId) => ( */}
       {exportaciones?.map((expo) => (
         <ExpoItem key={expo.consecutivo} expo={expo} />
       ))}
