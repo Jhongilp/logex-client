@@ -9,6 +9,7 @@ import {
   ExpoStatusHeader,
   ExpoActivitiesWrapper,
 } from "components/expo-page/screens/activity-module/activity_module.style";
+import { expoStatusToString } from "utils";
 
 export const ActivityModule = () => {
   const expo = useContext(ExpoContext);
@@ -33,7 +34,7 @@ export const ActivityModule = () => {
         onStageFilter={handleOnStageFilter}
       />
       <ExpoStatusHeader>
-        <span>{expoStageFilter.toUpperCase()}</span>
+        <span>{expoStatusToString(expoStageFilter)?.toUpperCase()}</span>
       </ExpoStatusHeader>
       <ExpoActivitiesWrapper>
         <Checklist
