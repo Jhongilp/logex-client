@@ -58,7 +58,7 @@ export const ExpoPage = () => {
           </ExpoNumber>
           <div className="commands">
             <ButtonAct type="button" onClick={() => setOpen(true)}>
-              Agregar reserva
+              {expo?.booking?.id ? "Editar reserva" : "Crear reserva"}
             </ButtonAct>
           </div>
           <div>
