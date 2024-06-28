@@ -18,6 +18,13 @@ export const GetExposQuery = gql`
         contact
         transport_mode
       }
+      booking {
+        cityBondPort
+        bondPort
+        bookingNumber
+        shippingCompany
+        broker        
+      }
       
     }
   }
