@@ -5,6 +5,7 @@ export * from "api/expo.api";
 export * from "api/user.api";
 export * from "api/expoActivity.api";
 export * from "api/booking.api";
+export * from "api/container.api";
 
 export const supabase = createClient(
   "https://edmyrapaqwyonmwrazea.supabase.co",
