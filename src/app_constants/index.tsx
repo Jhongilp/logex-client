@@ -112,7 +112,7 @@ export const shipmentTableColumns: IColumn<IContainer>[] = [
   {
     type: PropertyType.Text,
     name: "# Contenedor",
-    fieldName: "container_number",
+    fieldName: "containerNumber",
     minWidth: 150,
   },
   {
@@ -124,37 +124,37 @@ export const shipmentTableColumns: IColumn<IContainer>[] = [
   {
     type: PropertyType.Select,
     name: "Transportador",
-    fieldName: "transport_name",
+    fieldName: "transportName",
     minWidth: 150,
   },
   {
     type: PropertyType.Text,
     name: "Peso bruto",
-    fieldName: "peso_bruto",
+    fieldName: "grossWeight",
     minWidth: 100,
   },
   {
     type: PropertyType.Text,
     name: "Placa",
-    fieldName: "vehiculo_id",
+    fieldName: "vehicleId",
     minWidth: 100,
   },
   {
     type: PropertyType.Date,
     name: "Cargue",
-    fieldName: "date_cargue",
+    fieldName: "dateLoad",
     minWidth: 100,
   },
   {
     type: PropertyType.Date,
     name: "Ingreso a puerto",
-    fieldName: "date_ingreso_puerto",
+    fieldName: "datePortEntry",
     minWidth: 100,
   },
   {
     type: PropertyType.Date,
     name: "Zarpe",
-    fieldName: "date_zarpe",
+    fieldName: "dateSail",
     minWidth: 100,
   },
 ];
@@ -163,7 +163,7 @@ export const expoTableColumns: IColumn<IContainer>[] = [
   {
     type: PropertyType.Text,
     name: "# Contenedor",
-    fieldName: "container_number",
+    fieldName: "containerNumber",
     minWidth: 150,
   },
 ];

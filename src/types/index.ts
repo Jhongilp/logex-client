@@ -9,12 +9,19 @@ export type ExpoStatus =
   | "EN_DESTINO"
   | "FINALIZADO";
 
-export enum ContainerType {
-  _20 = "20'",
-  _40 = "40'",
-  _40HQ = "40HQ",
-  _REFEER = "REFEER",
-}
+// export enum ContainerType {
+//   _20 = "20'",
+//   _40 = "40'",
+//   _40HQ = "40HQ",
+//   _REFEER = "REFEER",
+// }
+export type ContainerType =
+  | "DRY_20"
+  | "DRY_40"
+  | "DRY_40HC"
+  | "REEFER_20"
+  | "REEFER_40"
+  | "REEFER_40HC";
 
 export type Month = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
 
@@ -39,10 +46,10 @@ export enum SupplierRole {
 }
 
 interface IContact {}
-interface IInspeccion {}
-interface ISello {}
-interface IIndicador {}
-interface ILiquidacion {}
+// interface IInspeccion {}
+// interface ISello {}
+// interface IIndicador {}
+// interface ILiquidacion {}
 // interface IDocument {}
 
 export interface IBroker {
@@ -182,27 +189,26 @@ export interface IShipping {
 
 export interface IContainer {
   id: string;
-  expoId: string;
-  container_number: string;
-  vehiculo_id: string;
-  transport_name: string;
-  booking_id: string;
+  containerNumber: string;
+  vehicleId: string;
+  transportName: string;
+  bookingId: string;
   type: ContainerType;
-  date_retiro?: number;
-  date_cargue: number;
-  date_ingreso_puerto: number;
-  date_zarpe: number;
-  peso_neto: number;
-  peso_bruto: number;
-  sellos?: ISello[];
-  documentos?: string[]; // packing list, invoice, invima, ica, co, others
-  inspecciones?: IInspeccion[];
-  indicadores?: IIndicador[];
-  liquidacion?: ILiquidacion;
-  // index: number,
-  createdAt: number;
-  // [key: string]: string | boolean | number | undefined | ISello;
+  dateWithdrawal?: Date;
+  dateLoad?: Date;
+  datePortEntry?: Date;
+  dateSail?: Date;
+  netWeight?: number;
+  grossWeight?: number;
+  createdAt: Date;
+  // sellos?: ISello[];
+  // documentos?: string[]; // packing list, invoice, invima, ica, co, others
+  // inspecciones?: IInspeccion[];
+  // indicadores?: IIndicador[];
+  // liquidacion?: ILiquidacion;
 }
+
+export type IContainerInput = Omit<IContainer, "id" | "createdAt">;
 
 export type ContainerList = { [key: string]: IContainer };
 export type ContainerListArray = IContainer[];

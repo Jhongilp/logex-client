@@ -53,7 +53,7 @@ const routes = [
     label: "ACTIVIDADES",
   },
   {
-    to: "despacho",
+    to: "shipment",
     label: "DESPACHO",
   },
   {
