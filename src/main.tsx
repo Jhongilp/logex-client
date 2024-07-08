@@ -26,6 +26,7 @@ import { ShippingList } from "components/customer/shippings/Shippings";
 import { ShippingDetails } from "components/customer/shippings/screens/shipping-details/ShippingDetails";
 import { ExpoPage } from "components/expo-page/ExpoPage";
 import { ActivityModule } from "components/expo-page/screens/activity-module/ActivityModule";
+import { ShipmentModule } from "components/expo-page/screens/shipment-module/ShipmentModule";
 
 import { createClient as createSSEClient } from "graphql-sse";
 
@@ -165,6 +166,10 @@ const router = createBrowserRouter([
           {
             path: "/expo/:expoId/actividades",
             element: <ActivityModule />,
+          },
+          {
+            path: "/expo/:expoId/shipment",
+            element: <ShipmentModule />,
           },
         ],
       },
