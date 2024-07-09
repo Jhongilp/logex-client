@@ -14,7 +14,11 @@ import {
 import Table from "components/table/Table";
 import { shipmentTableColumns } from "app_constants";
 import ContainerSmallView from "components/shipment-details/screens/container-small-view/ContainerSmallView";
-import { CreateContainerMutation, GetContainerByBookingQuery } from "api";
+import {
+  CreateContainerMutation,
+  GetContainerByBookingQuery,
+  UpdateContainerMutation,
+} from "api";
 
 const defaultEmptyContainer: IContainerInput = {
   containerNumber: "",
@@ -27,8 +31,8 @@ const defaultEmptyContainer: IContainerInput = {
 export default function Shipment() {
   const [error, setError] = useState<null | string>(null);
   const [, createContainer] = useMutation(CreateContainerMutation);
+  const [, updateContainer] = useMutation(UpdateContainerMutation);
   const expo = useContext(ExpoContext);
-
 
   const [results] = useQuery<{ containers: IContainer[] }>({
     query: GetContainerByBookingQuery,
@@ -45,10 +49,12 @@ export default function Shipment() {
   if (fetching) return <p>Loading...</p>;
 
   const containerList = data?.containers || [];
+  containerList.sort((a, b) => {
+    return new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime();
+  });
   // const containerList = expo?.containers || {};
   // const { containerList, loading } = useContenedores(expoId);
   // const { containerList, loading } = { containerList: [], loading: false };
-  
 
   console.log("expo after containers update: ", containerList);
 
@@ -82,9 +88,17 @@ export default function Shipment() {
       const rowIndex = clone.findIndex((container) => container.id === rowId);
       const container = containerList[rowIndex];
       if (container) {
-        const containerUpdate = { ...container, [columnName]: value };
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        const { createdAt, __typename, ...containerInputData} = container;
+        const containerUpdate = { ...containerInputData, [columnName]: value };
         console.log("[handleOnUpdateData] containerUpdate: ", containerUpdate);
-        // updateContainer(expoId, container.id, containerUpdate);
+        updateContainer({ input: containerUpdate })
+          .then((res) => {
+            console.log("container updated. ", res);
+          })
+          .catch((error) => {
+            console.log("Error updating container. ", error);
+          });
       }
     }
   };

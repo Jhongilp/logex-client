@@ -201,6 +201,7 @@ export interface IContainer {
   netWeight?: number;
   grossWeight?: number;
   createdAt: Date;
+  __typename?: string; // urlq property
   // sellos?: ISello[];
   // documentos?: string[]; // packing list, invoice, invima, ica, co, others
   // inspecciones?: IInspeccion[];

@@ -9,6 +9,7 @@ export const GetContainerByBookingQuery = gql`
       transportName
       bookingId
       type
+      createdAt
     }
   }
 `;
@@ -16,6 +17,26 @@ export const GetContainerByBookingQuery = gql`
 export const CreateContainerMutation = gql`
   mutation createContainer($input: CreateContainerInput) {
     container: createContainer(input: $input) {
+      id
+      containerNumber
+      vehicleId
+      transportName
+      bookingId
+      type
+      dateWithdrawal
+      dateLoad
+      datePortEntry
+      dateSail
+      netWeight
+      grossWeight
+      createdAt
+    }
+  }
+`;
+
+export const UpdateContainerMutation = gql`
+  mutation updateContainer($input: UpdateContainerInput) {
+    container: updateContainer(input: $input) {
       id
       containerNumber
       vehicleId
