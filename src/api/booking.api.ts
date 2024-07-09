@@ -11,7 +11,7 @@ export const createBookingMutation = gql`
       transportMode
       cityBondPort
       bondPort
-      destinationCountry  
+      destinationCountry
       destinationCity
       bookingNumber
       billOfLandingId
@@ -39,7 +39,7 @@ export const updateBookingMutation = gql`
       transportMode
       cityBondPort
       bondPort
-      destinationCountry  
+      destinationCountry
       destinationCity
       bookingNumber
       billOfLandingId
