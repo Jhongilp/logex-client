@@ -5,7 +5,6 @@ export const ShipmentModule = () => {
   return (
     <ShipmentModuleWrapper>
       <ShipmentDetails />
-      <p>Shipment Details</p>
     </ShipmentModuleWrapper>
   );
 };
