@@ -129,6 +129,12 @@ export const shipmentTableColumns: IColumn<IContainer>[] = [
   },
   {
     type: PropertyType.Text,
+    name: "Peso neto",
+    fieldName: "netWeight",
+    minWidth: 100,
+  },
+  {
+    type: PropertyType.Text,
     name: "Peso bruto",
     fieldName: "grossWeight",
     minWidth: 100,

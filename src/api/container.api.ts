@@ -9,6 +9,7 @@ export const GetContainerByBookingQuery = gql`
       transportName
       bookingId
       type
+      netWeight
       grossWeight
       dateWithdrawal
       dateLoad
