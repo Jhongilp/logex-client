@@ -9,6 +9,11 @@ export const GetContainerByBookingQuery = gql`
       transportName
       bookingId
       type
+      grossWeight
+      dateWithdrawal
+      dateLoad
+      datePortEntry
+      dateSail
       createdAt
     }
   }
