@@ -84,7 +84,7 @@ export interface IColumn<T> {
 export type IRow = { [key: string]: any };
 
 export interface IEditableProps {
-  value: string | boolean;
+  value: string | number | boolean;
   rowId: null | string;
   columnName: null | string;
 }

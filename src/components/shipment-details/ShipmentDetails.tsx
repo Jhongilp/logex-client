@@ -83,13 +83,21 @@ export default function Shipment() {
     console.log("[handleOnUpdateData] editableValue: ", editableValue);
 
     const clone = [...containerList];
-    const { value, rowId, columnName } = editableValue;
+    const { rowId, columnName } = editableValue;
+    let { value } = editableValue;
     if (rowId && columnName) {
       const rowIndex = clone.findIndex((container) => container.id === rowId);
       const container = containerList[rowIndex];
       if (container) {
+        if (
+          typeof value === "string" &&
+          (columnName === "netWeight" || columnName === "grossWeight")
+        ) {
+          value = parseFloat(value);
+        }
+
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        const { createdAt, __typename, ...containerInputData} = container;
+        const { createdAt, __typename, ...containerInputData } = container;
         const containerUpdate = { ...containerInputData, [columnName]: value };
         console.log("[handleOnUpdateData] containerUpdate: ", containerUpdate);
         updateContainer({ input: containerUpdate })
