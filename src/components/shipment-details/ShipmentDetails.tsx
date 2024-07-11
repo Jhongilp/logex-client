@@ -7,8 +7,9 @@ import {
 } from "./shipment_details.style";
 import { IContainer, IContainerInput } from "types";
 import {
-  IEditableProps,
+  IEditableProps, 
   SelectTypeBoxOptionTagList,
+  SelectTypeBoxOptionTagListObj,
 } from "types/table-type/table.types";
 
 import Table from "components/table/Table";
@@ -28,6 +29,56 @@ const defaultEmptyContainer: IContainerInput = {
   type: "DRY_40HC",
 };
 
+export const containerTypeOptions: SelectTypeBoxOptionTagListObj = {
+  type: {
+    data: [
+      {
+        id: "1",
+        label: "DRY_20",
+        color: "blue",
+        editable: false,
+        deletable: false,
+      },
+      {
+        id: "2",
+        label: "DRY_40",
+        color: "blue",
+        editable: false,
+        deletable: false,
+      },
+      {
+        id: "3",
+        label: "DRY_40HC",
+        color: "blue",
+        editable: false,
+        deletable: false,
+      },
+      {
+        id: "4",
+        label: "REEFER_20",
+        color: "blue",
+        editable: false,
+        deletable: false,
+      },
+      {
+        id: "5",
+        label: "REEFER_40",
+        color: "blue",
+        editable: false,
+        deletable: false,
+      },
+      {
+        id: "6",
+        label: "REEFER_40HC",
+        color: "blue",
+        editable: false,
+        deletable: false,
+      },
+    ],
+    editable: false,
+  },
+};
+
 export default function Shipment() {
   const [error, setError] = useState<null | string>(null);
   const [, createContainer] = useMutation(CreateContainerMutation);
@@ -40,7 +91,7 @@ export default function Shipment() {
   });
 
   // const selectionOptionLists = useShipmentOptionList();
-  const selectionOptionLists = {};
+  const selectionOptionLists = containerTypeOptions;
   const [selectedContainer, setSelectedContainer] = useState<null | string>(
     null
   );
