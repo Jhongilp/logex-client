@@ -98,12 +98,26 @@ export type TSelectTypeBoxOptionTag = {
 };
 
 export type SelectTypeBoxOptionTagList = TSelectTypeBoxOptionTag[];
+
+// export type FieldName<T> = T[IColumn<T>["fieldName"]];
+
+// export const test: FieldName<{ type: "sdfsd", another: "another" }> = "sdfsd";
+
+// type SelectableColumns = "type" | "transportName";
+
+// export type SelectTypeBoxOptionTagListObj<T extends string | number | symbol> = {
 export type SelectTypeBoxOptionTagListObj = {
-  [key: string]: {
+  [k: string]: {
     data: SelectTypeBoxOptionTagList;
     editable: boolean;
   };
 };
+// export type SelectTypeBoxOptionTagListObj<T> = {
+//   [K in keyof T]: {
+//     data: SelectTypeBoxOptionTagList;
+//     editable: boolean;
+//   };
+// };
 
 export type FetchedSelectTypeBoxOptionTag = {
   options: SelectTypeBoxOptionTagList;
