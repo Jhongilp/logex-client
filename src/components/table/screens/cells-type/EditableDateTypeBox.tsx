@@ -1,7 +1,8 @@
-import React, { FC, useContext } from "react";
+import { FC, useContext } from "react";
 import styled from "styled-components";
 import { TableContext } from "components/table/Table";
 import { IRow } from "types/table-type/table.types";
+import { dateStringToInputDate } from "utils";
 
 const EditableDateWrapper = styled.div`
   display: flex;
@@ -31,10 +32,7 @@ const EditableDateTypeBox: FC<{ row: IRow; fieldName: string }> = ({
   let formattedDate = "";
   if (columnDate) {
     try {
-      formattedDate = new Date(parseInt(columnDate as string))
-        .toISOString()
-        .slice(0, 10);
-      
+      formattedDate = dateStringToInputDate(columnDate);
     } catch (error) {
       console.error("Error convrting date: ", error);
     }
@@ -43,11 +41,11 @@ const EditableDateTypeBox: FC<{ row: IRow; fieldName: string }> = ({
   return (
     <EditableDateWrapper className="no-self-close">
       <input
-        defaultValue={formattedDate ? formattedDate : ''}
+        defaultValue={formattedDate ? formattedDate : ""}
         type="date"
         onBlur={(e) => {
-          if(!isNaN(e.currentTarget.valueAsNumber)) {
-            onUpdateData?.(e.currentTarget.valueAsNumber.toString());
+          if (!isNaN(e.currentTarget.valueAsNumber)) {
+            onUpdateData?.(new Date(e.currentTarget.value).toISOString());
           }
         }}
       ></input>

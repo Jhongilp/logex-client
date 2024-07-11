@@ -9,16 +9,9 @@ import {
 } from "components/booking/screens/create-booking-form/create_booking.styles";
 import { ExpoContext } from "components/expo-page/ExpoPage";
 import { updateBookingMutation } from "api";
+import { dateStringToInputDate } from "utils"
 
-const dateStringToInputDate = (dateString: string = "") => {
-  // console.log("dateString: ", dateString);
-  try {
-    const dateInput = new Date(dateString).toISOString().slice(0, 10);
-    return dateInput;
-  } catch (error) {
-    console.error("Error parsing date string: ", error);
-  }
-};
+
 
 export const EditBookingForm = () => {
   const [, updateBooking] = useMutation(updateBookingMutation);
