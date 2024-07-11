@@ -149,19 +149,19 @@ export const shipmentTableColumns: IColumn<IContainer>[] = [
     type: PropertyType.Date,
     name: "Cargue",
     fieldName: "dateLoad",
-    minWidth: 100,
+    minWidth: 120,
   },
   {
     type: PropertyType.Date,
     name: "Ingreso a puerto",
     fieldName: "datePortEntry",
-    minWidth: 100,
+    minWidth: 120,
   },
   {
     type: PropertyType.Date,
     name: "Zarpe",
     fieldName: "dateSail",
-    minWidth: 100,
+    minWidth: 120,
   },
 ];
 
