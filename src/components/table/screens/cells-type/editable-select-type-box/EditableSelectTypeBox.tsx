@@ -1,10 +1,4 @@
-import React, {
-  useContext,
-  useState,
-  useRef,
-  useEffect,
-  useCallback,
-} from "react";
+import { useContext, useState, useRef, useEffect, useCallback } from "react";
 
 import { SelectTypeBoxOptionTagList } from "types/table-type/table.types";
 import { TableContext } from "components/table/Table";
@@ -63,39 +57,33 @@ const EditableSelectTypeBox = () => {
     selectedOptionRef.current = selectedOption;
   });
 
-  const handleOnNewSelectOptionTag = useCallback(
-    (_newValue?: string) => {
-      if (columnName) {
-        const isColumnEditable = selectionOptionLists[columnName].editable;
-        if (isColumnEditable) {
-          const columnOptions = [...selectionOptionLists[columnName].data];
-          const valueToUpdate = queryRef.current;
-          const doesTagExistAlready = doesTagExists(
-            columnOptions,
-            valueToUpdate
-          );
+  const handleOnNewSelectOptionTag = useCallback(() => {
+    if (columnName) {
+      const isColumnEditable = selectionOptionLists[columnName].editable;
+      if (isColumnEditable) {
+        const columnOptions = [...selectionOptionLists[columnName].data];
+        const valueToUpdate = queryRef.current;
+        const doesTagExistAlready = doesTagExists(columnOptions, valueToUpdate);
 
-          if (!doesTagExistAlready) {
-            columnOptions.push({
-              label: valueToUpdate.toUpperCase(),
-              color: "",
-              id: uuid(),
-              deletable: true,
-              editable: true,
-            });
-            onUpdateSelectionOptionList?.(columnOptions);
-          }
-          onUpdateData?.(queryRef.current.toUpperCase());
+        if (!doesTagExistAlready) {
+          columnOptions.push({
+            label: valueToUpdate.toUpperCase(),
+            color: "",
+            id: uuid(),
+            deletable: true,
+            editable: true,
+          });
+          onUpdateSelectionOptionList?.(columnOptions);
         }
+        onUpdateData?.(queryRef.current.toUpperCase());
       }
-    },
-    [
-      onUpdateData,
-      onUpdateSelectionOptionList,
-      columnName,
-      selectionOptionLists,
-    ]
-  );
+    }
+  }, [
+    onUpdateData,
+    onUpdateSelectionOptionList,
+    columnName,
+    selectionOptionLists,
+  ]);
 
   const handleOnEditSelectOptionTag = useCallback(() => {
     if (columnName) {
@@ -199,7 +187,7 @@ const EditableSelectTypeBox = () => {
         {searchResults.map((option) => (
           <li
             key={option.id}
-            onClick={(e) => onUpdateData?.(option.label.toUpperCase())}
+            onClick={() => onUpdateData?.(option.label.toUpperCase())}
           >
             <DragIcon />
             <OptionTag>
