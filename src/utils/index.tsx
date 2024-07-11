@@ -70,3 +70,12 @@ export const searchFromOptionList = (
   }
   return results;
 };
+
+export const dateStringToInputDate = (dateString: string = "") => {
+  try {
+    const dateInput = new Date(dateString).toISOString().slice(0, 10);
+    return dateInput;
+  } catch (error) {
+    console.error("Error parsing date string: ", error);
+  }
+};
