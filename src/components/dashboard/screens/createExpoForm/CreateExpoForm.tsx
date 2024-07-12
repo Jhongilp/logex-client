@@ -146,7 +146,7 @@ const CreateExpoForm = ({ onClose }: CreateCustomerProps) => {
       consecutivo,
       customerId: selectedCustomer.id,
       shippingId: "",
-      status: 0, // !don't think we need to pass this
+      // status: 0, // !don't think we need to pass this
       globalProgress: 0,
       // stagesProgress: [],
       // todo_list: expoActivitiesList,

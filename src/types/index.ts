@@ -294,7 +294,7 @@ export interface IExpo {
 export type IExpoInput = {
   consecutivo;
   // status: ExpoStatus;
-  status: number; // ! I don't think we need this here
+  // status: number; // ! I don't think we need this here
   globalProgress: 0;
   customerId: string;
   shippingId: string;
