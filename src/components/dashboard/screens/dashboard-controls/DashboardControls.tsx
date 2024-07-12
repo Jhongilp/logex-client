@@ -1,9 +1,16 @@
 import { useState } from "react";
 import styled from "styled-components";
-import { StyledSubHeader, SunHeaderContent, ButtonAct } from "styles/commons";
+import {
+  StyledSubHeader,
+  SunHeaderContent,
+  ButtonAct,
+  BtnIcon,
+} from "styles/commons";
+import { DashboardIcon, OpenInFullIcon } from "svgs";
 import { Modal } from "styles/Modal/Modal";
 import CreateExpoForm from "components/dashboard/screens/createExpoForm/CreateExpoForm";
 import { AddIcon } from "svgs";
+import { ExpoViewMode } from "types/props.types";
 
 const AddExpoBtn = styled(ButtonAct)`
   padding: 0 12px 0 6px;
@@ -14,7 +21,13 @@ const AddExpoBtn = styled(ButtonAct)`
   }
 `;
 
-export default function DashboardControls() {
+export default function DashboardControls({
+  onExpoViewChange,
+  expoViewMode,
+}: {
+  onExpoViewChange: (mode: ExpoViewMode) => void;
+  expoViewMode: ExpoViewMode;
+}) {
   const [isOpen, setOpen] = useState(false);
 
   return (
@@ -27,6 +40,21 @@ export default function DashboardControls() {
           <AddIcon />
           <span>Exportación</span>
         </AddExpoBtn>
+        {expoViewMode === "expo-resume" ? (
+          <BtnIcon
+            type="button"
+            onClick={() => onExpoViewChange("container-list")}
+          >
+            <OpenInFullIcon />
+          </BtnIcon>
+        ) : (
+          <BtnIcon
+            type="button"
+            onClick={() => onExpoViewChange("expo-resume")}
+          >
+            <DashboardIcon />
+          </BtnIcon>
+        )}
       </SunHeaderContent>
     </StyledSubHeader>
   );

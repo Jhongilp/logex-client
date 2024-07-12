@@ -100,3 +100,5 @@ export type IconType = {
   width?: number;
   height?: number;
 };
+
+export type ExpoViewMode = "expo-resume" | "container-list";
