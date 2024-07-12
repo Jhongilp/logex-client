@@ -4,6 +4,7 @@ import {
   PropertyType,
   IColumn,
   SelectTypeBoxOptionTagList,
+  SelectTypeBoxOptionTagListObj,
 } from "types/table-type/table.types";
 
 const initialShipping: IShipping = {
@@ -173,3 +174,53 @@ export const expoTableColumns: IColumn<IContainer>[] = [
     minWidth: 150,
   },
 ];
+
+export const containerTypeOptions: SelectTypeBoxOptionTagListObj = {
+  type: {
+    data: [
+      {
+        id: "1",
+        label: "DRY_20",
+        color: "blue",
+        editable: false,
+        deletable: false,
+      },
+      {
+        id: "2",
+        label: "DRY_40",
+        color: "blue",
+        editable: false,
+        deletable: false,
+      },
+      {
+        id: "3",
+        label: "DRY_40HC",
+        color: "blue",
+        editable: false,
+        deletable: false,
+      },
+      {
+        id: "4",
+        label: "REEFER_20",
+        color: "blue",
+        editable: false,
+        deletable: false,
+      },
+      {
+        id: "5",
+        label: "REEFER_40",
+        color: "blue",
+        editable: false,
+        deletable: false,
+      },
+      {
+        id: "6",
+        label: "REEFER_40HC",
+        color: "blue",
+        editable: false,
+        deletable: false,
+      },
+    ],
+    editable: false,
+  },
+};
