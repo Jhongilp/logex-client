@@ -23,9 +23,6 @@ const Dashboard = () => {
     query: GetExposQuery,
   });
 
-  // const exportaciones: ExpoList = useSelector(
-  //   (state: StateType) => state.exportaciones
-  // );
   const exportaciones: ExpoList = results?.data?.expos;
   console.log("[exportaciones] ", exportaciones);
   return (
