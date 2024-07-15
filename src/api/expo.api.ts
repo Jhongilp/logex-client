@@ -25,7 +25,6 @@ export const GetExposQuery = gql`
         shippingCompany
         broker        
       }
-      
     }
   }
 `;

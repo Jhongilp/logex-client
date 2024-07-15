@@ -5,7 +5,6 @@ import {
   IShipping,
   // IUser,
   ExpoActivityList,
-  ContainerListArray,
   SupplierList,
   ExpoStatus,
 } from "types";
@@ -55,11 +54,6 @@ export type FetchExpo = {
 
 export type FetchSupplierList = {
   supplierList: SupplierList;
-  loading: boolean;
-};
-
-export type FetchContainerList = {
-  containerList: ContainerListArray;
   loading: boolean;
 };
 

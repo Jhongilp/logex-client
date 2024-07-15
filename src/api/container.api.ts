@@ -20,6 +20,50 @@ export const GetContainerByBookingQuery = gql`
   }
 `;
 
+export const GetExposWithContainers = gql`
+  query GetExposWithContainers {
+    expos {
+      consecutivo
+      status
+      globalProgress
+      createdAt
+      customer {
+        name
+      }
+      shipping {
+        id
+        consignee
+        country
+        city
+        contact
+        transport_mode
+      }
+      booking {
+        cityBondPort
+        bondPort
+        bookingNumber
+        shippingCompany
+        broker
+      }
+      containers {
+        id
+        containerNumber
+        vehicleId
+        transportName
+        bookingId
+        type
+        netWeight
+        grossWeight
+        dateWithdrawal
+        dateLoad
+        datePortEntry
+        dateSail
+        createdAt
+      }
+    }
+  }
+`;
+
 export const CreateContainerMutation = gql`
   mutation createContainer($input: CreateContainerInput) {
     container: createContainer(input: $input) {
