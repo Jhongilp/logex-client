@@ -24,7 +24,7 @@ const Dashboard = () => {
   });
 
   const exportaciones: ExpoList = results?.data?.expos;
-  console.log("[exportaciones] ", exportaciones);
+  // console.log("[exportaciones] ", exportaciones);
   return (
     <StyledMain>
       <DashboardControls onExpoViewChange={setExpoViewMode} expoViewMode={expoViewMode}/>

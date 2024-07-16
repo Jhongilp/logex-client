@@ -25,7 +25,6 @@ type StatusProps = {
 };
 
 const Status: FunctionComponent<StatusProps> = ({ status, globalProgress }) => {
-  console.log("[status] ", status)
   return (
     <StatusWrapper>
       <StatusRow>

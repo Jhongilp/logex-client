@@ -268,13 +268,13 @@ export interface IExpo {
   globalProgress: number;
   indicatator_month?: Month;
   oc?: string;
-  createdAt: number;
-  customer: {
+  createdAt: Date;
+  customer?: {
     name: string;
   };
-  shipping: IShipping;
+  shipping?: IShipping;
   booking?: IBooking;
-  todoList: ExpoActivityList;
+  todoList?: ExpoActivityList;
   containers?: ContainerListArray;
   // customer_name: string;
   // destination_country?: string;

@@ -1,4 +1,4 @@
-import { IContainer, IExpo, IShipping, SupplierRole } from "types";
+import { IBooking, IContainer, IExpo, IShipping, SupplierRole } from "types";
 
 import {
   PropertyType,
@@ -31,7 +31,7 @@ export const initialExpo: IExpo = {
   globalProgress: 0,
   todoList: [],
   shipping: initialShipping,
-  createdAt: 0,
+  createdAt: new Date(),
 };
 
 export const initialContainerTypeOptions: SelectTypeBoxOptionTagList = [
@@ -174,6 +174,54 @@ export const expoTableColumns: IColumn<IContainer>[] = [
     minWidth: 150,
   },
 ];
+
+type ExpoContainerTableColumnKeys = IExpo & IContainer & IShipping & IBooking;
+export const expoContainerTableColumns: IColumn<ExpoContainerTableColumnKeys>[] =
+  [
+    {
+      type: PropertyType.Text,
+      name: "# Contenedor",
+      fieldName: "containerNumber",
+      minWidth: 150,
+    },
+    {
+      type: PropertyType.Text,
+      name: "Expo",
+      fieldName: "consecutivo",
+      minWidth: 150,
+    },
+    {
+      type: PropertyType.Text,
+      name: "Cliente",
+      fieldName: "customer",
+      minWidth: 150,
+    },
+    {
+      type: PropertyType.Text,
+      name: "Estado",
+      fieldName: "status",
+      minWidth: 150,
+    },
+    {
+      type: PropertyType.Text,
+      name: "Reserva",
+      fieldName: "bookingNumber",
+      minWidth: 150,
+    },
+
+    {
+      type: PropertyType.Text,
+      name: "País destino",
+      fieldName: "country",
+      minWidth: 150,
+    },
+    {
+      type: PropertyType.Text,
+      name: "Puerto zarpe",
+      fieldName: "cityBondPort",
+      minWidth: 150,
+    },
+  ];
 
 export const containerTypeOptions: SelectTypeBoxOptionTagListObj = {
   type: {
