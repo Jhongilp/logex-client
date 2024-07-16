@@ -175,7 +175,7 @@ export const expoTableColumns: IColumn<IContainer>[] = [
   },
 ];
 
-type ExpoContainerTableColumnKeys = IExpo & IContainer & IShipping & IBooking;
+type ExpoContainerTableColumnKeys = IExpo & IContainer & IShipping & IBooking & { customerName: string };
 export const expoContainerTableColumns: IColumn<ExpoContainerTableColumnKeys>[] =
   [
     {
@@ -193,7 +193,7 @@ export const expoContainerTableColumns: IColumn<ExpoContainerTableColumnKeys>[] 
     {
       type: PropertyType.Text,
       name: "Cliente",
-      fieldName: "customer",
+      fieldName: "customerName",
       minWidth: 150,
     },
     {

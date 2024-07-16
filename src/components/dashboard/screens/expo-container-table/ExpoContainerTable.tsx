@@ -20,6 +20,7 @@ const flatExpoData = (expos: ExpoList = []) => {
           createdAt: expo.createdAt,
           globalProgress: expo.globalProgress,
           status: expo.status,
+          customerName: expo.customer?.name,
           ...expo.booking,
           ...expo.shipping,
           ...container,
