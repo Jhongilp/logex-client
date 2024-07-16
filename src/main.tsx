@@ -33,12 +33,14 @@ import { createClient as createSSEClient } from "graphql-sse";
 import "./index.css";
 
 const sseClient = createSSEClient({
-  url: "http://localhost:4000/graphql",
+  url: "https://logex-server.onrender.com/graphql",
+  // url: "http://localhost:4000/graphql",
   // url: "http://its.urql:4000/graphql",
 });
 
 const client = createClient({
-  url: "http://localhost:4000/graphql",
+  url: "https://logex-server.onrender.com/graphql",
+  // url: "http://localhost:4000/graphql",
   // url: "/graphql/stream",
   exchanges: [
     cacheExchange,
