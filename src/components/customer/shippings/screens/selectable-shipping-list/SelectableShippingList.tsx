@@ -32,7 +32,7 @@ const Body = styled(TableBody)`
 type ShippingItemProps = {
   shipping: IShipping;
   onSelect: (event: React.SyntheticEvent<HTMLInputElement>) => void;
-  index: number | null;
+  index: string | number | null;
 };
 
 const ShippingItem: FC<ShippingItemProps> = ({ shipping, index, onSelect }) => (

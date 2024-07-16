@@ -1,4 +1,4 @@
-import React from "react";
+
 import { IconType } from 'types/props.types'
 
 

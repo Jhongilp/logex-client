@@ -1,5 +1,3 @@
-import React from "react";
-
 const ClearIcon = () => (
   <svg height="24" viewBox="0 0 24 24" width="24">
     <path d="M0 0h24v24H0V0z" fill="none" />

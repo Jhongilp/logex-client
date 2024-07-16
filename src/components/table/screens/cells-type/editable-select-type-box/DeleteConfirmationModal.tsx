@@ -1,4 +1,3 @@
-import React from "react";
 import {
   BackdropWrapper,
   CenteredModalDeleteConfirmation,
@@ -17,8 +16,8 @@ const DeleteConfirmationModal = ({
   onCancel
 }: DeleteConfirmationModalProps) => {
   return (
-    <BackdropWrapper open className="backdrop">
-      <CenteredModalDeleteConfirmation visible>
+    <BackdropWrapper $open className="backdrop">
+      <CenteredModalDeleteConfirmation $visible>
         <DeleteConfirmationContent>
           <span>¿Seguro deseas eliminar esta opción?</span>
           <DeleteOptionBtn onClick={onDelete}>Eliminar</DeleteOptionBtn>

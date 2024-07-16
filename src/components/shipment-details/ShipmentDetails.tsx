@@ -8,7 +8,7 @@ import {
 import { IContainer, IContainerInput } from "types";
 import {
   IEditableProps,
-  SelectTypeBoxOptionTagList,
+  // SelectTypeBoxOptionTagList,
 } from "types/table-type/table.types";
 import { containerTypeOptions } from "app_constants";
 
@@ -126,9 +126,10 @@ export default function Shipment() {
     }
   };
 
-  const handleOnUpdateSelectionOptionList = (
-    updatedOptionList: SelectTypeBoxOptionTagList
-  ) => {
+  // const handleOnUpdateSelectionOptionList = (
+  //   updatedOptionList: SelectTypeBoxOptionTagList
+  // ) => {
+  const handleOnUpdateSelectionOptionList = () => {
     // updateContainerTypeSettings(updatedOptionList);
   };
 

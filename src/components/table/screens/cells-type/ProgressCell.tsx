@@ -1,6 +1,6 @@
 import { FC } from "react";
 import styled from "styled-components";
-import { ProgressStatus, ProgressString } from "types";
+import { ProgressString } from "types";
 
 const Wrapper = styled.div`
   display: flex;
@@ -23,7 +23,7 @@ const progressColor: ProgressString = {
   COMPLETADO: "var(--color-secondary)",
 };
 
-const ProgressCell: FC<{ status: ProgressStatus }> = ({ status }) => {
+const ProgressCell: FC<{ status: string }> = ({ status }) => {
   return (
     <Wrapper>
       <ProgressCircle style={{ backgroundColor: progressColor[status] }} />

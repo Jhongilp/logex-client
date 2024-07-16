@@ -13,7 +13,7 @@ export type ModalProps = {
   visible: boolean;
 };
 
-export const Backdrop = styled.div<{ $open: boolean; $full: boolean }>`
+export const Backdrop = styled.div<{ $open?: boolean; $full?: boolean }>`
   display: ${(props) => (props.$open === true ? "flex" : "none")};
   /* position: absolute; */
   position: absolute;

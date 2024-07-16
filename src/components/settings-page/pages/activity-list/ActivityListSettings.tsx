@@ -84,7 +84,8 @@ const ActivityListSettings = () => {
   if (fetching) return <p>Loading...</p>;
   if (error) return <p>Oh no... {error.message}</p>;
 
-  const handleOnNewRow = (todoItemId: string) => {
+  // const handleOnNewRow = (todoItemId: string) => {
+  const handleOnNewRow = () => {
     // const clone = [...settings];
     // const listItemIndex = clone.findIndex(
     //   (todoItem) => todoItem.id === todoItemId

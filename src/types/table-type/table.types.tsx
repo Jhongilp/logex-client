@@ -151,7 +151,7 @@ export type EditableBoxProps = {
   y: number;
   isVisible: boolean;
   width: number;
-  editableValue: string | boolean;
+  editableValue: string | boolean | number;
   columnType: PropertyType;
   columnName: string | null;
   onUpdateData?: (newValue: string) => void | undefined;
