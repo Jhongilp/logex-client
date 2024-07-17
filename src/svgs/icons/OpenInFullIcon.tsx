@@ -12,7 +12,7 @@ const OpenInFullIcon = (props: IconType) => (
   >
     <rect fill="none" height="24" width="24" />
     <polygon
-      fill="var(--color-text-dominant)"
+      fill="var(--color-text)"
       points="21,11 21,3 13,3 16.29,6.29 6.29,16.29 3,13 3,21 11,21 7.71,17.71 17.71,7.71"
     />
   </svg>
