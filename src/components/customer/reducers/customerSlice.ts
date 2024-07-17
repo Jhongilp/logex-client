@@ -1,15 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
-// import type { RootState } from "store";
 import { ICliente } from "types";
 
-// interface CustomerState {
-//   customers: ICliente[];
-// }
-
-// const initialState: CustomerState = {
-//   customers: [],
-// };
 const initialState: ICliente[] = []
 
 export const customerSlice = createSlice({
