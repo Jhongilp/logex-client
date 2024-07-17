@@ -11,6 +11,7 @@ import { Modal } from "styles/Modal/Modal";
 import CreateExpoForm from "components/dashboard/screens/createExpoForm/CreateExpoForm";
 import { AddIcon } from "svgs";
 import { ExpoViewMode } from "types/props.types";
+import { ExpoStatusFilterControls } from "components/dashboard/screens/dashboard-controls/views/ExpoStatusFilterControls";
 
 const AddExpoBtn = styled(ButtonAct)`
   padding: 0 12px 0 6px;
@@ -55,6 +56,7 @@ export default function DashboardControls({
             <DashboardIcon />
           </BtnIcon>
         )}
+        <ExpoStatusFilterControls />
       </SunHeaderContent>
     </StyledSubHeader>
   );
