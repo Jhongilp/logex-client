@@ -2,6 +2,7 @@ import { FunctionComponent } from "react";
 import { Link } from "react-router-dom";
 import { ExpoStatus, IBooking } from "types";
 import { TableExpoProps, ExpoItemProps } from "types/props.types";
+import { useAppSelector } from "hooks/store.hooks";
 
 import {
   MainBoardWrapper,
@@ -29,7 +30,7 @@ const Status: FunctionComponent<StatusProps> = ({ status, globalProgress }) => {
     <StatusWrapper>
       <StatusRow>
         <Circle />
-        <div className="status-icon">{stepIcon[status]}</div> 
+        <div className="status-icon">{stepIcon[status]}</div>
         <span>{expoStatusToString(status)?.toUpperCase()}</span>
       </StatusRow>
       <StatusRow $lower={true}>
@@ -109,12 +110,21 @@ const Body: FunctionComponent<TableExpoProps> = ({ exportaciones }) => {
 };
 
 const MainBoard: FunctionComponent<TableExpoProps> = ({ exportaciones }) => {
+  const selectedStatus = useAppSelector((state) => state.expos.selectedStatus);
+
+  let filteredExportaciones = exportaciones;
+  if (selectedStatus !== null) {
+    filteredExportaciones = exportaciones?.filter(
+      (expo) => expo.status === selectedStatus
+    );
+  }
+
   return (
     <MainBoardWrapper>
       <TableWrapper>
         <ExpoTable>
           <Header />
-          <Body exportaciones={exportaciones} />
+          <Body exportaciones={filteredExportaciones} />
         </ExpoTable>
       </TableWrapper>
     </MainBoardWrapper>
