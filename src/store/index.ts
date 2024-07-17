@@ -1,11 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
 import customerReducer from "components/customer/reducers/customerSlice";
 import shippingReducer from "components/customer/reducers/shippingSlice";
+import expoSlice from "components/dashboard/reducers/expoSlide";
 
 export const store = configureStore({
   reducer: {
     customers: customerReducer,
     shippings: shippingReducer,
+    expos: expoSlice,
   },
 });
 
