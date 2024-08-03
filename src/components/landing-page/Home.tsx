@@ -22,7 +22,7 @@ const IntroWrapperText = styled.div`
 
   > p {
     margin: 0;
-    font-size: 14px;
+    font-size: 16px;
   }
 `;
 

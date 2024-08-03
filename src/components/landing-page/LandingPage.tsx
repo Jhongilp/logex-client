@@ -14,7 +14,7 @@ const Wrapper = styled.div`
 const Container = styled.div`
   display: flex;
   justify-content: center;
-  width: 80%;
+  width: 90%;
   margin: 0 auto;
   padding: 1em 0 10px;
 `;
