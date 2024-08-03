@@ -3,38 +3,35 @@ import dashboardImage from "images/logexDashboard.jpg";
 
 const Wrapper = styled.div`
   display: grid;
-  width: 100%;
-  /* grid-template-columns: 1fr minmax(200px, auto); */
-  grid-template-columns: 4fr 8fr;
-  grid-gap: 20px;
-  padding-top: 4em;
+  flex-direction: column;
 `;
-
-// const IntroWrapper = styled.div`
-//   display: flex;
-//   gap: 20px;
-// `;
 
 const IntroWrapperText = styled.div`
   display: flex;
   flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
 
   > h1 {
     margin: 0;
-    font-size: 46px;
+    font-size: 24px;
     font-family: "Roboto";
     font-weight: 400;
+  }
+
+  > p {
+    margin: 0;
+    font-size: 14px;
   }
 `;
 
 const IntroImage = styled.div`
   display: flex;
-  width: 100%;
 
   > img {
     width: 100%;
-    object-fit: none;
-    object-position: 0% 0%;
+    /* object-fit: none;
+    object-position: 0% 0%; */
   }
 `;
 
