@@ -14,7 +14,7 @@ const IntroWrapperText = styled.div`
 
   > h1 {
     margin: 0;
-    font-size: 32px;
+    font-size: 30px;
     font-family: "Roboto";
     font-weight: 400;
     letter-spacing: -1px;
@@ -22,17 +22,56 @@ const IntroWrapperText = styled.div`
 
   > p {
     margin: 0;
-    font-size: 16px;
+    font-size: 14px;
+    line-height: 1.5;
   }
 `;
 
 const IntroImage = styled.div`
   display: flex;
+  margin-bottom: 30px;
 
   > img {
     width: 100%;
     /* object-fit: none;
     object-position: 0% 0%; */
+  }
+`;
+
+const BenefitsWrapper = styled.div`
+  display: flex;
+`;
+
+const BenefitsList = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+
+  > div.benefit {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    > h1 {
+      margin: 0;
+      font-size: 18px;
+      font-family: "Roboto";
+      font-weight: 400;
+    }
+
+    > p {
+      margin: 0;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+  }
+`;
+
+const BenefitsImg = styled.div`
+  display: flex;
+
+  > img {
+    width: 100%;
   }
 `;
 
@@ -46,12 +85,36 @@ export const Home = () => (
       </p>
       <p>
         Ya no manejes más hojas de cálculo, con Logex puedes llevar toda la
-        información de tus operaciones en un solo lugar, en línea y evitando la
-        duplicidad de información.
+        información de tus operaciones en un solo lugar y en línea. Reduce
+        sobrecostos y estrés laboral gracias a que ahora podrás controlar mejor
+        las actividades de tu área de comercio exterior.
       </p>
     </IntroWrapperText>
     <IntroImage>
       <img src={dashboardImage} alt="Home" />
     </IntroImage>
+    <BenefitsWrapper className="benefits">
+      <BenefitsImg className="img-benefits"></BenefitsImg>
+      <BenefitsList className="list-benefits">
+        <div className="benefit">
+          <h1>Visualiza tus operaciones de comercio exterior</h1>
+          <p>
+            Rápidamente podrás ver la información más relevante de tus
+            exportaciones e importaciones. Filtra según el estado de cada
+            operación. Tendrás la tranquilidad de conocer el estado general o
+            detallado de tus operaciones.
+          </p>
+        </div>
+        <div className="benefit">
+          <h1>Gestiona cada actividad</h1>
+          <p>
+            Ya no se te pasará por alto realizar aquella actividad que pondrá en
+            riesgo tu exportación. En cada etapa de la cadena de distribución
+            física internacional puedes gestionar las actividades previamente
+            creadas o aquellas especificas de cada operación.
+          </p>
+        </div>
+      </BenefitsList>
+    </BenefitsWrapper>
   </Wrapper>
 );
