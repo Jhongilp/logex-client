@@ -14,9 +14,10 @@ const IntroWrapperText = styled.div`
 
   > h1 {
     margin: 0;
-    font-size: 24px;
+    font-size: 32px;
     font-family: "Roboto";
     font-weight: 400;
+    letter-spacing: -1px;
   }
 
   > p {
