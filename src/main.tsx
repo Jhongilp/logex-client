@@ -31,6 +31,7 @@ import { ShipmentModule } from "components/expo-page/screens/shipment-module/Shi
 import { createClient as createSSEClient } from "graphql-sse";
 
 import "./index.css";
+import { WaitingListForm } from "components/landing-page/WaitingListForm";
 
 const sseClient = createSSEClient({
   url: "https://logex-server.onrender.com/graphql",
@@ -94,6 +95,10 @@ const router = createBrowserRouter([
       {
         path: "/signup",
         element: <SignUp />,
+      },
+      {
+        path: "/waiting-list",
+        element: <WaitingListForm />,
       },
       {
         path: "/signin",

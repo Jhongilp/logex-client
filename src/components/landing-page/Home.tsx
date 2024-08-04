@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import dashboardImage from "images/logexDashboard.jpg";
+import expoImage from "images/expo.jpg";
 
 const Wrapper = styled.div`
   display: grid;
@@ -94,7 +95,6 @@ export const Home = () => (
       <img src={dashboardImage} alt="Home" />
     </IntroImage>
     <BenefitsWrapper className="benefits">
-      <BenefitsImg className="img-benefits"></BenefitsImg>
       <BenefitsList className="list-benefits">
         <div className="benefit">
           <h1>Visualiza tus operaciones de comercio exterior</h1>
@@ -107,12 +107,27 @@ export const Home = () => (
         </div>
         <div className="benefit">
           <h1>Gestiona cada actividad</h1>
+          <BenefitsImg className="img-benefits">
+            <img src={expoImage} alt="Expo details" />
+          </BenefitsImg>
           <p>
             Ya no se te pasará por alto realizar aquella actividad que pondrá en
             riesgo tu exportación. En cada etapa de la cadena de distribución
             física internacional puedes gestionar las actividades previamente
             creadas o aquellas especificas de cada operación.
           </p>
+        </div>
+        <div className="benefit">
+          <h1>Recibe alertas tempranas de las actividades pendientes</h1>
+        </div>
+        <div className="benefit">
+          <h1>
+            Almacena y consulta los documentos soportes de tus operaciones de
+            exportación e importación
+          </h1>
+        </div>
+        <div className="benefit">
+          <h1>Trabajo colaborativo en línea</h1>
         </div>
       </BenefitsList>
     </BenefitsWrapper>
