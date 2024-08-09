@@ -59,10 +59,13 @@ export default function Root() {
     return () => subscription.unsubscribe();
   }, []);
 
+  const isDevMode = window.location.hostname === "localhost";
+  // const isDevMode = false;
+
   return (
     <Wrapper>
       <GlobalStyles />
-      {!session ? <LandingPage /> : <App />}
+      {!session || !isDevMode ? <LandingPage /> : <App />}
     </Wrapper>
   );
 }

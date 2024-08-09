@@ -46,8 +46,8 @@ const LogexLogoImg = styled.div`
 
 const HomeNavbar = () => {
   const navigate = useNavigate();
-  const isLocalhost = window.location.hostname === "localhost";
-  // const isLocalhost = false;
+  // const isLocalhost = window.location.hostname === "localhost";
+  const isLocalhost = false;
 
   const handleOnJoin = () => {
     navigate("/waiting-list");

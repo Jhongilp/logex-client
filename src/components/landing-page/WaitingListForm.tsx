@@ -1,8 +1,9 @@
+import { useState } from "react";
 import { supabase } from "api";
-// import { useNavigate } from "react-router-dom";
 import { ICompany, IUser, RoleName } from "types";
 import { useMutation } from "urql";
 import { CreateUserMutation } from "api";
+import styled, { keyframes } from "styled-components";
 
 import {
   SignUpForm,
@@ -12,12 +13,59 @@ import {
 import { FormCommands } from "styles/Form/form.styles";
 import { ButtonAct } from "styles/commons";
 
+const loader = keyframes`
+  100% {transform: rotate(.5turn)}
+`;
+
+const Loader = styled.div`
+  width: 50px;
+  aspect-ratio: 1;
+  --c: no-repeat radial-gradient(farthest-side, #828184 92%, #0000);
+  background: var(--c) 50% 0, var(--c) 50% 100%, var(--c) 100% 50%,
+    var(--c) 0 50%;
+  background-size: 10px 10px;
+  animation: ${loader} 1s infinite;
+  position: relative;
+
+  ::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    margin: 3px;
+    background: repeating-conic-gradient(#0000 0 35deg, #514b82 0 90deg);
+    -webkit-mask: radial-gradient(
+      farthest-side,
+      #0000 calc(100% - 3px),
+      #000 0
+    );
+    border-radius: 50%;
+  }
+`;
+
+const Requesting = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const ThanksForJoining = () => {
+  return (
+    <div>
+      <h1>Gracias por unirte a la lista de espera!</h1>
+      <p>Pronto nos pondremos en contacto contigo.</p>
+    </div>
+  );
+};
+
+type JoinState = "unset" | "requesting" | "joined" | "error";
+
 export const WaitingListForm = () => {
+  const [joinState, setJoin] = useState<JoinState>("unset");
   const [, createUser] = useMutation(CreateUserMutation);
-  // const navigate = useNavigate();
 
   const onCreateUser = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setJoin("requesting");
     const elementsArr = Array.from(e.currentTarget.elements) as (
       | HTMLInputElement
       | HTMLButtonElement
@@ -68,16 +116,38 @@ export const WaitingListForm = () => {
       user.id = data.user.id;
       const userCreated = await createUser({ input: user });
       console.log("[signup] res on create user: ", userCreated);
-      // TODO say thanks for joining waiting list
+      setJoin("joined");
     } catch (error) {
       console.error(
         "[signup] error creating user: ",
         error instanceof Error ? error.message : error
       );
+      setJoin("error");
     }
   };
 
-  return (
+  if (joinState === "error") {
+    return (
+      <p>
+        Error al unirse a la lista de espera. Por favor danos a conocer el
+        problema reportando al email jhongilp@gmail.com. Nos pondremos en
+        contacto contigo lo más pronto posible.
+      </p>
+    );
+  }
+
+  if (joinState === "requesting") {
+    return (
+      <Requesting>
+        <p>Uniendo a la lista de espera...</p>
+        <Loader />
+      </Requesting>
+    );
+  }
+
+  return joinState === "joined" ? (
+    <ThanksForJoining />
+  ) : (
     <SignUpWrapper>
       <SignUpForm id="create-user-form" onSubmit={onCreateUser}>
         <div className="form-field user-company_name">
